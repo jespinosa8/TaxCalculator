@@ -1,3 +1,4 @@
+import '@trussworks/react-uswds/lib/index.css'
 import { Grid, PrimaryNav } from '@trussworks/react-uswds'
 import './App.css'
 import Home from './pages/Home'
@@ -7,8 +8,6 @@ import W2Page from './pages/W2Page';
 import Page1099 from './pages/Page1099';
 import PersonalInformation from './pages/PersonalInformation';
 import Login from './pages/Login';
-
-
 
 function App() {
 

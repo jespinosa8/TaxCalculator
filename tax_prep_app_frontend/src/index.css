@@ -67,3 +67,42 @@ button:focus-visible {
     background-color: #f9f9f9;
   }
 }
+
+.signup-form-outer-container {
+  /* width: 1200px; */
+  margin: 0 auto;
+  align-items: center;
+
+}
+
+.signup-form-inner-container {
+  display: flex;
+  align-items: center;
+}
+
+.signup-form-account-section {
+  width: 75%;
+}
+
+.signup-form-personal-section {
+  width: 100%;
+}
+
+.signup-form-address-section {
+  width: 100%;
+}
+
+.signup-form-grid-row {
+  display: flex;
+  justify-content: space-between;
+}
+
+.signup-form-grid-column {
+  width: 48%;
+}
+
+.test {
+  display: flex;
+  align-items: center;
+  
+}
