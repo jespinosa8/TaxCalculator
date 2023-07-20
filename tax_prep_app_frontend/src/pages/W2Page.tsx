@@ -1,5 +1,7 @@
-import W2Form from '../components/w2/W2Form';
+import W2Container from "../components/w2/W2Container";
 
 export default function W2Page() {
-  return <></>;
+  return <>
+  <W2Container/>
+  </>;
 }
