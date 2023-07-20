@@ -26,7 +26,7 @@ function App() {
         <>
         <BrowserRouter basename='/'>
             <Grid row>
-                <PrimaryNav items={navItems}/>
+                <PrimaryNav className='bg-primary' items={navItems}/>
             </Grid>
 
             <Routes>
