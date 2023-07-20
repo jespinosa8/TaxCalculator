@@ -9,6 +9,8 @@ import Page1099 from './pages/Page1099';
 import PersonalInformation from './pages/PersonalInformation';
 import Login from './pages/Login';
 
+import SignUp from './pages/SignUp';
+
 function App() {
 
     const navItems = [
@@ -24,7 +26,7 @@ function App() {
 
     return (
         <>
-        <BrowserRouter basename='/'>
+        {/* <BrowserRouter basename='/'>
             <Grid row>
                 <PrimaryNav items={navItems}/>
             </Grid>
@@ -35,12 +37,14 @@ function App() {
                 <Route path='/add-w2' element={<W2Page />}/> 
                 <Route path='/add-1099' element={<Page1099/>}/> 
                 <Route path='/personal-info' element={<PersonalInformation />}/>            
-                <Route path='/login' element={<Login />}/>            
+                <Route path='/login' element={<Login />}/>      
             </Routes>
 
         </BrowserRouter>        
         
-        <Home/>
+        <Home/> */}
+        
+        <SignUp/>
         </>
     )
 }
