@@ -67,3 +67,17 @@ button:focus-visible {
     background-color: #f9f9f9;
   }
 }
+
+.signup-form-container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.signup-form-container .grid-row {
+  display: flex;
+  justify-content: space-between;
+}
+
+.signup-form-container .grid-col-6 {
+  width: 48%;
+}
