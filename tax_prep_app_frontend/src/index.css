@@ -68,16 +68,41 @@ button:focus-visible {
   }
 }
 
-.signup-form-container {
-  max-width: 1200px;
+.signup-form-outer-container {
+  /* width: 1200px; */
   margin: 0 auto;
+  align-items: center;
+
 }
 
-.signup-form-container .grid-row {
+.signup-form-inner-container {
+  display: flex;
+  align-items: center;
+}
+
+.signup-form-account-section {
+  width: 75%;
+}
+
+.signup-form-personal-section {
+  width: 100%;
+}
+
+.signup-form-address-section {
+  width: 100%;
+}
+
+.signup-form-grid-row {
   display: flex;
   justify-content: space-between;
 }
 
-.signup-form-container .grid-col-6 {
+.signup-form-grid-column {
   width: 48%;
+}
+
+.test {
+  display: flex;
+  align-items: center;
+  
 }
