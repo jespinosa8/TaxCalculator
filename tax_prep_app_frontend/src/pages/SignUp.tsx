@@ -382,7 +382,7 @@ export default function SignUp() {
                             {/* todo: add link to login page */}
                             <p className="text-center">
                                 Already have an account?{' '}
-                                <Link href="link back to sign in page goes here">Sign in</Link>.
+                                <Link href="/login">Sign in</Link>.
                             </p>
                         </Grid>
 
