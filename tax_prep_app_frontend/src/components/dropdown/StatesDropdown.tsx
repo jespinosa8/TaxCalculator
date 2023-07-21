@@ -21,6 +21,7 @@ export default function StatesDropdown(props: StatesDropdownProps) {
                 <option value="District of Columbia">District of Columbia</option>
                 <option value="Florida">Florida</option>
                 <option value="Georgia">Georgia</option>
+                <option value="Guam">Guam</option>
                 <option value="Hawaii">Hawaii</option>
                 <option value="Idaho">Idaho</option>
                 <option value="Illinois">Illinois</option>
@@ -45,10 +46,12 @@ export default function StatesDropdown(props: StatesDropdownProps) {
                 <option value="New York">New York</option>
                 <option value="North Carolina">North Carolina</option>
                 <option value="North Dakota">North Dakota</option>
+                <option value="Northern Mariana Islands">Northern Mariana Islands</option>
                 <option value="Ohio">Ohio</option>
                 <option value="Oklahoma">Oklahoma</option>
                 <option value="Oregon">Oregon</option>
                 <option value="Pennsylvania">Pennsylvania</option>
+                <option value="Puerto Rico">Puerto Rico</option>
                 <option value="Rhode Island">Rhode Island</option>
                 <option value="South Carolina">South Carolina</option>
                 <option value="South Dakota">South Dakota</option>
@@ -57,6 +60,7 @@ export default function StatesDropdown(props: StatesDropdownProps) {
                 <option value="Utah">Utah</option>
                 <option value="Vermont">Vermont</option>
                 <option value="Virginia">Virginia</option>
+                <option value="Virgin Islands">Virgin Islands</option>
                 <option value="Washington">Washington</option>
                 <option value="West Virginia">West Virginia</option>
                 <option value="Wisconsin">Wisconsin</option>
