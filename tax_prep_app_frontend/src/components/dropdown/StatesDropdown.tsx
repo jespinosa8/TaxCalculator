@@ -2,11 +2,9 @@ import { Dropdown } from '@trussworks/react-uswds'
 
     
 
-interface StatesDropdownProps {
-    onChange: (event: any) => void
-}
 
-export default function StatesDropdown(props: StatesDropdownProps) {
+
+export default function StatesDropdown() {
 
     const statesList = [
         "Alabama", "Alaska", "American Samoa", "Arizona", "Arkansas", "California", "Colorado", "Connecticut",
@@ -20,7 +18,7 @@ export default function StatesDropdown(props: StatesDropdownProps) {
 
     return (
         <>
-            <Dropdown id="state" name="state" onChange={props.onChange}>
+            <Dropdown id="state" name="state">
                 {/* Map through statesList and render options */}
                 <option>- Select -</option>
                 {statesList.map((state, index) => (
