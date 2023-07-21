@@ -61,16 +61,16 @@ export default function Form1099 () {
               <Label htmlFor="payer-name-input">Payer's Name</Label>
               <TextInput id="payer-name-input" name="payerName" type="text"/>
 
-              <Label htmlFor="payer-address-input">payer's Street Address</Label>
+              <Label htmlFor="payer-address-input">Street Address</Label>
               <TextInput id="payer-address-input" name="payerAddress" type="text"/>
 
-              <Label htmlFor="payer-city-input">payer's City</Label>
+              <Label htmlFor="payer-city-input">City</Label>
               <TextInput id="payer-city-input" name="payerCity" type="text"/>
 
               <Label htmlFor="payer-state-input">State</Label>
               <StatesDropdown/>
 
-              <Label htmlFor="payer-zipCode-input">Payer's Zip Code</Label>
+              <Label htmlFor="payer-zipCode-input">Zip Code</Label>
               <TextInput id="payer-zipCode-input" name="payerZipCode" type="number"/>
 
               <Label htmlFor="payer-tin-input">Payer's TIN</Label>
