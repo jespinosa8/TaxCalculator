@@ -1,5 +1,5 @@
-import { Button, Form, Grid, Header, Label, TextInput } from "@trussworks/react-uswds";
-import StateDropdown from "./StateDropdown";
+import { Button, Form, Label, TextInput } from "@trussworks/react-uswds";
+import StatesDropdown from "../dropdown/StatesDropdown";
 import "./W2FormStyle.css";
 
 const handleW2Submit = (): void => {
@@ -7,7 +7,7 @@ const handleW2Submit = (): void => {
 }
 
 
-export default function W2Form () {
+export default function W2Form ({onChange}) {
 
 
   return (
@@ -51,7 +51,7 @@ export default function W2Form () {
                 <TextInput id="city-input" name="city" type="text" required/>
 
                 <Label htmlFor="state-input">State</Label>
-                <StateDropdown/>
+                <StatesDropdown/>
                 
                 <Label htmlFor="zip-input">Zip Code</Label>
                 <TextInput id="zip-input" name="zipCode" type="number" required/>
@@ -69,7 +69,7 @@ export default function W2Form () {
                 <TextInput id="employer-city-input" name="employerCity" type="text"/>
 
                 <Label htmlFor="employer-state-input">State</Label>
-                <StateDropdown/>
+                <StatesDropdown onChange={onChange}/>
 
                 <Label htmlFor="employer-zipCode-input">Employer's Zip Code</Label>
                 <TextInput id="employer-zipCode-input" name="employerZipCode" type="number"/>
