@@ -1,0 +1,19 @@
+/* #w2-submit-form {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+} */
+
+/* #name-input {
+    margin: 5px;
+} */
+
+#name {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-areas:
+      "name-input" "name-input2" "name-input3";
+  }
+
+  .name-class {
+    margin: 3px;
+  }
