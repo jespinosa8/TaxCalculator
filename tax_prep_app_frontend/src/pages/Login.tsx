@@ -10,17 +10,45 @@ import {
     Link
 } from "@trussworks/react-uswds"
 
-const handleLoginSubmit = (): void => {
-    // todo
-}
-
 export default function Login() {
+    const [username, setUsername] = React.useState("")
+    const [password, setPassword] = React.useState("")
     const [showPassword, setShowPassword] = React.useState(false)
+
+    const handleUsernameChange = (event: any) => {
+        setUsername(event.target.value)
+    }
+
+    const handlePasswordChange = (event: any) => {
+        setPassword(event.target.value)
+    }
+
+    const handleLoginSubmit = (event: any): void => {
+        event.preventDefault()
+
+        if (true) { // if user with username and password exists
+            // load user into store (redux) and send to home page
+        }
+        else {
+            // inform user that the username and/or password is incorrect
+        }
+    }
+
+    const containerStyle = {
+        maxWidth: "1280px",
+        margin: "0 auto",
+        padding: "2rem",
+        textAlign: "center",
+        display: "flex",
+        marginTop: "45px"
+    }
 
     return (
         <>
-            <main id="main-content">
-                <div className="bg-base-lightest">
+            <main id="main-content" style={containerStyle as React.CSSProperties}
+            >
+                <div className="bg-base-lightest" style={containerStyle as React.CSSProperties}
+                >
                     <GridContainer className="usa-section">
                         <Grid row={true} className="flex-justify-center">
                             <Grid col={12}>
@@ -35,6 +63,8 @@ export default function Login() {
                                                 autoCorrect="off"
                                                 autoCapitalize="off"
                                                 required={true}
+                                                value={username}
+                                                onChange={handleUsernameChange}
                                             />
 
                                             <div style={{ marginBottom: "15px" }}></div>
@@ -47,6 +77,8 @@ export default function Login() {
                                                 autoCorrect="off"
                                                 autoCapitalize="off"
                                                 required={true}
+                                                value={password}
+                                                onChange={handlePasswordChange}
                                             />
                                             <p className="usa-form__note">
                                                 <a
@@ -64,6 +96,7 @@ export default function Login() {
                                     </Form>
                                 </div>
 
+                                {/** todo: add link to signup page */}
                                 <p className="text-center">
                                     {"Don't have an account? "}
                                     <Link href="link to SignUp page goes here">Create your account now</Link>
