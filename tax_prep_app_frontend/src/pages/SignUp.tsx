@@ -1,6 +1,5 @@
 import React from 'react'
 import {
-    GridContainer,
     Grid,
     Form,
     Fieldset,
@@ -8,8 +7,6 @@ import {
     TextInput,
     Button,
     Link,
-    DateInput,
-    DateInputGroup,
     DatePicker
 } from '@trussworks/react-uswds'
 
@@ -31,7 +28,7 @@ export default function SignUp() {
     const [state, setState] = React.useState<string>("")
     const [country, setCountry] = React.useState<string>("")
     const [zip, setZip] = React.useState<number>(12345) // causes warnings without initial value
-    const [dob, setDob] = React.useState<Date>()
+    const [dob, setDob] = React.useState<string>()
 
 
     const user = {
@@ -83,6 +80,10 @@ export default function SignUp() {
         }
     }
 
+    const handleDobChange = (selectedDate?: string | undefined) => {
+        setDob(selectedDate)
+    }
+
     const handleZipChange = (event: any) => {
         if (/^\d+$/.test(event.target.value) && (zip == undefined || zip?.toString().length <= 10)) {
             setZip(event.target.value)
@@ -115,14 +116,20 @@ export default function SignUp() {
         setCountry(event.target.value)
     }
 
-
     // todo
     //      validations:
     //          1. check if password matches retypedPassword
     //          2. username can't be in DB already (do this for email as well?)
     //          3. ssn shouldn't be in DB, should be a valid length
     //          4. no empty fields (except state if a country other than US is selected)
-    const handleCreateAccountSubmit = (): void => {
+    const handleCreateAccountSubmit = (event: any): void => {
+        event.preventDefault()
+
+        // const data = new FormData(event.target)
+
+        // console.log(data.get('dob'))
+        // console.log(dob)
+
         if (true) { // first check should be to see if username already exists
 
         }
@@ -131,38 +138,36 @@ export default function SignUp() {
         }
         // else if(check user and userDetail objects for any undefined properties EXCEPT city - if country is US, must have city) {
         //     must fill out each field
-        // }
-        // else if(zip length invalid) {}
+        //
         // else if(ssn length invalid) {}
+        // else if(dob is current date / date in future)
+        // else if(zip length invalid) {}
         else {
             // POST
         }
+
     }
 
     const containerStyle = {
         maxWidth: "1280px",
         margin: "0 auto",
         padding: "2rem",
-        textAlign: "center", // remove this if we want left aligned instead
-
+        textAlign: "center",
+        display: "flex"
     }
 
     return (
         <>
-        <div style={containerStyle as React.CSSProperties}>
-            {/* <main id="main-content" style={containerStyle as React.CSSProperties}> */}
-                <div className="bg-base-lightest signup-form-outer-container" style={containerStyle as React.CSSProperties}>
-                    {/* <GridContainer className="signup-form-inner-container usa-section" style={containerStyle as React.CSSProperties}> */}
-                        {/* <Grid row className="margin-x-neg-205 flex-justify-center"> */}
-                        <Grid col={12} className="padding-x-205 margin-bottom-4">
-
+            <main id="main-content" style={containerStyle as React.CSSProperties}>
+                <div className="bg-base-lightest" style={containerStyle as React.CSSProperties}>
+                    <Grid row>
+                        <Grid col={12}>
                             <div className="bg-white padding-y-3 padding-x-15 border border-base-lighter">
-                                <h1 className="margin-bottom-0">Create account</h1>
-                                <div className="">
+                                <h1 className="margin-bottom-0" style={{ fontSize: "3.2em", lineHeight: "1.1" }}>Create account</h1>
+                                <div>
                                     <Form onSubmit={handleCreateAccountSubmit} large>
                                         <Fieldset legend="Get started with an account.">
                                             <Grid>
-                                                {/* <Grid row className="signup-form-grid-row signup-form-account-section"> */}
 
                                                 <Label htmlFor="username">
                                                     Username{' '}
@@ -190,7 +195,6 @@ export default function SignUp() {
                                                     required={true}
                                                     value={password}
                                                     onChange={handlePasswordChange}
-
                                                 />
 
                                                 <p className="usa-form__note">
@@ -218,11 +222,10 @@ export default function SignUp() {
                                                     value={retypedPassword}
                                                     onChange={handleRetypedPasswordChange}
                                                 />
-                                                {/* </Grid> */}
 
                                                 <hr className="solid" style={{ marginBottom: "5px", marginTop: "35px" }}></hr>
-                                                <Grid row className="signup-form-grid-row signup-form-personal-section">
-                                                    <Grid col={6} className="signup-form-grid-column">
+                                                <Grid row style={{ display: "flex", justifyContent: "space-between" }}>
+                                                    <Grid col={6} style={{ width: "48%" }}>
                                                         <Label htmlFor="first-name">
                                                             First Name{' '}
                                                         </Label>
@@ -253,7 +256,7 @@ export default function SignUp() {
                                                     </Grid>
 
 
-                                                    <Grid col={6} className="signup-form-grid-column">
+                                                    <Grid col={6} style={{ width: "48%" }}>
 
 
                                                         <Label htmlFor="last-name">
@@ -270,7 +273,6 @@ export default function SignUp() {
                                                             onChange={handleLastNameChange}
                                                         />
 
-                                                        {/** todo: hide counter arrows */}
                                                         <Label htmlFor="ssn">
                                                             Social Security Number{' '}
                                                         </Label>
@@ -289,14 +291,16 @@ export default function SignUp() {
                                                 </Grid>
                                             </Grid>
                                             <Label htmlFor="date-of-birth">
-                                                            Date of Birth{' '}
-                                                        </Label>
-                                                        <DatePicker id="datePickerId" name="datePickerName"></DatePicker>
+                                                Date of Birth{' '}
+                                            </Label>
+                                            <DatePicker
+                                                id="dobId" name="dob" onChange={handleDobChange}>
+                                            </DatePicker>
 
                                             <hr className="solid" style={{ marginBottom: "5px", marginTop: "35px" }}></hr>
 
-                                            <Grid row className="signup-form-grid-row">
-                                                <Grid col={6} className="signup-form-grid-column">
+                                            <Grid row style={{ display: "flex", justifyContent: "space-between" }}>
+                                                <Grid col={6} style={{ width: "48%" }}>
                                                     <Label htmlFor="street1">
                                                         Address Line 1{' '}
                                                     </Label>
@@ -340,7 +344,7 @@ export default function SignUp() {
                                                     />
                                                 </Grid>
 
-                                                <Grid col={6} className="signup-form-grid-column">
+                                                <Grid col={6} style={{ width: "48%" }}>
 
 
                                                     <Label htmlFor="street2">
@@ -382,11 +386,9 @@ export default function SignUp() {
                             </p>
                         </Grid>
 
-                        {/* </Grid> */}
-                    {/* </GridContainer> */}
+                    </Grid>
                 </div>
-            {/* </main> */}
-            </div>
+            </main>
         </>
     )
 }

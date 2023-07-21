@@ -23,7 +23,9 @@ export default function Login() {
         setPassword(event.target.value)
     }
 
-    const handleLoginSubmit = (): void => {
+    const handleLoginSubmit = (event: any): void => {
+        event.preventDefault()
+
         if (true) { // if user with username and password exists
             // load user into store (redux) and send to home page
         }
