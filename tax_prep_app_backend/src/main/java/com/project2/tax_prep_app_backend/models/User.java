@@ -5,6 +5,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 // rework this (?) after learning about spring security and oath
@@ -26,6 +27,9 @@ public class User {
 
     @Column
     private boolean enabled;
+
+    @OneToOne(targetEntity = UserDetail.class, mappedBy = "user")
+    private UserDetail userDetail;
 
     public User() {
     }
