@@ -1,5 +1,6 @@
 package com.project2.tax_prep_app_backend.services;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,11 @@ public class UserService {
     
     @Autowired
     UserRepository userRepository;
+
+    // Retrieves all users
+    public List<User> findAllUsers() {
+        return userRepository.findAll();
+    }
 
     // get user by id
     public User findById(long userId) {

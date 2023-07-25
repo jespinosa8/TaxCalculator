@@ -1,5 +1,7 @@
 package com.project2.tax_prep_app_backend.controllers;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,6 +23,18 @@ public class UserController {
     
     @Autowired
     UserService userService;
+
+    // get all users in the database
+    @GetMapping
+    public ResponseEntity<List<User>> findAllUsers() {
+        List<User> users = userService.findAllUsers();
+
+        if(users == null) {
+            return ResponseEntity.noContent().build();
+        }
+
+        return new ResponseEntity<List<User>>(users, HttpStatus.OK);
+    }
 
     // get user by id
     @GetMapping("/userById/{userId}")
