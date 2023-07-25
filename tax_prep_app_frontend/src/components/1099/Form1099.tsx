@@ -15,30 +15,41 @@ export default function Form1099 () {
         <div id="w2-submit-form">
           <Form onSubmit={handle1099Submit}>            
             
-            <h1>Nonemployee Compensation Form 1099-NEC</h1>
+            <h1>Non-Employee Compensation Form 1099-NEC</h1>
             
             {/* RECIPIENT INFORMATION */}            
-            <Label htmlFor="name" style={{ fontWeight: 'bold' }}>Recipient Information</Label>
+            {/* <Label htmlFor="name" style={{ fontWeight: 'bold' }}>Recipient Information</Label>
             <Grid row style={{ display: "flex", justifyContent: "space-between" }}>
 
               <Grid col={4}>
                 <Label htmlFor="first-name-input">First Name</Label>
-                <TextInput id="first-name-input" name="firstName" type="text" required/>
+                <TextInput id="first-name-input" name="first_name" type="text" required/>
               </Grid>
 
               <Grid col = {4}>
                 <Label htmlFor="middle-name-input">Middle</Label>
-                <TextInput id="middle-name-input" name="middleName" type="text"/>
+                <TextInput id="middle-name-input" name="middle_name" type="text"/>
               </Grid>
 
               <Grid col={4}>
                 <Label htmlFor="last-name-input">Last Name</Label>
-                <TextInput id="last-name-input" name="lastName" type="text" required/>
+                <TextInput id="last-name-input" name="last_name" type="text" required/>
               </Grid>
-            </Grid>   
+
+              <Grid col={4}>
+                <Label htmlFor="ssn-input">Recipient Social Security Number</Label>
+                <TextInput id="ssn-input" name="recipient_ssn" type="number" required/>
+              </Grid>
+
+              <Grid col={12}>
+                <Label htmlFor="recipient-tin-input">Recipient's TIN</Label>
+                <TextInput id="recipient-tin-input" name="recipient_tin" type="number"/>
+              </Grid> 
+
+            </Grid>    */}
 
             <Grid row style={{ display: "flex", justifyContent: "space-between" }}>
-              <Grid col={6} style={{ width: "48%" }}>
+              {/* <Grid col={6} style={{ width: "48%" }}>
                 <Label htmlFor="street-address-input">Street Address</Label>
                 <TextInput id="street-address-input" name="streetAddress" type="text" required/>
               
@@ -55,12 +66,7 @@ export default function Form1099 () {
 
                 <Label htmlFor="state-input">State</Label>
                 <StatesDropdown/>
-              </Grid>
-
-              <Grid col={12}>
-              <Label htmlFor="recipient-tin-input">Recipient's TIN</Label>
-              <TextInput id="recipient-tin-input" name="recipientTin" type="number"/>
-              </Grid>             
+              </Grid> */}            
               
             </Grid>
                 
@@ -72,17 +78,22 @@ export default function Form1099 () {
 
               <Grid col={12}>
                 <Label htmlFor="payer-name-input">Payer's Name</Label>
-                <TextInput id="payer-name-input" name="payerName" type="text"/>
+                <TextInput id="payer-name-input" name="payer_name" type="text"/>
               </Grid>
 
               <Grid col={12}>
                 <Label htmlFor="payer-address-input">Street Address</Label>
-                <TextInput id="payer-address-input" name="payerAddress" type="text"/>
+                <TextInput id="payer-address-input" name="payer_street1" type="text"/>
+              </Grid>
+
+              <Grid col={12}>
+                <Label htmlFor="payer-address-input">Street Address 2</Label>
+                <TextInput id="payer-address-input" name="payer_street2" type="text"/>
               </Grid>
 
               <Grid col={6} style={{ width: "48%" }}>
                 <Label htmlFor="payer-city-input">City</Label>
-                <TextInput id="payer-city-input" name="payerCity" type="text"/>
+                <TextInput id="payer-city-input" name="payer_city" type="text"/>
               </Grid>
 
               <Grid col={6} style={{ width: "48%" }}>
@@ -92,22 +103,22 @@ export default function Form1099 () {
 
               <Grid col={6} style={{ width: "48%" }}>
                 <Label htmlFor="payer-zipCode-input">Zip Code</Label>
-                <TextInput id="payer-zipCode-input" name="payerZipCode" type="number"/>
+                <TextInput id="payer-zipCode-input" name="payer_zip" type="number"/>
               </Grid>
 
               <Grid col={12}>
                 <Label htmlFor="payer-tin-input">Payer's TIN</Label>
-                <TextInput id="payer-tin-input" name="payerTin" type="number"/>
+                <TextInput id="payer-tin-input" name="payer_tin" type="number"/>
               </Grid>
             </Grid>
 
               {/* TAX WITHHELD INFORMATION */}
-              <Label htmlFor="federal-income-tax--input">Federal Income Tax Withheld</Label>
-              <TextInput id="federal-income-tax-withheld-input" name="federalIncomeTaxWithheld" type="number"/>             
+              <Label htmlFor="federal-income-tax-input">Federal Income Tax Withheld</Label>
+              <TextInput id="federal-income-tax-withheld-input" name="taxes_withheld2" type="number"/>             
 
               {/* WAGES AND COMPENSATION */}
-              <Label htmlFor="compensation-input">Nonemployee Compensation</Label>
-              <TextInput id="compensation-input" name="compensation" type="number"/>
+              <Label htmlFor="compensation-input">Non-employee Compensation</Label>
+              <TextInput id="compensation-input" name="total_compensation" type="number"/>
 
               <Button type="submit" data-close-modal='true'>Submit</Button>
           </Form>
