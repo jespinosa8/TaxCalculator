@@ -1,4 +1,4 @@
-package com.project2.tax_prep_app_backend.models;
+package com.project2.models;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

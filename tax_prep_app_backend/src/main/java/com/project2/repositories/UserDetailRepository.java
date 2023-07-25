@@ -1,4 +1,4 @@
-package com.project2.tax_prep_app_backend.repositories;
+package com.project2.repositories;
 
 import java.util.Optional;
 
@@ -7,7 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.project2.tax_prep_app_backend.models.UserDetail;
+import com.project2.models.UserDetail;
 
 @Repository
 public interface UserDetailRepository extends JpaRepository<UserDetail, Long> {

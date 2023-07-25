@@ -7,7 +7,7 @@ interface StatesDropdownProps {
     onChange?: (event: any) => void
 }
 
-export default function StatesDropdown() {
+export default function StatesDropdown(props: StatesDropdownProps) {
 
     const statesList = [
         "Alabama", "Alaska", "American Samoa", "Arizona", "Arkansas", "California", "Colorado", "Connecticut",

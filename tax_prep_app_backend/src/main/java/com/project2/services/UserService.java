@@ -1,4 +1,4 @@
-package com.project2.tax_prep_app_backend.services;
+package com.project2.services;
 
 import java.util.List;
 import java.util.Optional;
@@ -6,8 +6,9 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.project2.tax_prep_app_backend.models.User;
-import com.project2.tax_prep_app_backend.repositories.UserRepository;
+import com.project2.repositories.UserRepository;
+import com.project2.models.User;
+
 
 @Service
 public class UserService {

@@ -1,12 +1,12 @@
-package com.project2.tax_prep_app_backend.services;
+package com.project2.services;
 
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.project2.tax_prep_app_backend.models.UserDetail;
-import com.project2.tax_prep_app_backend.repositories.UserDetailRepository;
+import com.project2.models.UserDetail;
+import com.project2.repositories.UserDetailRepository;
 
 @Service
 public class UserDetailService {
