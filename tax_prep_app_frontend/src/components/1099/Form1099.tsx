@@ -24,11 +24,13 @@ export default function Form1099 () {
               <Grid col={4}>
                 <Label htmlFor="first-name-input">First Name</Label>
                 <TextInput id="first-name-input" name="first_name" type="text" required/>
+
               </Grid>
 
               <Grid col = {4}>
                 <Label htmlFor="middle-name-input">Middle</Label>
                 <TextInput id="middle-name-input" name="middle_name" type="text"/>
+
               </Grid>
 
               <Grid col={4}>
@@ -68,6 +70,7 @@ export default function Form1099 () {
                 <StatesDropdown/>
               </Grid> */}            
               
+
             </Grid>
                 
 
@@ -79,6 +82,7 @@ export default function Form1099 () {
               <Grid col={12}>
                 <Label htmlFor="payer-name-input">Payer's Name</Label>
                 <TextInput id="payer-name-input" name="payer_name" type="text"/>
+
               </Grid>
 
               <Grid col={12}>
@@ -89,11 +93,13 @@ export default function Form1099 () {
               <Grid col={12}>
                 <Label htmlFor="payer-address-input">Street Address 2</Label>
                 <TextInput id="payer-address-input" name="payer_street2" type="text"/>
+
               </Grid>
 
               <Grid col={6} style={{ width: "48%" }}>
                 <Label htmlFor="payer-city-input">City</Label>
                 <TextInput id="payer-city-input" name="payer_city" type="text"/>
+
               </Grid>
 
               <Grid col={6} style={{ width: "48%" }}>
@@ -104,11 +110,13 @@ export default function Form1099 () {
               <Grid col={6} style={{ width: "48%" }}>
                 <Label htmlFor="payer-zipCode-input">Zip Code</Label>
                 <TextInput id="payer-zipCode-input" name="payer_zip" type="number"/>
+
               </Grid>
 
               <Grid col={12}>
                 <Label htmlFor="payer-tin-input">Payer's TIN</Label>
                 <TextInput id="payer-tin-input" name="payer_tin" type="number"/>
+
               </Grid>
             </Grid>
 

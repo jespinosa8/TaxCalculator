@@ -22,6 +22,7 @@ export default function W2Form () {
               <h1>Form W-2 Wage and Tax Statement</h1>
                   {/* EMPLOYEE INFORMATION */}
               {/* <Label htmlFor="name" style={{ fontWeight: 'bold' }}>Employee Personal Information</Label>
+
               <Grid row style={{ display: "flex", justifyContent: "space-between" }}>
 
                 <Grid col={4}>
@@ -75,6 +76,9 @@ export default function W2Form () {
               <Grid row style={{ display: "flex", justifyContent: "space-between" }}>
 
 
+                  <Label htmlFor="city-input">City</Label>
+                  <TextInput id="city-input" name="city" type="text" required/>
+
                 <Grid col ={12}>
                   <Label htmlFor="employer-name-input">Employer's Name</Label>
                   <TextInput id="employer-name-input" name="employerName" type="text"/>
@@ -98,6 +102,7 @@ export default function W2Form () {
                 <Grid col={6} style={{ width: "48%" }}>
                   <Label htmlFor="employer-zipCode-input">Employer's Zip Code</Label>
                   <TextInput id="employer-zipCode-input" name="employerZipCode" type="number"/>
+
                 </Grid>
 
                 <Grid col={12}>
@@ -106,6 +111,8 @@ export default function W2Form () {
                 </Grid>
               
               </Grid>
+                {/* EMPLOYER INFORMATION */}
+                <Label htmlFor="name" style={{ fontWeight: 'bold' }}>Employer Information</Label>
 
                 {/* TAX WITHHELD INFORMATION */}
                 <Label htmlFor="federal-income-tax--input">Federal Income Tax Withheld</Label>

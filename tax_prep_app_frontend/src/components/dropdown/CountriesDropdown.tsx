@@ -1,6 +1,8 @@
 import { Dropdown } from '@trussworks/react-uswds'
 
 interface CountriesDropdownProps {
+    required?: boolean,
+
     onChange: (event: any) => void
 }
 
@@ -8,7 +10,7 @@ export default function CountriesDropdown(props: CountriesDropdownProps) {
 
     return (
         <>
-            <Dropdown id="country" name="country" onChange={props.onChange}>
+            <Dropdown id="country" name="country" required={props.required} onChange={props.onChange}>
                 <option value="">- Select -</option>
                 <option value="Afghanistan">Afghanistan</option>
                 <option value="Albania">Albania</option>

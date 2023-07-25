@@ -37,3 +37,5 @@ VALUES
     (3, 3, 111111111, 'ABC Investments', 'Suite 400', 'Chicago', 'Illinois', 60601, 111111111, 1500.00),
     (4, 4, 999999999, 'XYZ Financial', NULL, 'Houston', 'Texas', 77001, 999999999, 2500.00),
     (5, 5, 123456789, 'ABC Financial', 'Suite 600', 'Phoenix', 'Arizona', 85001, 123456789, 1800.00);
+	
+SELECT * FROM users;

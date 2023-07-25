@@ -1,4 +1,4 @@
-DROP TABLE IF EXISTS users, user_detail, tax_filing, form_w2, form_1099
+DROP TABLE IF EXISTS users, user_detail, tax_filing, form_w2, form_1099;
 
 CREATE TABLE users (
   user_id SERIAL PRIMARY KEY,
@@ -39,12 +39,11 @@ CREATE TABLE form_w2 (
   tax_filing_id INTEGER REFERENCES tax_filing(tax_filing_id),
   employee_ssn INTEGER REFERENCES user_detail(ssn),
   employer_name VARCHAR(100),
-  ein NUMERIC(9),
-  employer_street1 VARCHAR(50),
-  employer_street2 VARCHAR(50),
-  employer_city VARCHAR(50),
-  employer_state VARCHAR(50),
   employer_zip INTEGER(10),
+  wages_and_tips NUMERIC(8,2),
+  ss_withheld NUMERIC(8,2),
+  taxes_withheld NUMERIC(8,2),
+  employer_zip NUMERIC(10),
   wages_and_tips NUMERIC(8,2),
   ss_withheld NUMERIC(8,2),
   taxes_withheld NUMERIC(8,2),

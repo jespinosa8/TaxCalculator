@@ -96,7 +96,6 @@ export default function Login() {
                                     </Form>
                                 </div>
 
-                                {/** todo: add link to signup page */}
                                 <p className="text-center">
                                     {"Don't have an account? "}
                                     <Link href="/signup">Create your account now</Link>
