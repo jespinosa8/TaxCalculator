@@ -1,5 +1,5 @@
 spring:
     datasource:
-        url: jdbc:postgresql://localhost:5432/project2
+        url: jdbc:postgresql://localhost:5432/tax_prep
         username: postgres
         password: root
