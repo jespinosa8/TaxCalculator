@@ -20,27 +20,26 @@ export default function W2Form () {
               
               
             <h1>Form W-2 Wage and Tax Statement</h1>
+                {/* EMPLOYEE INFORMATION */}
+            <Label htmlFor="name" style={{ fontWeight: 'bold' }}>Employee Personal Information</Label>
             <Grid row style={{ display: "flex", justifyContent: "space-between" }}>
 
-                {/* EMPLOYEE INFORMATION */}
-              <Label htmlFor="name" style={{ fontWeight: 'bold' }}>Employee Personal Information</Label>
-              <div id="name">
-                <div  id="name-input" className="name-class">
+              <Grid col={4}>
                   <Label htmlFor="first-name-input">First Name</Label>
                   <TextInput id="first-name-input" name="firstName" type="text" required/>
-                </div>
+              </Grid>
+              <Grid col={4}>
+                <Label htmlFor="middle-name-input">Middle</Label>
+                <TextInput id="middle-name-input" name="middleName" type="text"/>
+              </Grid>                
 
-                <div  id="name-input2" className="name-class">
-                  <Label htmlFor="middle-name-input">Middle</Label>
-                  <TextInput id="middle-name-input" name="middleName" type="text"/>
-                </div>
-
-                <div  id="name-input3" className="name-class">
-                  <Label htmlFor="last-name-input">Last Name</Label>
-                  <TextInput id="last-name-input" name="lastName" type="text" required/>
-                </div>  
-              </div>            
-
+              <Grid col={4}>
+                <Label htmlFor="last-name-input">Last Name</Label>
+                <TextInput id="last-name-input" name="lastName" type="text" required/>
+              </Grid>         
+            </Grid>
+                        
+            <Grid row style={{ display: "flex", justifyContent: "space-between" }}>
             
               <Grid col={6} style={{ width: "48%" }}>
 
@@ -60,11 +59,15 @@ export default function W2Form () {
                 <TextInput id="street-address2-input" name="streetAddress2" type="text"/>
 
                 <Label htmlFor="state-input">State</Label>
-                <StatesDropdown/>                
-
+                <StatesDropdown/> 
               </Grid>
+
+              <Grid col={8}>
+                <Label htmlFor="employee-ssn-input">Employee SSN</Label>
+                <TextInput id="employee-ssn-input" name="employerSsn" type="number"/>
+              </Grid>
+
             </Grid>
-            
               {/* EMPLOYER INFORMATION */}
               <Label htmlFor="name" style={{ fontWeight: 'bold' }}>Employer Information</Label>
 
@@ -76,32 +79,34 @@ export default function W2Form () {
                 <TextInput id="employer-name-input" name="employerName" type="text"/>
               </Grid>
 
-              <Grid col={6} style={{ width: "48%" }}>
-                <Label htmlFor="employer-address-input">Employer's Street Address</Label>
+              <Grid col={12}>
+                <Label htmlFor="employer-address-input"> Street Address</Label>
                 <TextInput id="employer-address-input" name="employerAddress" type="text"/>
+              </Grid>
 
+              <Grid col={6} style={{ width: "48%" }}>
                 <Label htmlFor="employer-city-input">Employer's City</Label>
                 <TextInput id="employer-city-input" name="employerCity" type="text"/>
 
+              </Grid>
+
+              <Grid col={6} style={{ width: "48%" }}>
                 <Label htmlFor="employer-state-input">State</Label>
                 <StatesDropdown/>
 
+              </Grid>
+              <Grid col={6}>
                 <Label htmlFor="employer-zipCode-input">Employer's Zip Code</Label>
                 <TextInput id="employer-zipCode-input" name="employerZipCode" type="number"/>
 
-
               </Grid>
 
-
+              <Grid col={8}>
                 <Label htmlFor="employer-ein-input">Employer EIN</Label>
                 <TextInput id="employer-ein-input" name="employerEin" type="number"/>
-
-            </Grid>
-
+              </Grid>
             
-
-
-
+            </Grid>
 
               {/* TAX WITHHELD INFORMATION */}
               <Label htmlFor="federal-income-tax--input">Federal Income Tax Withheld</Label>
@@ -116,7 +121,6 @@ export default function W2Form () {
               {/* WAGES AND COMPENSATION */}
               <Label htmlFor="wages-input">Wages, tips, other compensation</Label>
               <TextInput id="wages-input" name="wages" type="number"/>
-
 
               <Button type="submit" data-close-modal='true'>Submit</Button>
             </Form>
