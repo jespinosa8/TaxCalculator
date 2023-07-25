@@ -12,50 +12,43 @@ import {
 
 import StatesDropdown from '../components/dropdown/StatesDropdown'
 import CountriesDropdown from '../components/dropdown/CountriesDropdown'
+import toast, { Toaster } from 'react-hot-toast'
 
 export default function SignUp() {
     const [showPassword, setShowPassword] = React.useState(false)
-    const [username, setUsername] = React.useState<string>("")
-    const [password, setPassword] = React.useState<string>("")
     const [retypedPassword, setRetypedPassword] = React.useState<string>("")
-    const [ssn, setSsn] = React.useState<string>("")
-    const [firstName, setFirstName] = React.useState<string>("")
-    const [lastName, setLastName] = React.useState<string>("")
-    const [email, setEmail] = React.useState<string>("")
-    const [street1, setStreet1] = React.useState<string>("")
-    const [street2, setStreet2] = React.useState<string>("")
-    const [city, setCity] = React.useState<string>("")
-    const [state, setState] = React.useState<string>("")
-    const [country, setCountry] = React.useState<string>("")
-    const [zip, setZip] = React.useState<number>(12345) // causes warnings without initial value
-    const [dob, setDob] = React.useState<string>()
 
+    const now = new Date();
 
-    const user = {
-        username: username,
-        password: password
-    }
+    const [user, setUser] = React.useState({
+        username: "",
+        password: "",
+        enabled: true
+    })
 
-    const userDetails = {
-        ssn: ssn,
-        dob: dob,
-        firstName: firstName,
-        lastName: lastName,
-        email: email,
-        street1: street1,
-        street2: street2,
-        city: city,
-        state: state,
-        country: country,
-        zip: zip
-    }
+    const [userDetails, setUserDetails] = React.useState({
+        user: {},
+        ssn: "",
+        dob: "",
+        firstName: "",
+        middleName: "",
+        lastName: "",
+        email: "",
+        street1: "",
+        street2: "",
+        city: "",
+        state: "",
+        country: "",
+        zip: ""
+    })
 
     const handleUsernameChange = (event: any) => {
-        setUsername(event.target.value)
+        setUser((prev) => ({ ...prev, username: event.target.value }))
     }
 
     const handlePasswordChange = (event: any) => {
-        setPassword(event.target.value)
+        setUser((prev) => ({ ...prev, password: event.target.value }))
+
     }
 
     const handleRetypedPasswordChange = (event: any) => {
@@ -64,88 +57,119 @@ export default function SignUp() {
 
     const handleFirstNameChange = (event: any) => {
         if (!/\d/.test(event.target.value)) {
-            setFirstName(event.target.value)
+            setUserDetails((prev) => ({ ...prev, firstName: event.target.value }))
         }
     }
 
+    const handleMiddleNameChange = (event: any) => {
+        if (!/\d/.test(event.target.value)) {
+            setUserDetails((prev) => ({ ...prev, middleName: event.target.value }))
+        }
+    }
+
+
     const handleLastNameChange = (event: any) => {
         if (!/\d/.test(event.target.value)) {
-            setLastName(event.target.value)
+            setUserDetails((prev) => ({ ...prev, lastName: event.target.value }))
+
         }
     }
 
     const handleSsnChange = (event: any) => {
-        if (/^\d+$/.test(event.target.value)) {
-            setSsn(event.target.value)
+        if (event.target.value == "" || /^\d+$/.test(event.target.value)) {
+            setUserDetails((prev) => ({ ...prev, ssn: event.target.value }))
         }
     }
 
     const handleDobChange = (selectedDate?: string | undefined) => {
-        setDob(selectedDate)
+        setUserDetails((prev) => ({ ...prev, dob: selectedDate === undefined ? "" : selectedDate }))
     }
 
     const handleZipChange = (event: any) => {
-        if (/^\d+$/.test(event.target.value) && (zip == undefined || zip?.toString().length <= 10)) {
-            setZip(event.target.value)
+        if (event.target.value == "" || /^\d+$/.test(event.target.value)) {
+            setUserDetails((prev) => ({ ...prev, zip: event.target.value }))
         }
+
     }
 
     const handleEmailChange = (event: any) => {
-        setEmail(event.target.value)
+        setUserDetails((prev) => ({ ...prev, email: event.target.value }))
+
     }
 
     const handleStreet1Change = (event: any) => {
-        setStreet1(event.target.value)
+        setUserDetails((prev) => ({ ...prev, street1: event.target.value }))
+
     }
 
     const handleStreet2Change = (event: any) => {
-        setStreet2(event.target.value)
+        setUserDetails((prev) => ({ ...prev, street2: event.target.value }))
+
     }
 
     const handleCityChange = (event: any) => {
         if (!/\d/.test(event.target.value)) {
-            setCity(event.target.value)
+            setUserDetails((prev) => ({ ...prev, city: event.target.value }))
+
         }
     }
 
     const handleStateChange = (event: any) => {
-        setState(event.target.value)
+        if (userDetails.country == "United States") {
+            setUserDetails((prev) => ({ ...prev, state: event.target.value }))
+        }
+
     }
 
     const handleCountryChange = (event: any) => {
-        setCountry(event.target.value)
+        if (event.target.value != "United States") { setUserDetails((prev) => ({ ...prev, state: "" })) }
+        setUserDetails((prev) => ({ ...prev, country: event.target.value }))
     }
 
-    // todo
-    //      validations:
-    //          1. check if password matches retypedPassword
-    //          2. username can't be in DB already (do this for email as well?)
-    //          3. ssn shouldn't be in DB, should be a valid length
-    //          4. no empty fields (except state if a country other than US is selected)
     const handleCreateAccountSubmit = (event: any): void => {
         event.preventDefault()
 
-        // const data = new FormData(event.target)
-
-        // console.log(data.get('dob'))
-        // console.log(dob)
-
-        if (true) { // first check should be to see if username already exists
-
+        if (false) { // first check should be to see if username already exists
+            toast.error("This username already exists")
         }
-        else if (password !== retypedPassword) {
+        else if (user.password !== retypedPassword) {
             // passwords must match
+            toast.error("Passwords must match")
         }
-        // else if(check user and userDetail objects for any undefined properties EXCEPT city - if country is US, must have city) {
-        //     must fill out each field
-        //
-        // else if(ssn length invalid) {}
-        // else if(dob is current date / date in future)
-        // else if(zip length invalid) {}
+        else if (userDetails.ssn.length != 0 && userDetails.ssn.length != 9) {
+            // ssn must either be blank or 9 digits
+            toast.error("SSN must be blank or 9 digits")
+        }
+        else if (userDetails.zip.length != 0 && userDetails.zip.length != 5 && userDetails.zip.length != 9 && userDetails.zip.length != 10) {
+            // zip must be blank, 5, 9, or 10 digits
+            toast.error("Zip must be blank or 5, 9, or 10 digits")
+        }
         else {
-            // POST
-        }
+            // POST & redirect
 
+            // cast ssn and zip strings to number, convert dob string to date, set all empty fields to null
+            // create user -> new user return value here --- setUserDetails((prev) => ({...prev, user: data})) -> create final user details as new object and save that
+
+            const userDetailsFinal = {
+                user: userDetails.user,
+                ssn: userDetails.ssn.length == 0 ? null : parseInt(userDetails.ssn),
+                dob: new Date(userDetails.dob),
+                firstName: userDetails.firstName,
+                middleName: userDetails.middleName.length == 0 ? null : userDetails.middleName,
+                lastName: userDetails.lastName,
+                email: userDetails.email,
+                street1: userDetails.street1,
+                street2: userDetails.street2.length == 0 ? null : userDetails.street2,
+                city: userDetails.city.length == 0 ? null : userDetails.city,
+                state: userDetails.state.length == 0 ? null : userDetails.state,
+                country: userDetails.country,
+                zip: userDetails.zip.length == 0 ? null : parseInt(userDetails.zip)
+            }
+
+            console.log(userDetailsFinal)
+
+            toast.success("Account Successfully Created!")
+        }
     }
 
     const containerStyle = {
@@ -158,6 +182,7 @@ export default function SignUp() {
 
     return (
         <>
+            <div><Toaster /></div>
             <main id="main-content" style={containerStyle as React.CSSProperties}>
                 <div className="bg-base-lightest" style={containerStyle as React.CSSProperties}>
                     <Grid row>
@@ -168,18 +193,17 @@ export default function SignUp() {
                                     <Form onSubmit={handleCreateAccountSubmit} large>
                                         <Fieldset legend="Get started with an account.">
                                             <Grid>
-
                                                 <Label htmlFor="username">
                                                     Username{' '}
                                                 </Label>
-                                                <TextInput style={{ marginBottom: "35px" }}
+                                                <TextInput
                                                     id="username"
                                                     name="username"
                                                     type="text"
                                                     autoCapitalize="off"
                                                     autoCorrect="off"
                                                     required={true}
-                                                    value={username}
+                                                    value={user.username}
                                                     onChange={handleUsernameChange}
                                                 />
 
@@ -193,8 +217,22 @@ export default function SignUp() {
                                                     autoCapitalize="off"
                                                     autoCorrect="off"
                                                     required={true}
-                                                    value={password}
+                                                    value={user.password}
                                                     onChange={handlePasswordChange}
+                                                />
+
+                                                <Label htmlFor="password-create-account-confirm">
+                                                    Re-type Password{' '}
+                                                </Label>
+                                                <TextInput
+                                                    id="password-create-account-confirm"
+                                                    name="password-confirm"
+                                                    type={showPassword ? 'text' : 'password'}
+                                                    autoCapitalize="off"
+                                                    autoCorrect="off"
+                                                    required={true}
+                                                    value={retypedPassword}
+                                                    onChange={handleRetypedPasswordChange}
                                                 />
 
                                                 <p className="usa-form__note">
@@ -209,21 +247,7 @@ export default function SignUp() {
                                                     </a>
                                                 </p>
 
-                                                <Label htmlFor="password-create-account-confirm" style={{ marginTop: "60px" }}>
-                                                    Re-type Password{' '}
-                                                </Label>
-                                                <TextInput
-                                                    id="password-create-account-confirm"
-                                                    name="password-confirm"
-                                                    type={showPassword ? 'text' : 'password'}
-                                                    autoCapitalize="off"
-                                                    autoCorrect="off"
-                                                    required={true}
-                                                    value={retypedPassword}
-                                                    onChange={handleRetypedPasswordChange}
-                                                />
-
-                                                <hr className="solid" style={{ marginBottom: "5px", marginTop: "35px" }}></hr>
+                                                <hr className="solid" style={{ marginBottom: "5px", marginTop: "55px" }}></hr>
                                                 <Grid row style={{ display: "flex", justifyContent: "space-between" }}>
                                                     <Grid col={6} style={{ width: "48%" }}>
                                                         <Label htmlFor="first-name">
@@ -236,8 +260,39 @@ export default function SignUp() {
                                                             autoCapitalize="off"
                                                             autoCorrect="off"
                                                             required={true}
-                                                            value={firstName}
+                                                            value={userDetails.firstName}
                                                             onChange={handleFirstNameChange}
+                                                        />
+
+                                                        <Label htmlFor="last-name">
+                                                            Last Name{' '}
+                                                        </Label>
+                                                        <TextInput
+                                                            id="lastName"
+                                                            name="lastName"
+                                                            type="text"
+                                                            autoCapitalize="off"
+                                                            autoCorrect="off"
+                                                            required={true}
+                                                            value={userDetails.lastName}
+                                                            onChange={handleLastNameChange}
+                                                        />
+                                                    </Grid>
+
+                                                    <Grid col={6} style={{ width: "48%" }}>
+
+                                                        <Label htmlFor="middle-name">
+                                                            Middle Name{' '}
+                                                        </Label>
+                                                        <TextInput
+                                                            id="middleName"
+                                                            name="middleName"
+                                                            type="text"
+                                                            autoCapitalize="off"
+                                                            autoCorrect="off"
+                                                            required={false}
+                                                            value={userDetails.middleName}
+                                                            onChange={handleMiddleNameChange}
                                                         />
 
                                                         <Label htmlFor="email">
@@ -250,52 +305,38 @@ export default function SignUp() {
                                                             autoCapitalize="off"
                                                             autoCorrect="off"
                                                             required={true}
-                                                            value={email}
+                                                            value={userDetails.email}
                                                             onChange={handleEmailChange}
                                                         />
                                                     </Grid>
-
-
-                                                    <Grid col={6} style={{ width: "48%" }}>
-
-
-                                                        <Label htmlFor="last-name">
-                                                            Last Name{' '}
-                                                        </Label>
-                                                        <TextInput
-                                                            id="lastName"
-                                                            name="lastName"
-                                                            type="text"
-                                                            autoCapitalize="off"
-                                                            autoCorrect="off"
-                                                            required={true}
-                                                            value={lastName}
-                                                            onChange={handleLastNameChange}
-                                                        />
-
-                                                        <Label htmlFor="ssn">
-                                                            Social Security Number{' '}
-                                                        </Label>
-                                                        <TextInput
-                                                            id="ssn"
-                                                            name="ssn"
-                                                            type="password"
-                                                            autoCapitalize="off"
-                                                            autoCorrect="off"
-                                                            required={true}
-                                                            value={ssn}
-                                                            onChange={handleSsnChange}
-                                                        />
-                                                    </Grid>
-
                                                 </Grid>
                                             </Grid>
-                                            <Label htmlFor="date-of-birth">
-                                                Date of Birth{' '}
-                                            </Label>
-                                            <DatePicker
-                                                id="dobId" name="dob" onChange={handleDobChange}>
-                                            </DatePicker>
+
+                                            <Grid row style={{ display: "flex", justifyContent: "space-between" }}>
+                                                <Grid style={{ width: "41%" }}>
+                                                    <Label htmlFor="ssn">
+                                                        Social Security Number{' '}
+                                                    </Label>
+                                                    <TextInput
+                                                        id="ssn"
+                                                        name="ssn"
+                                                        type="password"
+                                                        autoCapitalize="off"
+                                                        autoCorrect="off"
+                                                        required={false}
+                                                        value={userDetails.ssn}
+                                                        onChange={handleSsnChange}
+                                                    />
+                                                </Grid>
+                                                <Grid style={{ width: "55%" }}>
+                                                    <Label htmlFor="date-of-birth">
+                                                        Date of Birth{' '}
+                                                    </Label>
+                                                    <DatePicker
+                                                        id="dobId" name="dob" maxDate={"" + now.getFullYear() + "-" + (now.getMonth() + 1) + "-" + now.getDate()} required={true} onChange={handleDobChange}>
+                                                    </DatePicker>
+                                                </Grid>
+                                            </Grid>
 
                                             <hr className="solid" style={{ marginBottom: "5px", marginTop: "35px" }}></hr>
 
@@ -311,7 +352,7 @@ export default function SignUp() {
                                                         autoCapitalize="off"
                                                         autoCorrect="off"
                                                         required={true}
-                                                        value={street1}
+                                                        value={userDetails.street1}
                                                         onChange={handleStreet1Change}
                                                     />
 
@@ -324,28 +365,25 @@ export default function SignUp() {
                                                         type="text"
                                                         autoCapitalize="off"
                                                         autoCorrect="off"
-                                                        required={true}
-                                                        value={city}
+                                                        required={false}
+                                                        value={userDetails.city}
                                                         onChange={handleCityChange}
                                                     />
 
-
-                                                    {/** todo: hide counter arrows */}
                                                     <Label htmlFor="zip">
                                                         Zip{' '}
                                                     </Label>
                                                     <TextInput
                                                         id="zip"
                                                         name="zip"
-                                                        type="number"
-                                                        required={true}
-                                                        value={zip}
+                                                        type="text"
+                                                        required={false}
+                                                        value={userDetails.zip}
                                                         onChange={handleZipChange}
                                                     />
                                                 </Grid>
 
                                                 <Grid col={6} style={{ width: "48%" }}>
-
 
                                                     <Label htmlFor="street2">
                                                         Address Line 2{' '}
@@ -356,21 +394,20 @@ export default function SignUp() {
                                                         type="text"
                                                         autoCapitalize="off"
                                                         autoCorrect="off"
-                                                        required={true}
-                                                        value={street2}
+                                                        required={false}
+                                                        value={userDetails.street2}
                                                         onChange={handleStreet2Change}
                                                     />
 
-                                                    {/** todo: create separate dropdown component with all 50 states to plug in here */}
                                                     <Label htmlFor="state">
                                                         State{' '}
                                                     </Label>
-                                                    <StatesDropdown onChange={handleStateChange} />
+                                                    <StatesDropdown value={userDetails.state} disabled={userDetails.country != "United States"} onChange={handleStateChange} />
 
                                                     <Label htmlFor="country">
                                                         Country{' '}
                                                     </Label>
-                                                    <CountriesDropdown onChange={handleCountryChange} />
+                                                    <CountriesDropdown required={true} onChange={handleCountryChange} />
                                                 </Grid>
                                             </Grid>
 
@@ -379,13 +416,11 @@ export default function SignUp() {
                                     </Form>
                                 </div>
                             </div>
-                            {/* todo: add link to login page */}
                             <p className="text-center">
                                 Already have an account?{' '}
                                 <Link href="/login">Sign in</Link>.
                             </p>
                         </Grid>
-
                     </Grid>
                 </div>
             </main>
