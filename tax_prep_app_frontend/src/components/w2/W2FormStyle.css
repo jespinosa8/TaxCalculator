@@ -1,19 +1,23 @@
-/* #w2-submit-form {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-} */
+.bg-base-lightest {
+  position: relative;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: max-content;
+  padding: 2rem;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 45px;
+  background-color: #f0f0f0; /* Change the background color to your desired color */
+  /* Add any other styling you want for the div */
+}
 
-/* #name-input {
-    margin: 5px;
-} */
+/* Adjust the form width if necessary */
+#w2-submit-form {    
+  width: 100%; /* Change this value to your desired width */
+}
 
-#name {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    grid-template-areas:
-      "name-input" "name-input2" "name-input3";
-  }
 
-  .name-class {
-    margin: 3px;
-  }
+

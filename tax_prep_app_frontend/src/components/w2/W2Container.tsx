@@ -1,4 +1,4 @@
-import { Grid, GridContainer } from '@trussworks/react-uswds';
+import { Grid } from '@trussworks/react-uswds';
 import W2Form from './W2Form';
 import W2Table from './W2Table';
 
