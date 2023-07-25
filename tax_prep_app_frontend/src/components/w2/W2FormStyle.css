@@ -1,19 +1,14 @@
-/* #w2-submit-form {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-} */
+.bg-base-lightest {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 115vh; /* You can adjust the height if needed */
+}
 
-/* #name-input {
-    margin: 5px;
-} */
+/* Adjust the form width if necessary */
+#w2-submit-form {
+  width: 50%; /* Change this value to your desired width */
+}
 
-#name {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    grid-template-areas:
-      "name-input" "name-input2" "name-input3";
-  }
 
-  .name-class {
-    margin: 3px;
-  }
+
