@@ -63,8 +63,9 @@ public class UserDetail {
     public UserDetail() {}
 
     // no ID constructor
-    public UserDetail(int ssn, String firstName, String middleName, String lastName, String email, Date dob,
-            String street1, String street2, String city, String state, int zip, String country) {
+    public UserDetail(User user, int ssn, String firstName, String middleName, String lastName, String email, Date dob,
+        String street1, String street2, String city, String state, int zip, String country) {
+        this.user = user;
         this.ssn = ssn;
         this.firstName = firstName;
         this.middleName = middleName;
@@ -80,9 +81,11 @@ public class UserDetail {
     }
 
     // full constructor
-    public UserDetail(long userDetailId, int ssn, String firstName, String middleName, String lastName, String email,
-            Date dob, String street1, String street2, String city, String state, int zip, String country) {
+    public UserDetail(long userDetailId, User user, int ssn, String firstName, String middleName, String lastName,
+            String email, Date dob, String street1, String street2, String city, String state, int zip,
+            String country) {
         this.userDetailId = userDetailId;
+        this.user = user;
         this.ssn = ssn;
         this.firstName = firstName;
         this.middleName = middleName;
@@ -105,6 +108,14 @@ public class UserDetail {
         this.userDetailId = userDetailId;
     }
 
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+    
     public int getSsn() {
         return ssn;
     }
@@ -206,6 +217,7 @@ public class UserDetail {
         final int prime = 31;
         int result = 1;
         result = prime * result + (int) (userDetailId ^ (userDetailId >>> 32));
+        result = prime * result + ((user == null) ? 0 : user.hashCode());
         result = prime * result + ssn;
         result = prime * result + ((firstName == null) ? 0 : firstName.hashCode());
         result = prime * result + ((middleName == null) ? 0 : middleName.hashCode());
@@ -231,6 +243,11 @@ public class UserDetail {
             return false;
         UserDetail other = (UserDetail) obj;
         if (userDetailId != other.userDetailId)
+            return false;
+        if (user == null) {
+            if (other.user != null)
+                return false;
+        } else if (!user.equals(other.user))
             return false;
         if (ssn != other.ssn)
             return false;
@@ -291,12 +308,9 @@ public class UserDetail {
 
     @Override
     public String toString() {
-        return "UserDetail [userDetailId=" + userDetailId + ", ssn=" + ssn + ", firstName=" + firstName
-                + ", middleName=" + middleName + ", lastName=" + lastName + ", email=" + email + ", dob=" + dob
-                + ", street1=" + street1 + ", street2=" + street2 + ", city=" + city + ", state=" + state + ", zip="
-                + zip + ", country=" + country + "]";
+        return "UserDetail [userDetailId=" + userDetailId + ", user=" + user + ", ssn=" + ssn + ", firstName="
+                + firstName + ", middleName=" + middleName + ", lastName=" + lastName + ", email=" + email + ", dob="
+                + dob + ", street1=" + street1 + ", street2=" + street2 + ", city=" + city + ", state=" + state
+                + ", zip=" + zip + ", country=" + country + "]";
     }
-
-
-
 }

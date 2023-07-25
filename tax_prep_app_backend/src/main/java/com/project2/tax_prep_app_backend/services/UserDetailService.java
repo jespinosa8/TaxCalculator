@@ -37,12 +37,12 @@ public class UserDetailService {
         return userDetailRepository.save(userDetail);
     }
 
-    // update an existing item in the database
+    // update an existing UserDetail in the database
     public UserDetail updateUserDetail(UserDetail userDetail) {
         return userDetailRepository.save(userDetail);
     }
 
-    // delete an item from the database
+    // delete a UserDetail from the database
     public void deleteUserDetail(UserDetail userDetail) {
         userDetailRepository.delete(userDetail);
     }
