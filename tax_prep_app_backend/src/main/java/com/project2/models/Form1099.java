@@ -39,10 +39,15 @@ import lombok.Data;
 	@Column(name = "payer_state")
 	private String payerState;
 
+	@Column(name = "payer_zip")
+	private int payerZip;
 	
 	@Column(name = "recipient_tin")
 	@Pattern(regexp = "\\d{9}", message = "The field must contain exactly 9 digits.")
 	private int recipientTin;
+
+	@Column(name = "taxes_withheld2")
+	private double taxesWithheld;
 
 	@Column(name = "total_compensation")
 	private double totalCompensation;

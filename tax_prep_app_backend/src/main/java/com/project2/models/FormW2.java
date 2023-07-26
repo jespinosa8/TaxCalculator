@@ -63,6 +63,10 @@ import lombok.Data;
 	private User user;
 
 	@ManyToOne
+	@JoinColumn(name = "employee_ssn")
+	private UserDetail ssn;
+
+	@ManyToOne
 	@JoinColumn(name = "tax_filing_id")
 	private TaxFiling taxFiling;	
 	
