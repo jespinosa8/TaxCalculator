@@ -54,8 +54,7 @@ CREATE TABLE form_w2 (
 CREATE TABLE form_1099 (
   form_1099_id SERIAL PRIMARY KEY,
   user_id INTEGER REFERENCES users(user_id),
-  recipient_ssn INTEGER REFERENCES user_detail(ssn),
-  recepient_tin NUMERIC,
+  recipient_tin INTEGER REFERENCES user_detail(ssn),  
   tax_filing_id INTEGER REFERENCES tax_filing(tax_filing_id),
   payer_name VARCHAR(100),
   payer_street1 VARCHAR(50),
