@@ -10,6 +10,8 @@ import PersonalInformation from './pages/PersonalInformation';
 import TaxFiling from './pages/TaxFiling';
 import Login from './pages/Login';
 import SignUp from './pages/SignUp';
+import { Provider } from 'react-redux';
+import store from './Store';
 
 function App() {
 

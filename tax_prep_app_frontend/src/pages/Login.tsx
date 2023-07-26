@@ -9,6 +9,9 @@ import {
     Button,
     Link
 } from "@trussworks/react-uswds"
+import { useDispatch } from "react-redux"
+import { loginUser } from "../slices/UserSlice"
+import { AppDispatch } from "../Store"
 
 export default function Login() {
     const [username, setUsername] = React.useState("")
@@ -23,15 +26,15 @@ export default function Login() {
         setPassword(event.target.value)
     }
 
+    const dispatch = useDispatch<AppDispatch>()
     const handleLoginSubmit = (event: any): void => {
         event.preventDefault()
 
-        if (true) { // if user with username and password exists
-            // load user into store (redux) and send to home page
+        const userCredentials = {
+            username, password
         }
-        else {
-            // inform user that the username and/or password is incorrect
-        }
+
+        dispatch(loginUser(userCredentials)) // dispatching loginUser function, passing in the userCredentials
     }
 
     const containerStyle = {
