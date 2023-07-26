@@ -1,6 +1,6 @@
 import { Grid } from '@trussworks/react-uswds';
 import W2Form from './W2Form';
-import W2Table from './W2Table';
+import W2Table from './W2SummaryTable';
 
 export default function W2Container() {
   return (

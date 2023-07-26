@@ -2,7 +2,7 @@ import { Table } from "@trussworks/react-uswds";
 // import SubmitDate from "./SubmitDate";
 
 
-export default function W2Table () {
+export default function W2SummaryTable () {
 
 
   return (

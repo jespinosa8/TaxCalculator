@@ -27,25 +27,24 @@ function App() {
 
     return (
         <>
-        <BrowserRouter basename='/'>
-            <Header id="nav-bar-container">
-                <PrimaryNav className='bg-primary-lighter' items={navItems}/>
-            </Header>
+            <BrowserRouter basename='/'>
+                <Header id="nav-bar-container">
+                    <PrimaryNav className='bg-primary-lighter' items={navItems}/>
+                </Header>
 
-            <Routes>
-                <Route path='/' element={<Home />}/>
-                <Route path='/tax-summary' element={<TaxSummary />}/>
-                <Route path='/tax-filing' element={<TaxFiling />}/>
-                <Route path='/add-w2' element={<W2Page />}/> 
-                <Route path='/add-1099' element={<Page1099/>}/> 
-                <Route path='/personal-info' element={<PersonalInformation />}/>            
-                <Route path='/login' element={<Login />}/>
-                <Route path='/signup' element={<SignUp />}/>                
-            </Routes>
+                <Routes>
+                    <Route path='/' element={<Home />}/>
+                    <Route path='/tax-summary' element={<TaxSummary />}/>
+                    <Route path='/tax-filing' element={<TaxFiling />}/>
+                    <Route path='/add-w2' element={<W2Page />}/> 
+                    <Route path='/add-1099' element={<Page1099/>}/> 
+                    <Route path='/personal-info' element={<PersonalInformation />}/>            
+                    <Route path='/login' element={<Login />}/>
+                    <Route path='/signup' element={<SignUp />}/>                
+                </Routes>
 
-        </BrowserRouter>        
+            </BrowserRouter>         
         
-        <Home/>
         </>
     )
 }
