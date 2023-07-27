@@ -1,19 +1,29 @@
 import { Table } from "@trussworks/react-uswds";
+import { useEffect } from "react";
+import { useTranslation } from 'react-i18next';
 // import SubmitDate from "./SubmitDate";
 
 
 export default function W2SummaryTable () {
 
+  const { t, i18n } = useTranslation();
+
+  useEffect(() => {
+      const lng = navigator.language;
+      i18n.changeLanguage(lng);
+  }, [])
+
+  const lng = navigator.language;
 
   return (
     <>
         <Table striped fullWidth className="bg-primary-lighter" >
           <thead>
               <tr>
-                  <th>Employee</th>
-                  <th>Employer</th>
-                  <th>Total Income</th>
-                  <th>Date Submitted</th>
+                  <th>{t('w2Table.employee')}</th>
+                  <th>{t('w2Table.employer')}</th>
+                  <th>{t('w2Table.totalIncome')}</th>
+                  <th>{t('w2Table.dateSubmitted')}</th>
               </tr>
           </thead>
           <tbody>

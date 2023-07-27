@@ -1,7 +1,17 @@
 import { Table } from "@trussworks/react-uswds";
-
+import { useEffect } from "react";
+import { useTranslation } from 'react-i18next';
 
 export default function Table1099 () {
+
+  const { t, i18n } = useTranslation();
+
+  useEffect(() => {
+      const lng = navigator.language;
+      i18n.changeLanguage(lng);
+  }, [])
+
+  const lng = navigator.language;
 
 
   return (
@@ -9,10 +19,10 @@ export default function Table1099 () {
       <Table striped fullWidth className="bg-primary-lighter" >
           <thead>
               <tr>
-                  <th>Recipient</th>
-                  <th>Payer</th>
-                  <th>Total Compensation</th>
-                  <th>Date Submitted</th>
+                  <th>{t('table1099.recipient')}</th>
+                  <th>{t('table1099.payer')}</th>
+                  <th>{t('table1099.totalCompensation')}</th>
+                  <th>{t('table1099.dateSubmitted')}</th>
               </tr>
           </thead>
           <tbody>
