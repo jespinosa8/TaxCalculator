@@ -1,0 +1,16 @@
+.cards {
+    flex: 0 0 300px; /* Adjust the width as per your requirements */
+    margin: 10px;
+}
+
+#home-page-flex {
+    display: flex;
+    justify-content: space-around;
+    padding: 25px;
+}
+
+#home-page {
+    display: grid;
+    align-items: center;
+    justify-content: center;
+}
