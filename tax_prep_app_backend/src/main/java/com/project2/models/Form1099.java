@@ -1,63 +1,40 @@
 package com.project2.models;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
-import javax.validation.constraints.Pattern;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.DBRef;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 import lombok.Data;
 
+import javax.validation.constraints.Pattern;
+
+@Document(collection = "form_1099")
 @Data public class Form1099 {
 
-	@Id
-	@Column
-	@GeneratedValue(strategy =  GenerationType.IDENTITY)
-	private int id;
+    @Id
+    private String id;
 
-	@Pattern(regexp = "\\d{9}", message = "The field must contain exactly 9 digits.")
-	@Column(name = "payer_tin")
-	private int payerTin;
+    @Pattern(regexp = "\\d{9}", message = "The field must contain exactly 9 digits.")
+    private String payerTin;
 
-	@Column(name = "payer_name")
-	private String payerName;
+    private String payerName;
+    private String payerStreet1;
+    private String payerStreet2;
+    private String payerCity;
+    private String payerState;
+    private int payerZip;
 
-	@Column(name = "payer_street1")
-	private String payerStreet1;
+    @Pattern(regexp = "\\d{9}", message = "The field must contain exactly 9 digits.")
+    private String recipientTin;
 
-	@Column(name = "payer_street2")
-	private String payerStreet2;
+    private double taxesWithheld;
+    private double totalCompensation;
 
-	@Column(name = "payer_city")
-	private String payerCity;
+    @DBRef
+    private User user;
 
-	@Column(name = "payer_state")
-	private String payerState;
+    @DBRef
+    private TaxFiling taxFiling;
 
-	@Column(name = "payer_zip")
-	private int payerZip;
-	
-	@Column(name = "recipient_tin")
-	@Pattern(regexp = "\\d{9}", message = "The field must contain exactly 9 digits.")
-	private int recipientTin;
-
-	@Column(name = "taxes_withheld2")
-	private double taxesWithheld;
-
-	@Column(name = "total_compensation")
-	private double totalCompensation;
-
-	@ManyToOne
-	@JoinColumn(name = "user_id")
-	private User user;
-
-	@ManyToOne
-	@JoinColumn(name = "tax_filing_id")
-	private TaxFiling taxFiling;
-
+    // Getters and setters (you can use Lombok's @Data annotation if you prefer)
 }

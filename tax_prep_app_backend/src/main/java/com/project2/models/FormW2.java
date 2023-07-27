@@ -1,73 +1,41 @@
 package com.project2.models;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
-import javax.validation.constraints.Pattern;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.DBRef;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 import lombok.Data;
 
+import javax.validation.constraints.Pattern;
 
-@Entity
-@Table(name = "form_w2")
+@Document(collection = "form_w2")
 @Data public class FormW2 {
 
-	@Id
-	@Column
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id;
+    @Id
+    private String id;
 
-	// Validation constraint that forces 9 digits
-	@Column(name = "ein")
-	@Pattern(regexp = "\\d{9}", message = "The field must contain exactly 9 digits.")
-	private int ein;
+    // Validation constraint that forces 9 digits
+    @Pattern(regexp = "\\d{9}", message = "The field must contain exactly 9 digits.")
+    private String ein;
 
-	@Column(name = "employer_name")
-	private String employerName;
+    private String employerName;
+    private String employerStreet1;
+    private String employerStreet2;
+    private String employerCity;
+    private String employerState;
+    private int zip;
+    private double wages;
+    private double taxesWithheld;
+    private double ssWithheld;
+    private double medicareWithheld;
 
-	@Column(name = "employer_street1")
-	private String employerStreet1;
+    @DBRef
+    private User user;
 
-	@Column(name = "employer_street2")
-	private String employerStreet2;
+    @DBRef
+    private UserDetail ssn;
 
-	@Column(name = "employer_city")
-	private String employerCity;
-
-	@Column(name = "employer_state")
-	private String employerState;
-
-	@Column(name = "employer_zip")
-	private int zip;
-
-	@Column(name = "wages_and_tips")
-	private double wages;
-
-	@Column(name = "taxes_withheld")
-	private double taxesWithheld;
-
-	@Column(name = "ss_withheld")
-	private double ssWithheld;
-
-	@Column(name = "medicare_withheld")
-	private double medicareWithheld;
-
-	@ManyToOne
-	@JoinColumn(name = "user_id")
-	private User user;
-
-	@ManyToOne
-	@JoinColumn(name = "employee_ssn")
-	private UserDetail ssn;
-
-	@ManyToOne
-	@JoinColumn(name = "tax_filing_id")
-	private TaxFiling taxFiling;	
-	
+    @DBRef
+    private TaxFiling taxFiling;
+    
 }
