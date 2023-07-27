@@ -1,5 +1,7 @@
 import { Button, Form, Grid, Label, TextInput } from "@trussworks/react-uswds";
 import StatesDropdown from "../dropdown/StatesDropdown";
+import { useEffect } from "react";
+import { useTranslation } from 'react-i18next';
 
 // Function name can't begin with numbers
 export default function Form1099 () {
@@ -8,14 +10,23 @@ export default function Form1099 () {
     // todo
   }
 
+  const { t, i18n } = useTranslation();
+
+  useEffect(() => {
+      const lng = navigator.language;
+      i18n.changeLanguage(lng);
+  }, [])
+
+  const lng = navigator.language;
+
   return (
     <>
       <div className="bg-base-lightest">
 
         <div id="w2-submit-form">
-          <Form onSubmit={handle1099Submit}>            
+          <Form onSubmit={handle1099Submit}>
             
-            <h1>Non-Employee Compensation Form 1099-NEC</h1>
+            <h1>{t('form1099.title')}</h1>
             
             {/* RECIPIENT INFORMATION */}            
             {/* <Label htmlFor="name" style={{ fontWeight: 'bold' }}>Recipient Information</Label>
@@ -76,59 +87,59 @@ export default function Form1099 () {
 
 
               {/* PAYER'S INFORMATION */}
-              <Label htmlFor="name" style={{ fontWeight: 'bold' }}>Payer's Information</Label>
+              <Label htmlFor="name" style={{ fontWeight: 'bold' }}>{t('form1099.payersInformation')}</Label>
             <Grid row style={{ display: "flex", justifyContent: "space-between" }}>
 
               <Grid col={12}>
-                <Label htmlFor="payer-name-input">Payer's Name</Label>
+                <Label htmlFor="payer-name-input">{t('form1099.payersName')}</Label>
                 <TextInput id="payer-name-input" name="payer_name" type="text"/>
 
               </Grid>
 
               <Grid col={12}>
-                <Label htmlFor="payer-address-input">Street Address</Label>
+                <Label htmlFor="payer-address-input">{t('form1099.payersAddress')}</Label>
                 <TextInput id="payer-address-input" name="payer_street1" type="text"/>
               </Grid>
 
               <Grid col={12}>
-                <Label htmlFor="payer-address-input">Street Address 2</Label>
+                <Label htmlFor="payer-address-input">{t('form1099.payersAddress2')}</Label>
                 <TextInput id="payer-address-input" name="payer_street2" type="text"/>
 
               </Grid>
 
               <Grid col={6} style={{ width: "48%" }}>
-                <Label htmlFor="payer-city-input">City</Label>
+                <Label htmlFor="payer-city-input">{t('form1099.payersCity')}</Label>
                 <TextInput id="payer-city-input" name="payer_city" type="text"/>
 
               </Grid>
 
               <Grid col={6} style={{ width: "48%" }}>
-                <Label htmlFor="payer-state-input">State</Label>
+                <Label htmlFor="payer-state-input">{t('form1099.payersState')}</Label>
                 <StatesDropdown/>
               </Grid>
 
               <Grid col={6} style={{ width: "48%" }}>
-                <Label htmlFor="payer-zipCode-input">Zip Code</Label>
+                <Label htmlFor="payer-zipCode-input">{t('form1099.payersZip')}</Label>
                 <TextInput id="payer-zipCode-input" name="payer_zip" type="number"/>
 
               </Grid>
 
               <Grid col={12}>
-                <Label htmlFor="payer-tin-input">Payer's TIN</Label>
+                <Label htmlFor="payer-tin-input">{t('form1099.payersTin')}</Label>
                 <TextInput id="payer-tin-input" name="payer_tin" type="number"/>
 
               </Grid>
             </Grid>
 
               {/* TAX WITHHELD INFORMATION */}
-              <Label htmlFor="federal-income-tax-input">Federal Income Tax Withheld</Label>
+              <Label htmlFor="federal-income-tax-input">{t('form1099.federalIncomeTaxWithheld')}</Label>
               <TextInput id="federal-income-tax-withheld-input" name="taxes_withheld2" type="number"/>             
 
               {/* WAGES AND COMPENSATION */}
-              <Label htmlFor="compensation-input">Non-employee Compensation</Label>
+              <Label htmlFor="compensation-input">{t('form1099.nonemployeeCompensation')}</Label>
               <TextInput id="compensation-input" name="total_compensation" type="number"/>
 
-              <Button type="submit" data-close-modal='true'>Submit</Button>
+              <Button type="submit" data-close-modal='true'>{t('form1099.submit')}</Button>
           </Form>
 
         </div>

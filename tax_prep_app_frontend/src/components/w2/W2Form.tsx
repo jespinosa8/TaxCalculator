@@ -1,6 +1,8 @@
 import { Button, Form, Grid, Label, TextInput } from "@trussworks/react-uswds";
 import StatesDropdown from "../dropdown/StatesDropdown";
 import "./W2FormStyle.css";
+import { useEffect } from "react";
+import { useTranslation } from 'react-i18next';
 
 
 
@@ -9,6 +11,15 @@ export default function W2Form () {
   const handleW2Submit = (): void => {
     // todo
   }
+
+  const { t, i18n } = useTranslation();
+
+  useEffect(() => {
+      const lng = navigator.language;
+      i18n.changeLanguage(lng);
+  }, [])
+
+  const lng = navigator.language;
 
   return (
     <>
@@ -19,7 +30,7 @@ export default function W2Form () {
             <Form onSubmit={handleW2Submit}>
               
               
-              <h1>Form W-2 Wage and Tax Statement</h1>
+              <h1>{t('w2Form.taxStatement')}</h1>
                   {/* EMPLOYEE INFORMATION */}
               {/* <Label htmlFor="name" style={{ fontWeight: 'bold' }}>Employee Personal Information</Label>
 
@@ -56,11 +67,12 @@ export default function W2Form () {
 
                 </Grid> */}
 
-                <Grid col={6} style={{ width: "48%" }}>                
-                  <Label htmlFor="street-address2-input">Apt., Unit, Ste</Label>
+                <Grid col={6} style={{ width: "48%" }}>
+                
+                  <Label htmlFor="street-address2-input">{t('w2Form.apt')}</Label>
                   <TextInput id="street-address2-input" name="streetAddress2" type="text"/>
 
-                  <Label htmlFor="state-input">State</Label>
+                  <Label htmlFor="state-input">{t('w2Form.state')}</Label>
                   <StatesDropdown/> 
                 </Grid>
 
@@ -71,64 +83,64 @@ export default function W2Form () {
 
               </Grid>
                 {/* EMPLOYER INFORMATION */}
-                <Label htmlFor="name" style={{ fontWeight: 'bold' }}>Employer Information</Label>
+                <Label htmlFor="name" style={{ fontWeight: 'bold' }}>{t('w2Form.employerInformationLabel')}</Label>
 
               <Grid row style={{ display: "flex", justifyContent: "space-between" }}>
 
 
-                  <Label htmlFor="city-input">City</Label>
+                  <Label htmlFor="city-input">{t('w2Form.city')}</Label>
                   <TextInput id="city-input" name="city" type="text" required/>
 
                 <Grid col ={12}>
-                  <Label htmlFor="employer-name-input">Employer's Name</Label>
+                  <Label htmlFor="employer-name-input">{t('w2Form.employerName')}</Label>
                   <TextInput id="employer-name-input" name="employerName" type="text"/>
                 </Grid>
 
                 <Grid col={12}>
-                  <Label htmlFor="employer-address-input"> Street Address</Label>
+                  <Label htmlFor="employer-address-input">{t('w2Form.streetAddress')}</Label>
                   <TextInput id="employer-address-input" name="employerAddress" type="text"/>
                 </Grid>
 
                 <Grid col={6} style={{ width: "48%" }}>
-                  <Label htmlFor="employer-city-input">Employer's City</Label>
+                  <Label htmlFor="employer-city-input">{t('w2Form.employerCity')}</Label>
                   <TextInput id="employer-city-input" name="employerCity" type="text"/>
                 </Grid>
 
                 <Grid col={6} style={{ width: "48%" }}>
-                  <Label htmlFor="employer-state-input">State</Label>
+                  <Label htmlFor="employer-state-input">{t('w2Form.employerState')}</Label>
                   <StatesDropdown/>
                 </Grid>
 
                 <Grid col={6} style={{ width: "48%" }}>
-                  <Label htmlFor="employer-zipCode-input">Employer's Zip Code</Label>
+                  <Label htmlFor="employer-zipCode-input">{t('w2Form.employerZip')}</Label>
                   <TextInput id="employer-zipCode-input" name="employerZipCode" type="number"/>
 
                 </Grid>
 
                 <Grid col={12}>
-                  <Label htmlFor="employer-ein-input">Employer EIN</Label>
+                  <Label htmlFor="employer-ein-input">{t('w2Form.employerEin')}</Label>
                   <TextInput id="employer-ein-input" name="employerEin" type="number"/>
                 </Grid>
               
               </Grid>
                 {/* EMPLOYER INFORMATION */}
-                <Label htmlFor="name" style={{ fontWeight: 'bold' }}>Employer Information</Label>
+                <Label htmlFor="name" style={{ fontWeight: 'bold' }}>{t('w2Form.employerInformationLabel')}</Label>
 
                 {/* TAX WITHHELD INFORMATION */}
-                <Label htmlFor="federal-income-tax--input">Federal Income Tax Withheld</Label>
+                <Label htmlFor="federal-income-tax--input">{t('w2Form.federalIncomeTaxWithheld')}</Label>
                 <TextInput id="federal-income-tax-withheld-input" name="federalIncomeTaxWithheld" type="number"/>
 
-                <Label htmlFor="social-security-tax-withheld-input">Social Security Tax Withheld</Label>
+                <Label htmlFor="social-security-tax-withheld-input">{t('w2Form.socialSecurityTaxWithheld')}</Label>
                 <TextInput id="social-security-tax-withheld-input" name="socialSecurityTaxWithheld" type="number"/>
 
-                <Label htmlFor="medicare-tax-withheld">Medicare Tax Withheld</Label>
+                <Label htmlFor="medicare-tax-withheld">{t('w2Form.medicareTaxWithheld')}</Label>
                 <TextInput id="medicare-tax-withheld" name="medicareTaxWithheld" type="number"/>
 
                 {/* WAGES AND COMPENSATION */}
-                <Label htmlFor="wages-input">Wages, tips, other compensation</Label>
+                <Label htmlFor="wages-input">{t('w2Form.wagesTipsOtherCompensation')}</Label>
                 <TextInput id="wages-input" name="wages" type="number"/>
 
-                <Button type="submit" data-close-modal='true'>Submit</Button>
+                <Button type="submit" data-close-modal='true'>{t('w2Form.submit')}</Button>
             </Form>
 
           </div>
