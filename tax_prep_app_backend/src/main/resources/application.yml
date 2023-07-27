@@ -1,5 +1,4 @@
 spring:
-    datasource:
-        url: jdbc:postgresql://localhost:5432/tax_prep
-        username: postgres
-        password: root
+    data:
+        mongodb:
+            uri:  "mongodb+srv://skillstorm_9:zOVg7qhaP84MVGo5@cluster0.h7mxj4v.mongodb.net/tax_prep"
