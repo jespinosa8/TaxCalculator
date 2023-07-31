@@ -10,7 +10,7 @@ export default function Container1099() {
           <Table1099 />
         </Grid>
         <Grid col={6}>
-          <Form1099 />
+          <Form1099 isTaxFiling={false} />
         </Grid> 
       </Grid>     
     </>

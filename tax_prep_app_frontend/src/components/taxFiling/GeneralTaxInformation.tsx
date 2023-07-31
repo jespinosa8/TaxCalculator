@@ -10,15 +10,16 @@ import {
     Radio,
     ButtonGroup
 } from "@trussworks/react-uswds"
+import TaxFiling from "../../pages/TaxFiling"
 
-interface taxFiling {
-    married: boolean,
-    dependents: number
-}
+// interface taxFiling {
+//     married: boolean,
+//     dependents: number
+// }
 
 interface GeneralTaxInformationProps {
-    taxFiling: taxFiling,
-    handleNextButtonClick: (event: any) => void
+    taxFiling: any,
+    onNextClick: (event: any) => void
     handleMarried: (event: any) => void
     handleDependentChange: (event: any) => void
 
@@ -45,6 +46,7 @@ export default function GeneralTaxInformation(props: GeneralTaxInformationProps)
     const handleSubmit = (event: any): void => {
         event.preventDefault()
 
+        console.log(props.taxFiling)
     }
 
     const containerStyle = {
@@ -100,7 +102,7 @@ export default function GeneralTaxInformation(props: GeneralTaxInformationProps)
                                             <div style={{ marginBottom: "25px" }}></div>
 
                                         </Fieldset>
-                                        <Button type="button" onClick={props.handleNextButtonClick}>Next</Button>
+                                        <Button type="button" onClick={props.onNextClick}>Next</Button>
                                     </Form>
                                 </div>
                             </Grid>

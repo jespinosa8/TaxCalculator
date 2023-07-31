@@ -3,8 +3,15 @@ import StatesDropdown from "../dropdown/StatesDropdown";
 import { useEffect } from "react";
 import { useTranslation } from 'react-i18next';
 
+interface Form1099Props {
+  isTaxFiling: boolean
+
+  handleCancel?: (event: any) => void
+  handleSubmit?: (event: any) => void
+}
+
 // Function name can't begin with numbers
-export default function Form1099 () {
+export default function Form1099 (props: Form1099Props) {
 
   const handle1099Submit = (): void => {
     // todo
@@ -139,7 +146,9 @@ export default function Form1099 () {
               <Label htmlFor="compensation-input">{t('form1099.nonemployeeCompensation')}</Label>
               <TextInput id="compensation-input" name="total_compensation" type="number"/>
 
-              <Button type="submit" data-close-modal='true'>{t('form1099.submit')}</Button>
+              {props.isTaxFiling && (<Button type="button" onClick={props.handleCancel}>Cancel</Button>)}
+              {props.isTaxFiling && (<Button type="button" onClick={props.handleSubmit}>Submit</Button>)}
+              {!props.isTaxFiling && (<Button type="submit" data-close-modal='true'>{t('form1099.submit')}</Button>)}
           </Form>
 
         </div>
