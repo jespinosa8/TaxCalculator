@@ -29,7 +29,7 @@ function App() {
         // creating a list of react-router-dom Links to pass to our navbar
         <Link to='/'>{t('link.home')}</Link>,
         <Link to='/tax-summary'>{t('link.taxSummary')}</Link>,
-        <Link to='/tax-filing'>{t('link.generalTaxInformation')}</Link>,
+        // <Link to='/tax-filing'>{t('link.generalTaxInformation')}</Link>,
         <Link to='/add-w2'>{t('link.addW2')}</Link>,
         <Link to='/add-1099'>{t('link.add1099')}</Link>,
         <Link to='/personal-info'>{t('link.personalInformation')}</Link>,
