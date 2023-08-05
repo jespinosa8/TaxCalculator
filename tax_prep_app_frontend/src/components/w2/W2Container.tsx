@@ -11,7 +11,7 @@ export default function W2Container() {
           <W2Table />
         </Grid>
         <Grid col={6}>
-          <W2Form />
+          <W2Form isTaxFiling={false} />
         </Grid> 
       </Grid>
     

@@ -26,9 +26,16 @@ export default function Form1099 (props: Form1099Props) {
 
   const lng = navigator.language;
 
+  const containerStyle = {
+    maxWidth: "1280px",
+    margin: "0 auto",
+    padding: "2rem",
+    textAlign: "center"
+}
+
   return (
     <>
-      <div className="bg-base-lightest">
+      <div className="bg-base-lightest" style={containerStyle as React.CSSProperties}>
 
         <div id="w2-submit-form">
           <Form onSubmit={handle1099Submit}>

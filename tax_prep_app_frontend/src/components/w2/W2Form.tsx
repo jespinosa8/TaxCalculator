@@ -26,10 +26,17 @@ export default function W2Form(props: W2FormProps) {
 
   const lng = navigator.language;
 
+  const containerStyle = {
+    maxWidth: "1280px",
+    margin: "0 auto",
+    padding: "2rem",
+    textAlign: "center"
+  }
+
   return (
     <>
       <main>
-        <div className="bg-base-lightest">
+        <div className="bg-base-lightest" style={containerStyle as React.CSSProperties}>
 
           <div id="w2-submit-form">
             <Form onSubmit={handleW2Submit}>
