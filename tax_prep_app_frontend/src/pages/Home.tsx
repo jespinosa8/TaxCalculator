@@ -1,7 +1,14 @@
 import './Home.css'
 import CustomCard from "../components/home/Card";
+import { useNavigate } from 'react-router-dom';
 
 export default function Home() {
+
+  const navigate = useNavigate()
+
+  function handleFileTaxesNow() {
+      navigate("/tax-filing")
+  }
 
   const containerStyle = {
     maxWidth: "750px",
@@ -16,7 +23,7 @@ export default function Home() {
   return (
     <>
       <div className="bg-base-lightest" style={containerStyle as React.CSSProperties}>
-        <CustomCard title="File Taxes Now" link="/tax-filing" imageSrc="/TaxFilingImage.jpg" imageHoverSrc="/TaxFilingImage - Dark.jpg" description="Begin the tax filing process" />
+        <CustomCard title="File Taxes Now" onClick={handleFileTaxesNow} imageSrc="/TaxFilingImage.jpg" imageHoverSrc="/TaxFilingImage - Dark.jpg" description="Begin the tax filing process" marginTop="300px" />
       </div>
     </>
   )
