@@ -23,7 +23,7 @@ export default function Home() {
   return (
     <>
       <div className="bg-base-lightest" style={containerStyle as React.CSSProperties}>
-        <CustomCard title="File Taxes Now" onClick={handleFileTaxesNow} imageSrc="/TaxFilingImage.jpg" imageHoverSrc="/TaxFilingImage - Dark.jpg" description="Begin the tax filing process" />
+        <CustomCard title="File Taxes Now" onClick={handleFileTaxesNow} imageSrc="/TaxFilingImage.jpg" imageHoverSrc="/TaxFilingImage - Dark.jpg" description="Begin the tax filing process" marginTop="300px" />
       </div>
     </>
   )

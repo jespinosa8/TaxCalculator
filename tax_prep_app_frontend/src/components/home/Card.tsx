@@ -6,6 +6,7 @@ interface CardProps {
     imageSrc: string,
     imageHoverSrc: string,
     description?: string
+    marginTop?: string
 
     onClick?: (event: any) => void
 }
@@ -20,7 +21,7 @@ export default function CustomCard(props: CardProps) {
 
     return (
         <>
-            <Card onClick={props.onClick} onMouseEnter={toggleHoverStyle} onMouseLeave={toggleHoverStyle} style={{ listStyleType: "none", cursor: applyHoverStyle ? "pointer" : "" }} gridLayout={{ tablet: { col: 6 } }}>
+            <Card onClick={props.onClick} onMouseEnter={toggleHoverStyle} onMouseLeave={toggleHoverStyle} style={{position: "absolute", width: "300px", listStyleType: "none", marginTop: props.marginTop, cursor: applyHoverStyle ? "pointer" : "" }} gridLayout={{ tablet: { col: 6 }}}>
                 <CardHeader style={{ background: applyHoverStyle ? "#d4d4d4" : "" }}>
                     <h2 className="usa-card__heading">{props.title}</h2>
                 </CardHeader>
