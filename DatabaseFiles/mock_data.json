@@ -18,44 +18,42 @@
       "zip": 12345,
       "country": "Country"
     },
-    "tax_filings": [
-      {
+    "tax_filings": {
         "married": true,
         "dependents": 2,
         "total_refund_amount": 1500.00,
-        "total_amount_due": 800.00,
-        "form_w2s": [
-          {
-            "employee_ssn": 123456789,
-            "employer_name": "ABC Corporation",
-            "ein": 987654321,
-            "employer_street1": "456 Elm St",
-            "employer_street2": "",
-            "employer_city": "Townsville",
-            "employer_state": "State",
-            "employer_zip": 54321,
-            "wages_and_tips": 60000.00,
-            "ss_withheld": 3500.00,
-            "taxes_withheld": 7000.00,
-            "medicare_withheld": 1200.00
-          }
-        ],
-        "form_1099s": [
-          {
-            "recipient_tin": 987654321,
-            "payer_name": "XYZ Company",
-            "payer_street1": "789 Oak St",
-            "payer_street2": "",
-            "payer_city": "Citytown",
-            "payer_state": "State",
-            "payer_zip": 98765,
-            "payer_tin": 123456789,
-            "taxes_withheld2": 1800.00,
-            "total_compensation": 25000.00
-          }
-        ]
-      }
-    ]
+        "total_amount_due": 800.00        
+      },
+      "form_w2s": [
+        {
+          "employee_ssn": 123456789,
+          "employer_name": "ABC Corporation",
+          "ein": 987654321,
+          "employer_street1": "456 Elm St",
+          "employer_street2": "",
+          "employer_city": "Townsville",
+          "employer_state": "State",
+          "employer_zip": 54321,
+          "wages_and_tips": 60000.00,
+          "ss_withheld": 3500.00,
+          "taxes_withheld": 7000.00,
+          "medicare_withheld": 1200.00
+        }
+      ],
+      "form_1099s": [
+        {
+          "recipient_tin": 987654321,
+          "payer_name": "XYZ Company",
+          "payer_street1": "789 Oak St",
+          "payer_street2": "",
+          "payer_city": "Citytown",
+          "payer_state": "State",
+          "payer_zip": 98765,
+          "payer_tin": 123456789,
+          "taxes_withheld2": 1800.00,
+          "total_compensation": 25000.00
+        }
+      ]    
   },
   {
     "_id": { "$oid": "5fdebc360a37a283c71e84a2" },
@@ -76,31 +74,30 @@
       "zip": 54321,
       "country": "Country"
     },
-    "tax_filings": [
-      {
+    "tax_filings": {
         "married": false,
         "dependents": 0,
         "total_refund_amount": 1200.00,
-        "total_amount_due": 600.00,
-        "form_w2s": [
-          {
-            "employee_ssn": 987654321,
-            "employer_name": "XYZ Corporation",
-            "ein": 123456789,
-            "employer_street1": "123 Main St",
-            "employer_street2": "",
-            "employer_city": "Cityville",
-            "employer_state": "State",
-            "employer_zip": 12345,
-            "wages_and_tips": 55000.00,
-            "ss_withheld": 3200.00,
-            "taxes_withheld": 6500.00,
-            "medicare_withheld": 1100.00
-          }
-        ],
-        "form_1099s": []
-      }
-    ]
+        "total_amount_due": 600.00
+        
+      },
+      "form_w2s": [
+        {
+          "employee_ssn": 987654321,
+          "employer_name": "XYZ Corporation",
+          "ein": 123456789,
+          "employer_street1": "123 Main St",
+          "employer_street2": "",
+          "employer_city": "Cityville",
+          "employer_state": "State",
+          "employer_zip": 12345,
+          "wages_and_tips": 55000.00,
+          "ss_withheld": 3200.00,
+          "taxes_withheld": 6500.00,
+          "medicare_withheld": 1100.00
+        }
+      ],
+      "form_1099s": [{}]    
   },
   {
     "_id": { "$oid": "5fdebc360a37a283c71e84a3" },
@@ -121,28 +118,26 @@
       "zip": 98765,
       "country": "Country"
     },
-    "tax_filings": [
-      {
+    "tax_filings": {
         "married": true,
         "dependents": 1,
         "total_refund_amount": 1350.00,
-        "total_amount_due": 700.00,
-        "form_w2s": [],
-        "form_1099s": [
-          {
-            "recipient_tin": 555555555,
-            "payer_name": "ABC Company",
-            "payer_street1": "123 Main St",
-            "payer_street2": "Suite 456",
-            "payer_city": "Cityville",
-            "payer_state": "State",
-            "payer_zip": 12345,
-            "payer_tin": 987654321,
-            "taxes_withheld2": 1600.00,
-            "total_compensation": 22000.00
-          }
-        ]
-      }
-    ]
+        "total_amount_due": 700.00        
+      },
+    "form_w2s": [{}],
+    "form_1099s": [
+        {
+          "recipient_tin": 555555555,
+          "payer_name": "ABC Company",
+          "payer_street1": "123 Main St",
+          "payer_street2": "Suite 456",
+          "payer_city": "Cityville",
+          "payer_state": "State",
+          "payer_zip": 12345,
+          "payer_tin": 987654321,
+          "taxes_withheld2": 1600.00,
+          "total_compensation": 22000.00
+        }
+      ]  
   }
 ]
