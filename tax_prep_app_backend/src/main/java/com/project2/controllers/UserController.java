@@ -28,8 +28,8 @@ public class UserController {
 
     // get all users in the database
     @GetMapping
-    public ResponseEntity<List<User>> findAllUsers() {
-        List<User> users = userService.findAllUsers();
+    public ResponseEntity<List<User>> getAllUsers() {
+        List<User> users = userService.getAllUsers();
 
         if(users == null) {
             return ResponseEntity.noContent().build();
