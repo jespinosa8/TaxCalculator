@@ -1,0 +1,14 @@
+{
+  "configurations": [
+    {
+      "type": "java",
+      "name": "Spring Boot-TaxPrepAppBackendApplication<tax_prep_app_backend>",
+      "request": "launch",
+      "cwd": "${workspaceFolder}",
+      "mainClass": "com.project2.tax_prep_app_backend.TaxPrepAppBackendApplication",
+      "projectName": "tax_prep_app_backend",
+      "args": "",
+      "envFile": "${workspaceFolder}/.env"
+    }
+  ]
+}

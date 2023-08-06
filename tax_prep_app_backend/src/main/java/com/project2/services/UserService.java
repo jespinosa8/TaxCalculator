@@ -22,27 +22,23 @@ public class UserService {
     }
 
     // get user by id
-    public User findById(long userId) {
-        Optional<User> user = userRepository.findById(userId);
-        if(user.isPresent()) {
-            return user.get();
-        }
-        return null;
+    public User findById(String userId) {
+        return userRepository.findById(userId).orElse(null);
     }
 
-    // add new user to the database
-    public User createUser(User user) {
-        return userRepository.save(user);
-    }
+    // // add new user to the database
+    // public User createUser(User user) {
+    //     return userRepository.save(user);
+    // }
 
-    // update an existing user in the database
-    public User updateUser(User user) {
-        return userRepository.save(user);
-    }
+    // // update an existing user in the database
+    // public User updateUser(User user) {
+    //     return userRepository.save(user);
+    // }
 
-    // delete a user from the database
-    public void deleteUser(User user) {
-        userRepository.delete(user);
-    }
+    // // delete a user from the database
+    // public void deleteUser(User user) {
+    //     userRepository.delete(user);
+    // }
 
 }

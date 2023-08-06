@@ -19,53 +19,53 @@ import com.project2.services.UserDetailService;
 @RequestMapping("/userDetails")
 public class UserDetailController {
     
-    @Autowired
-    UserDetailService userDetailService;
+    // @Autowired
+    // UserDetailService userDetailService;
 
-    // get by user detail id
-    @GetMapping("/userDetailById/{userDetailId}")
-    public ResponseEntity<UserDetail> findByUserDetailId(@PathVariable long userDetailId) {
-        UserDetail userDetail = userDetailService.findById(userDetailId);
-        if(userDetail == null) {
-            return ResponseEntity.noContent().build();
-        }
+    // // get by user detail id
+    // @GetMapping("/userDetailById/{userDetailId}")
+    // public ResponseEntity<UserDetail> findByUserDetailId(@PathVariable long userDetailId) {
+    //     UserDetail userDetail = userDetailService.findById(userDetailId);
+    //     if(userDetail == null) {
+    //         return ResponseEntity.noContent().build();
+    //     }
 
-        return new ResponseEntity<UserDetail>(userDetail, HttpStatus.OK);
-    }
+    //     return new ResponseEntity<UserDetail>(userDetail, HttpStatus.OK);
+    // }
 
-    // get by user id
-    @GetMapping("/userDetailByUserId/{userId}")
-    public ResponseEntity<UserDetail> findByUserId(@PathVariable long userId) {
-        UserDetail userDetail = userDetailService.findByUserId(userId);
+    // // get by user id
+    // @GetMapping("/userDetailByUserId/{userId}")
+    // public ResponseEntity<UserDetail> findByUserId(@PathVariable long userId) {
+    //     UserDetail userDetail = userDetailService.findByUserId(userId);
 
-        if(userDetail == null) {
-            return ResponseEntity.noContent().build();
-        }
+    //     if(userDetail == null) {
+    //         return ResponseEntity.noContent().build();
+    //     }
 
-        return new ResponseEntity<UserDetail>(userDetail, HttpStatus.OK);
-    }
+    //     return new ResponseEntity<UserDetail>(userDetail, HttpStatus.OK);
+    // }
 
-    // post new user details
-    @PostMapping("/newUserDetail")
-        public ResponseEntity<UserDetail> createUserDetail(@RequestBody UserDetail userDetail) {
-        UserDetail newUserDetail = userDetailService.createUserDetail(userDetail);
-        return new ResponseEntity<UserDetail>(newUserDetail, HttpStatus.CREATED);
-    }
+    // // post new user details
+    // @PostMapping("/newUserDetail")
+    //     public ResponseEntity<UserDetail> createUserDetail(@RequestBody UserDetail userDetail) {
+    //     UserDetail newUserDetail = userDetailService.createUserDetail(userDetail);
+    //     return new ResponseEntity<UserDetail>(newUserDetail, HttpStatus.CREATED);
+    // }
 
-    // update user details by id
-    @PutMapping("/updateUserDetail")
-    public ResponseEntity<UserDetail> updateUserDetail(@RequestBody UserDetail userDetail) {
-        UserDetail updatedUserDetail = userDetailService.updateUserDetail(userDetail);
-        return new ResponseEntity<UserDetail>(updatedUserDetail, HttpStatus.OK);
-    }
+    // // update user details by id
+    // @PutMapping("/updateUserDetail")
+    // public ResponseEntity<UserDetail> updateUserDetail(@RequestBody UserDetail userDetail) {
+    //     UserDetail updatedUserDetail = userDetailService.updateUserDetail(userDetail);
+    //     return new ResponseEntity<UserDetail>(updatedUserDetail, HttpStatus.OK);
+    // }
 
-    // delete by id
-    @DeleteMapping("/deleteById/{userDetailId}")
-    public ResponseEntity<UserDetail> deleteUserDetail(@PathVariable long userDetailId) {
-        UserDetail userDetail = userDetailService.findById(userDetailId);
-        userDetailService.deleteUserDetail(userDetail);
-        return new ResponseEntity<UserDetail>(HttpStatus.NO_CONTENT);
-    }
+    // // delete by id
+    // @DeleteMapping("/deleteById/{userDetailId}")
+    // public ResponseEntity<UserDetail> deleteUserDetail(@PathVariable long userDetailId) {
+    //     UserDetail userDetail = userDetailService.findById(userDetailId);
+    //     userDetailService.deleteUserDetail(userDetail);
+    //     return new ResponseEntity<UserDetail>(HttpStatus.NO_CONTENT);
+    // }
 
     
 }

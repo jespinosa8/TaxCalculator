@@ -1,41 +1,22 @@
 package com.project2.models;
 
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.DBRef;
-import org.springframework.data.mongodb.core.mapping.Document;
-
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
-import javax.validation.constraints.Pattern;
-
-@Document(collection = "form_w2")
+@NoArgsConstructor
 @Data public class FormW2 {
 
-    @Id
-    private String id;
-
-    // Validation constraint that forces 9 digits
-    @Pattern(regexp = "\\d{9}", message = "The field must contain exactly 9 digits.")
-    private String ein;
-
+    private int employeeSsn;
     private String employerName;
+    private int ein;
     private String employerStreet1;
     private String employerStreet2;
     private String employerCity;
     private String employerState;
-    private int zip;
-    private double wages;
-    private double taxesWithheld;
+    private int employerZip;
+    private double wagesAndTips;
     private double ssWithheld;
+    private double taxesWithheld;
     private double medicareWithheld;
-
-    @DBRef
-    private User user;
-
-    @DBRef
-    private UserDetail ssn;
-
-    @DBRef
-    private TaxFiling taxFiling;
     
 }
