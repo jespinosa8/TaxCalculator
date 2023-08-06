@@ -31,5 +31,5 @@ import org.springframework.data.mongodb.core.mapping.Document;
     private TaxFiling taxFilings;
     private List<FormW2> formW2s;
     private List<Form1099> form1099s;    
-    
+
 }

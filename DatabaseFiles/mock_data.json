@@ -97,7 +97,7 @@
           "medicare_withheld": 1100.00
         }
       ],
-      "form_1099s": [{}]    
+      "form_1099s": [{}]
   },
   {
     "_id": { "$oid": "5fdebc360a37a283c71e84a3" },
