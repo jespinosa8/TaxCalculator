@@ -26,19 +26,19 @@ public class UserService {
         return userRepository.findById(userId).orElse(null);
     }
 
-    // // add new user to the database
-    // public User createUser(User user) {
-    //     return userRepository.save(user);
-    // }
+    // add new user to the database
+    public User createUser(User user) {
+        return userRepository.save(user);
+    }
 
-    // // update an existing user in the database
-    // public User updateUser(User user) {
-    //     return userRepository.save(user);
-    // }
+    // update an existing user in the database
+    public User updateUser(User user) {
+        return userRepository.save(user);
+    }
 
-    // // delete a user from the database
-    // public void deleteUser(User user) {
-    //     userRepository.delete(user);
-    // }
+    // delete a user from the database
+    public void deleteUser(User user) {
+        userRepository.delete(user);
+    }
 
 }

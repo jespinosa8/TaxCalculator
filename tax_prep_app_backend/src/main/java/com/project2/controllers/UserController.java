@@ -45,25 +45,25 @@ public class UserController {
         return new ResponseEntity<User>(user, HttpStatus.OK);
     }
 
-    // // post new user
-    // @PostMapping("/newUser")
-    //     public ResponseEntity<User> createUser(@RequestBody User user) {
-    //     User newUser = userService.createUser(user);
-    //     return new ResponseEntity<User>(newUser, HttpStatus.CREATED);
-    // }
+    // post new user
+    @PostMapping("/newUser")
+        public ResponseEntity<User> createUser(@RequestBody User user) {
+        User newUser = userService.createUser(user);
+        return new ResponseEntity<User>(newUser, HttpStatus.CREATED);
+    }
 
-    // // update user by id
-    // @PutMapping("/updateUser")
-    // public ResponseEntity<User> updateUser(@RequestBody User user) {
-    //     User updatedUser = userService.updateUser(user);
-    //     return new ResponseEntity<User>(updatedUser, HttpStatus.OK);
-    // }
+    // update user by id
+    @PutMapping("/updateUser")
+    public ResponseEntity<User> updateUser(@RequestBody User user) {
+        User updatedUser = userService.updateUser(user);
+        return new ResponseEntity<User>(updatedUser, HttpStatus.OK);
+    }
 
-    // // delete by id
-    // @DeleteMapping("/deleteById/{userId}")
-    // public ResponseEntity<User> deleteUse(@PathVariable String userId) {
-    //     User user = userService.findById(userId);
-    //     userService.deleteUser(user);
-    //     return new ResponseEntity<User>(HttpStatus.NO_CONTENT);
-    // }
+    // delete by id
+    @DeleteMapping("/deleteById/{userId}")
+    public ResponseEntity<User> deleteUse(@PathVariable String userId) {
+        User user = userService.findById(userId);
+        userService.deleteUser(user);
+        return new ResponseEntity<User>(HttpStatus.NO_CONTENT);
+    }
 }
