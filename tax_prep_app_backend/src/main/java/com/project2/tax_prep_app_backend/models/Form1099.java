@@ -5,10 +5,8 @@ import javax.validation.constraints.Pattern;
 
 import org.springframework.data.mongodb.core.mapping.Field;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
 
 @NoArgsConstructor
 @Data public class Form1099 {

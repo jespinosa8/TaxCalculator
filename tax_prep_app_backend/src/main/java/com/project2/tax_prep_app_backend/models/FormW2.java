@@ -5,7 +5,6 @@ import javax.validation.constraints.Pattern;
 
 import org.springframework.data.mongodb.core.mapping.Field;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -47,7 +46,7 @@ import lombok.NoArgsConstructor;
 
     @Field("taxes_withheld")
     private double taxesWithheld;
-    
+
     @Field("medicare_withheld")
     private double medicareWithheld;
     

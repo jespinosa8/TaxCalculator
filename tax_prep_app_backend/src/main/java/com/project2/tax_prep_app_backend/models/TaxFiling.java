@@ -1,10 +1,8 @@
 package com.project2.tax_prep_app_backend.models;
 
-import java.util.List;
 
 import org.springframework.data.mongodb.core.mapping.Field;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -14,7 +12,7 @@ import lombok.NoArgsConstructor;
 
     private boolean married;
     private int dependents;
-
+    
     @Field("total_refund_amount")
     private double totalRefundAmount;
 

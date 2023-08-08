@@ -31,6 +31,7 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 
     private boolean enabled;
     
+    // Must include @Field annotation with DB field name if variable name is different than field in DB
     @Field("user_detail")
     private UserDetail userDetail;
     
