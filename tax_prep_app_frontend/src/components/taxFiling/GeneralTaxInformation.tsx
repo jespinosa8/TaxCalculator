@@ -45,8 +45,6 @@ export default function GeneralTaxInformation(props: GeneralTaxInformationProps)
 
     const handleSubmit = (event: any): void => {
         event.preventDefault()
-
-        console.log(props.taxFiling)
     }
 
     const containerStyle = {
@@ -69,7 +67,7 @@ export default function GeneralTaxInformation(props: GeneralTaxInformationProps)
                                     <Form onSubmit={handleSubmit}>
                                         <Fieldset legend="Step 1: General Tax Information" legendStyle="large">
                                             <Label style={{ marginTop: "35px", marginBottom: "-5px" }} htmlFor="marital-status">Marital Status</Label>
-                                            <ButtonGroup style={{marginLeft: "70px"}}>
+                                            <ButtonGroup style={{ marginLeft: "70px" }}>
                                                 <Radio
                                                     id="single"
                                                     name="single"
