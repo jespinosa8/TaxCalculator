@@ -11,7 +11,7 @@ interface Form1099Props {
 }
 
 // Function name can't begin with numbers
-export default function Form1099 (props: Form1099Props) {
+export default function Form1099(props: Form1099Props) {
 
   const handle1099Submit = (): void => {
     // todo
@@ -20,8 +20,8 @@ export default function Form1099 (props: Form1099Props) {
   const { t, i18n } = useTranslation();
 
   useEffect(() => {
-      const lng = navigator.language;
-      i18n.changeLanguage(lng);
+    const lng = navigator.language;
+    i18n.changeLanguage(lng);
   }, [])
 
   const lng = navigator.language;
@@ -31,18 +31,17 @@ export default function Form1099 (props: Form1099Props) {
     margin: "0 auto",
     padding: "2rem",
     textAlign: "center"
-}
+  }
 
   return (
     <>
       <div className="bg-base-lightest" style={containerStyle as React.CSSProperties}>
-
-        <div id="w2-submit-form">
+        <div id="w2-submit-form" className="bg-white padding-y-3 padding-x-5 border border-base-lighter">
           <Form onSubmit={handle1099Submit}>
-            
+
             <h1>{t('form1099.title')}</h1>
-            
-            {/* RECIPIENT INFORMATION */}            
+
+            {/* RECIPIENT INFORMATION */}
             {/* <Label htmlFor="name" style={{ fontWeight: 'bold' }}>Recipient Information</Label>
             <Grid row style={{ display: "flex", justifyContent: "space-between" }}>
 
@@ -93,69 +92,69 @@ export default function Form1099 (props: Form1099Props) {
 
                 <Label htmlFor="state-input">State</Label>
                 <StatesDropdown/>
-              </Grid> */}            
-              
+              </Grid> */}
+
 
             </Grid>
-                
 
 
-              {/* PAYER'S INFORMATION */}
-              <Label htmlFor="name" style={{ fontWeight: 'bold' }}>{t('form1099.payersInformation')}</Label>
+
+            {/* PAYER'S INFORMATION */}
+            <Label htmlFor="name" style={{ fontWeight: 'bold' }}>{t('form1099.payersInformation')}</Label>
             <Grid row style={{ display: "flex", justifyContent: "space-between" }}>
 
               <Grid col={12}>
                 <Label htmlFor="payer-name-input">{t('form1099.payersName')}</Label>
-                <TextInput id="payer-name-input" name="payer_name" type="text"/>
+                <TextInput id="payer-name-input" name="payer_name" type="text" />
 
               </Grid>
 
               <Grid col={12}>
                 <Label htmlFor="payer-address-input">{t('form1099.payersAddress')}</Label>
-                <TextInput id="payer-address-input" name="payer_street1" type="text"/>
+                <TextInput id="payer-address-input" name="payer_street1" type="text" />
               </Grid>
 
               <Grid col={12}>
                 <Label htmlFor="payer-address-input">{t('form1099.payersAddress2')}</Label>
-                <TextInput id="payer-address-input" name="payer_street2" type="text"/>
+                <TextInput id="payer-address-input" name="payer_street2" type="text" />
 
               </Grid>
 
               <Grid col={6} style={{ width: "48%" }}>
                 <Label htmlFor="payer-city-input">{t('form1099.payersCity')}</Label>
-                <TextInput id="payer-city-input" name="payer_city" type="text"/>
+                <TextInput id="payer-city-input" name="payer_city" type="text" />
 
               </Grid>
 
               <Grid col={6} style={{ width: "48%" }}>
                 <Label htmlFor="payer-state-input">{t('form1099.payersState')}</Label>
-                <StatesDropdown/>
+                <StatesDropdown />
               </Grid>
 
               <Grid col={6} style={{ width: "48%" }}>
                 <Label htmlFor="payer-zipCode-input">{t('form1099.payersZip')}</Label>
-                <TextInput id="payer-zipCode-input" name="payer_zip" type="number"/>
+                <TextInput id="payer-zipCode-input" name="payer_zip" type="number" />
 
               </Grid>
 
               <Grid col={12}>
                 <Label htmlFor="payer-tin-input">{t('form1099.payersTin')}</Label>
-                <TextInput id="payer-tin-input" name="payer_tin" type="number"/>
+                <TextInput id="payer-tin-input" name="payer_tin" type="number" />
 
               </Grid>
             </Grid>
 
-              {/* TAX WITHHELD INFORMATION */}
-              <Label htmlFor="federal-income-tax-input">{t('form1099.federalIncomeTaxWithheld')}</Label>
-              <TextInput id="federal-income-tax-withheld-input" name="taxes_withheld2" type="number"/>             
+            {/* TAX WITHHELD INFORMATION */}
+            <Label htmlFor="federal-income-tax-input">{t('form1099.federalIncomeTaxWithheld')}</Label>
+            <TextInput id="federal-income-tax-withheld-input" name="taxes_withheld2" type="number" />
 
-              {/* WAGES AND COMPENSATION */}
-              <Label htmlFor="compensation-input">{t('form1099.nonemployeeCompensation')}</Label>
-              <TextInput id="compensation-input" name="total_compensation" type="number"/>
+            {/* WAGES AND COMPENSATION */}
+            <Label htmlFor="compensation-input">{t('form1099.nonemployeeCompensation')}</Label>
+            <TextInput id="compensation-input" name="total_compensation" type="number" />
 
-              {props.isTaxFiling && (<Button type="button" onClick={props.handleCancel}>Cancel</Button>)}
-              {props.isTaxFiling && (<Button type="button" onClick={props.handleSubmit}>Submit</Button>)}
-              {!props.isTaxFiling && (<Button type="submit" data-close-modal='true'>{t('form1099.submit')}</Button>)}
+            {props.isTaxFiling && (<Button type="button" onClick={props.handleCancel}>Cancel</Button>)}
+            {props.isTaxFiling && (<Button type="button" onClick={props.handleSubmit}>Submit</Button>)}
+            {!props.isTaxFiling && (<Button type="submit" data-close-modal='true'>{t('form1099.submit')}</Button>)}
           </Form>
 
         </div>

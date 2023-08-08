@@ -382,7 +382,8 @@ export default function CreateEditUserAccount(props: CreateEditUserAccountProps)
                                                         type="password"
                                                         autoCapitalize="off"
                                                         autoCorrect="off"
-                                                        required={false}
+                                                        required={props.accountExists ? false : true}
+                                                        readOnly={props.accountExists ? true : false}
                                                         value={userDetails.ssn}
                                                         onChange={handleSsnChange}
                                                     />

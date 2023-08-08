@@ -89,7 +89,7 @@ export default function CreateEditUserAccount(props: DisplayPersonalInfoProps) {
                                             <Label htmlFor="ssn" style={{ fontWeight: "bold" }}>
                                                 Social Security Number{' '}
                                             </Label>
-                                            <div>{props.userDetails.ssn}</div>
+                                            <div>{"*****" + ("" + props.userDetails.ssn).substring(5, 9)}</div>
 
                                         </Grid>
                                         <Grid style={{ width: "48%" }}>
