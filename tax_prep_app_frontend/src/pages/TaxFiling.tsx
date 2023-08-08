@@ -75,7 +75,7 @@ export default function TaxFiling() {
     <>
       {currentPage == 1 && (<GeneralTaxInformation taxFiling={taxFiling} handleDependentChange={handleDependentsChange} handleMarried={handleMarriedChange} onNextClick={handleNextButtonClick} />)}
       {currentPage == 2 && (<FormSelection onNextClick={handleNextButtonClick} onBackClick={handleBackButtonClick} on1099Click={handleAdd1099Click} onW2Click={handleAddW2lick} />)}
-      {currentPage == 3 && (<TaxSummary isTaxFiling={true} handleBack={handleBackButtonClick} handleSubmit={handleTaxSummarySubmit} />)}
+      {currentPage == 3 && (<TaxSummary isTaxFiling={true} taxFiling={taxFiling} handleBack={handleBackButtonClick} handleSubmit={handleTaxSummarySubmit} />)}
 
       {currentPage == 5 && (
         <main id="main-content" style={containerStyle as React.CSSProperties}>

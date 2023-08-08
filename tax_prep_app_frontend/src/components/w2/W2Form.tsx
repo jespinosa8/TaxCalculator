@@ -37,14 +37,14 @@ export default function W2Form(props: W2FormProps) {
     <>
       <main>
         <div className="bg-base-lightest" style={containerStyle as React.CSSProperties}>
+          <div className="bg-white padding-y-3 padding-x-5 border border-base-lighter">
+            <div id="w2-submit-form">
+              <Form onSubmit={handleW2Submit}>
 
-          <div id="w2-submit-form">
-            <Form onSubmit={handleW2Submit}>
 
-
-              <h1>{t('w2Form.taxStatement')}</h1>
-              {/* EMPLOYEE INFORMATION */}
-              {/* <Label htmlFor="name" style={{ fontWeight: 'bold' }}>Employee Personal Information</Label>
+                <h1>{t('w2Form.taxStatement')}</h1>
+                {/* EMPLOYEE INFORMATION */}
+                {/* <Label htmlFor="name" style={{ fontWeight: 'bold' }}>Employee Personal Information</Label>
 
               <Grid row style={{ display: "flex", justifyContent: "space-between" }}>
 
@@ -64,9 +64,9 @@ export default function W2Form(props: W2FormProps) {
                          
               </Grid> */}
 
-              <Grid row style={{ display: "flex", justifyContent: "space-between" }}>
+                <Grid row style={{ display: "flex", justifyContent: "space-between" }}>
 
-                {/* <Grid col={6} style={{ width: "48%" }}>
+                  {/* <Grid col={6} style={{ width: "48%" }}>
 
                   <Label htmlFor="street-address-input">Street Address</Label>
                   <TextInput id="street-address-input" name="streetAddress" type="text" required/>
@@ -79,84 +79,84 @@ export default function W2Form(props: W2FormProps) {
 
                 </Grid> */}
 
-                <Grid col={6} style={{ width: "48%" }}>
+                  <Grid col={6} style={{ width: "48%" }}>
 
-                  <Label htmlFor="street-address2-input">{t('w2Form.apt')}</Label>
-                  <TextInput id="street-address2-input" name="streetAddress2" type="text" />
+                    <Label htmlFor="street-address2-input">{t('w2Form.apt')}</Label>
+                    <TextInput id="street-address2-input" name="streetAddress2" type="text" />
 
-                  <Label htmlFor="state-input">{t('w2Form.state')}</Label>
-                  <StatesDropdown />
-                </Grid>
+                    <Label htmlFor="state-input">{t('w2Form.state')}</Label>
+                    <StatesDropdown />
+                  </Grid>
 
-                {/* <Grid col={12}>
+                  {/* <Grid col={12}>
                   <Label htmlFor="employee-ssn-input">Social Security Number</Label>
                   <TextInput id="employee-ssn-input" name="employeeSsn" type="number"/>
                 </Grid> */}
 
-              </Grid>
-              {/* EMPLOYER INFORMATION */}
-              <Label htmlFor="name" style={{ fontWeight: 'bold' }}>{t('w2Form.employerInformationLabel')}</Label>
-
-              <Grid row style={{ display: "flex", justifyContent: "space-between" }}>
-
-
-                <Label htmlFor="city-input">{t('w2Form.city')}</Label>
-                <TextInput id="city-input" name="city" type="text" required />
-
-                <Grid col={12}>
-                  <Label htmlFor="employer-name-input">{t('w2Form.employerName')}</Label>
-                  <TextInput id="employer-name-input" name="employerName" type="text" />
                 </Grid>
+                {/* EMPLOYER INFORMATION */}
+                <Label htmlFor="name" style={{ fontWeight: 'bold' }}>{t('w2Form.employerInformationLabel')}</Label>
 
-                <Grid col={12}>
-                  <Label htmlFor="employer-address-input">{t('w2Form.streetAddress')}</Label>
-                  <TextInput id="employer-address-input" name="employerAddress" type="text" />
+                <Grid row style={{ display: "flex", justifyContent: "space-between" }}>
+
+
+                  <Label htmlFor="city-input">{t('w2Form.city')}</Label>
+                  <TextInput id="city-input" name="city" type="text" required />
+
+                  <Grid col={12}>
+                    <Label htmlFor="employer-name-input">{t('w2Form.employerName')}</Label>
+                    <TextInput id="employer-name-input" name="employerName" type="text" />
+                  </Grid>
+
+                  <Grid col={12}>
+                    <Label htmlFor="employer-address-input">{t('w2Form.streetAddress')}</Label>
+                    <TextInput id="employer-address-input" name="employerAddress" type="text" />
+                  </Grid>
+
+                  <Grid col={6} style={{ width: "48%" }}>
+                    <Label htmlFor="employer-city-input">{t('w2Form.employerCity')}</Label>
+                    <TextInput id="employer-city-input" name="employerCity" type="text" />
+                  </Grid>
+
+                  <Grid col={6} style={{ width: "48%" }}>
+                    <Label htmlFor="employer-state-input">{t('w2Form.employerState')}</Label>
+                    <StatesDropdown />
+                  </Grid>
+
+                  <Grid col={6} style={{ width: "48%" }}>
+                    <Label htmlFor="employer-zipCode-input">{t('w2Form.employerZip')}</Label>
+                    <TextInput id="employer-zipCode-input" name="employerZipCode" type="number" />
+
+                  </Grid>
+
+                  <Grid col={12}>
+                    <Label htmlFor="employer-ein-input">{t('w2Form.employerEin')}</Label>
+                    <TextInput id="employer-ein-input" name="employerEin" type="number" />
+                  </Grid>
+
                 </Grid>
+                {/* EMPLOYER INFORMATION */}
+                <Label htmlFor="name" style={{ fontWeight: 'bold' }}>{t('w2Form.employerInformationLabel')}</Label>
 
-                <Grid col={6} style={{ width: "48%" }}>
-                  <Label htmlFor="employer-city-input">{t('w2Form.employerCity')}</Label>
-                  <TextInput id="employer-city-input" name="employerCity" type="text" />
-                </Grid>
+                {/* TAX WITHHELD INFORMATION */}
+                <Label htmlFor="federal-income-tax--input">{t('w2Form.federalIncomeTaxWithheld')}</Label>
+                <TextInput id="federal-income-tax-withheld-input" name="federalIncomeTaxWithheld" type="number" />
 
-                <Grid col={6} style={{ width: "48%" }}>
-                  <Label htmlFor="employer-state-input">{t('w2Form.employerState')}</Label>
-                  <StatesDropdown />
-                </Grid>
+                <Label htmlFor="social-security-tax-withheld-input">{t('w2Form.socialSecurityTaxWithheld')}</Label>
+                <TextInput id="social-security-tax-withheld-input" name="socialSecurityTaxWithheld" type="number" />
 
-                <Grid col={6} style={{ width: "48%" }}>
-                  <Label htmlFor="employer-zipCode-input">{t('w2Form.employerZip')}</Label>
-                  <TextInput id="employer-zipCode-input" name="employerZipCode" type="number" />
+                <Label htmlFor="medicare-tax-withheld">{t('w2Form.medicareTaxWithheld')}</Label>
+                <TextInput id="medicare-tax-withheld" name="medicareTaxWithheld" type="number" />
 
-                </Grid>
+                {/* WAGES AND COMPENSATION */}
+                <Label htmlFor="wages-input">{t('w2Form.wagesTipsOtherCompensation')}</Label>
+                <TextInput id="wages-input" name="wages" type="number" />
 
-                <Grid col={12}>
-                  <Label htmlFor="employer-ein-input">{t('w2Form.employerEin')}</Label>
-                  <TextInput id="employer-ein-input" name="employerEin" type="number" />
-                </Grid>
-
-              </Grid>
-              {/* EMPLOYER INFORMATION */}
-              <Label htmlFor="name" style={{ fontWeight: 'bold' }}>{t('w2Form.employerInformationLabel')}</Label>
-
-              {/* TAX WITHHELD INFORMATION */}
-              <Label htmlFor="federal-income-tax--input">{t('w2Form.federalIncomeTaxWithheld')}</Label>
-              <TextInput id="federal-income-tax-withheld-input" name="federalIncomeTaxWithheld" type="number" />
-
-              <Label htmlFor="social-security-tax-withheld-input">{t('w2Form.socialSecurityTaxWithheld')}</Label>
-              <TextInput id="social-security-tax-withheld-input" name="socialSecurityTaxWithheld" type="number" />
-
-              <Label htmlFor="medicare-tax-withheld">{t('w2Form.medicareTaxWithheld')}</Label>
-              <TextInput id="medicare-tax-withheld" name="medicareTaxWithheld" type="number" />
-
-              {/* WAGES AND COMPENSATION */}
-              <Label htmlFor="wages-input">{t('w2Form.wagesTipsOtherCompensation')}</Label>
-              <TextInput id="wages-input" name="wages" type="number" />
-
-              {props.isTaxFiling && (<Button type="button" onClick={props.handleCancel}>Cancel</Button>)}
-              {props.isTaxFiling && (<Button type="button" onClick={props.handleSubmit}>Submit</Button>)}
-              {!props.isTaxFiling && (<Button type="submit" data-close-modal='true'>{t('w2Form.submit')}</Button>)}
-            </Form>
-
+                {props.isTaxFiling && (<Button type="button" onClick={props.handleCancel}>Cancel</Button>)}
+                {props.isTaxFiling && (<Button type="button" onClick={props.handleSubmit}>Submit</Button>)}
+                {!props.isTaxFiling && (<Button type="submit" data-close-modal='true'>{t('w2Form.submit')}</Button>)}
+              </Form>
+            </div>
           </div>
         </div>
       </main>

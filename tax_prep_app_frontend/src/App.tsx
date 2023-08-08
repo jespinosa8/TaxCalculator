@@ -47,7 +47,7 @@ function App() {
 
                 <Routes>
                     <Route path='/' element={<Home />}/>
-                    <Route path='/tax-summary' element={<TaxSummary />}/>
+                    <Route path='/tax-summary' element={<TaxSummary isTaxFiling={false}/>}/>
                     <Route path='/tax-filing' element={<TaxFiling />}/>
                     <Route path='/add-w2' element={<W2Page />}/> 
                     <Route path='/add-1099' element={<Page1099/>}/> 

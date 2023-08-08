@@ -15,6 +15,8 @@ export default function W2SummaryTable () {
 
   const lng = navigator.language;
 
+  // todo: fetch w2s here, feed to table
+
   return (
     <>
         <Table striped fullWidth className="bg-primary-lighter" >
