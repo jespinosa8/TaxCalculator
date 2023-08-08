@@ -12,6 +12,8 @@ import Login from './pages/Login';
 import SignUp from './pages/SignUp';
 import { useTranslation } from 'react-i18next';
 import { useEffect } from 'react';
+import { Provider } from 'react-redux';
+import store from './Store';
 
 function App() {
 
