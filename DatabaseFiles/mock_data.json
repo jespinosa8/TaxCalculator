@@ -26,7 +26,6 @@
       },
       "form_w2s": [
         {
-          "employee_ssn": 123456789,
           "employer_name": "ABC Corporation",
           "ein": 987654321,
           "employer_street1": "456 Elm St",
@@ -42,7 +41,6 @@
       ],
       "form_1099s": [
         {
-          "recipient_tin": 987654321,
           "payer_name": "XYZ Company",
           "payer_street1": "789 Oak St",
           "payer_street2": "",
@@ -83,7 +81,6 @@
       },
       "form_w2s": [
         {
-          "employee_ssn": 987654321,
           "employer_name": "XYZ Corporation",
           "ein": 123456789,
           "employer_street1": "123 Main St",
@@ -127,7 +124,6 @@
     "form_w2s": [{}],
     "form_1099s": [
         {
-          "recipient_tin": 555555555,
           "payer_name": "ABC Company",
           "payer_street1": "123 Main St",
           "payer_street2": "Suite 456",

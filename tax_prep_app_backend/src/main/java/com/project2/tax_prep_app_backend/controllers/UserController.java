@@ -1,4 +1,4 @@
-package com.project2.controllers;
+package com.project2.tax_prep_app_backend.controllers;
 
 import java.util.List;
 
@@ -15,8 +15,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.project2.models.User;
-import com.project2.services.UserService;
+import com.project2.tax_prep_app_backend.models.User;
+import com.project2.tax_prep_app_backend.services.UserService;
 
 @RestController
 @RequestMapping("/users")
