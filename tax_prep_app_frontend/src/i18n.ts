@@ -51,7 +51,7 @@ i18n
             federalIncomeTaxWithheld: "Federal Income Tax Withheld",
             socialSecurityTaxWithheld: "Social Security Tax Withheld",
             medicareTaxWithheld: "Medicare Tax Withheld",
-            wagesTipsOtherCompensation: "Wages, Tips and other Compensation",
+            wagesTipsOtherCompensation: "Wages, Tips, and other Compensation",
             submit: "Submit"
           },
           form1099: {
