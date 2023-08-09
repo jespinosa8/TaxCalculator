@@ -13,8 +13,6 @@ export default function Table1099 () {
 
   const lng = navigator.language;
 
-  // todo: fetch 1099s here, feed to table
-
   return (
     <>
       <Table striped fullWidth className="bg-primary-lighter" >

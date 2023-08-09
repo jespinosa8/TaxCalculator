@@ -2,6 +2,7 @@ import { Button, Grid, Label, TextInput } from "@trussworks/react-uswds"
 import { useState } from "react"
 import W2SummaryTable from "../components/w2/W2SummaryTable"
 import Table1099 from "../components/1099/Table1099"
+import { getUser } from "../slices/UserSlice"
 
 interface taxFiling {
   married: boolean,
@@ -22,15 +23,12 @@ const containerStyle = {
   margin: "0 auto",
   padding: "2rem",
   textAlign: "center",
-  display: "flex"
+  display: "flex",
+  marginTop: "35px"
 }
 
 export default function TaxSummary(props: TaxSummaryProps) {
-
-  const [formW2s, setFormW2s] = useState({})
-  const [form1099s, setForm1099s] = useState({})
-
-  // todo: fetch and set w2s and 1099s here
+  const [user, setUser] = useState(getUser())
 
   const calculateRefundAmount = () => {
     // do calculations here 
@@ -42,7 +40,7 @@ export default function TaxSummary(props: TaxSummaryProps) {
 
   return (
     <>
-      <main id="main-content" style={containerStyle as React.CSSProperties}>
+      <div style={containerStyle as React.CSSProperties}>
         <div className="bg-base-lightest" style={containerStyle as React.CSSProperties}>
           {(!props.isTaxFiling && props.taxFiling == undefined) && (
             <>
@@ -57,7 +55,6 @@ export default function TaxSummary(props: TaxSummaryProps) {
               <div className="bg-white padding-y-3 padding-x-15 border border-base-lighter">
                 <h1 className="margin-bottom-0" style={{ fontSize: 38 }}>{props.isTaxFiling ? "Step 3: Review and Submit" : "Tax Filing Summary"}</h1>
                 <div>
-                  {/* <h2 style={{ textAlign: "center", marginTop: "55px", marginBottom: "-15px" }}>General Tax Information</h2> */}
                   <Grid>
                     <Grid row style={{ display: "flex", justifyContent: "space-between" }}>
                       <Grid col={6} style={{ width: "48%" }}>
@@ -79,14 +76,14 @@ export default function TaxSummary(props: TaxSummaryProps) {
                     </Grid>
 
                     {/** hide these lines if there are no W2s */}
-                    <hr className="solid" style={{ marginBottom: "5px", marginTop: "35px" }}></hr>
+                    {!(user.formW2s == null) && (<><hr className="solid" style={{ marginBottom: "5px", marginTop: "35px" }}></hr>
                     <h2 style={{ textAlign: "center", marginBottom: "-15px" }}>W2s</h2>
-                    <W2SummaryTable />
+                    <W2SummaryTable /></>)}
 
                     {/** hide these lines if there are no 1099s */}
-                    <hr className="solid" style={{ marginBottom: "5px", marginTop: "35px" }}></hr>
+                    {!(user.form1099s == null) && (<><hr className="solid" style={{ marginBottom: "5px", marginTop: "35px" }}></hr>
                     <h2 style={{ textAlign: "center", marginBottom: "-15px" }}>1099s</h2>
-                    <Table1099 />
+                    <Table1099 /></>)}
 
                     <hr className="solid" style={{ marginBottom: "5px", marginTop: "35px" }}></hr>
                     <Grid row style={{ display: "flex", justifyContent: "space-between" }}>
@@ -122,7 +119,7 @@ export default function TaxSummary(props: TaxSummaryProps) {
           </Grid>
           )}
         </div>
-      </main>
+      </div>
     </>
   )
 }
