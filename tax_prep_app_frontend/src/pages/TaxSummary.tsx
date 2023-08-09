@@ -4,29 +4,30 @@ import W2SummaryTable from "../components/w2/W2SummaryTable"
 import Table1099 from "../components/1099/Table1099"
 import { getUser } from "../slices/UserSlice"
 
-export default function TaxSummary() {
-  interface taxFiling {
-    married: boolean,
-    dependents: number
-  }
+interface taxFiling {
+  married: boolean,
+  dependents: number
+}
 
-  interface TaxSummaryProps {
-    isTaxFiling: boolean
+interface TaxSummaryProps {
+  isTaxFiling: boolean
+  
+  taxFiling?: taxFiling
+  
+  handleBack?: (event: any) => void
+  handleSubmit?: (event: any) => void
+}
 
-    taxFiling?: taxFiling
+const containerStyle = {
+  maxWidth: "1280px",
+  margin: "0 auto",
+  padding: "2rem",
+  textAlign: "center",
+  display: "flex",
+  marginTop: "35px"
+}
 
-    handleBack?: (event: any) => void
-    handleSubmit?: (event: any) => void
-  }
-
-  const containerStyle = {
-    maxWidth: "1280px",
-    margin: "0 auto",
-    padding: "2rem",
-    textAlign: "center",
-    display: "flex",
-    marginTop: "35px"
-  }
+export default function TaxSummary(props: TaxSummaryProps) {
 
   const [user, setUser] = useState(getUser()); 
   const dependents = user.taxFilings?.dependents || 0;  // get dependents from taxFilings document or default to 0
@@ -47,7 +48,7 @@ export default function TaxSummary() {
       totalAmountDue = form1099s.reduce((acc, form1099) => {
         const income = form1099.totalCompensation;
 
-        // Applies current US progressive tax rate based on income for married couples (filing jointly)
+        // Applies current US tax rate based on income for married couples (filing jointly)
         if (income <= 20550) {
           return acc + income * 0.10;
         } else if (income <= 83550) {
@@ -68,7 +69,7 @@ export default function TaxSummary() {
       totalAmountDue = form1099s.reduce((acc, form1099) => {
         const income = form1099.totalCompensation;
 
-        // Applies current US progressive tax rate based on income for unmarried or single 
+        // Applies current US tax rate based on income for unmarried or single 
         if (income <= 10275) {
           return acc + income * 0.10;
         } else if (income <= 41775) {
