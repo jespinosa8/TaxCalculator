@@ -507,7 +507,7 @@ export default function CreateEditUserAccount(props: CreateEditUserAccountProps)
                             </div>
                             <p className="text-center" hidden={props.accountExists ? true : false}>
                                 Already have an account?{' '}
-                                <Link href="/login">Sign in</Link>.
+                                <Link href="/">Sign in</Link>.
                             </p>
                         </Grid>
                     </Grid>

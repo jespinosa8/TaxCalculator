@@ -11,9 +11,8 @@ import TaxFiling from './pages/TaxFiling';
 import Login from './pages/Login';
 import SignUp from './pages/SignUp';
 import { useTranslation } from 'react-i18next';
-import { useEffect } from 'react';
-import { Provider } from 'react-redux';
-import store from './Store';
+import { useEffect, useState } from 'react';
+import { getUser } from './slices/UserSlice'
 
 function App() {
 
@@ -26,16 +25,20 @@ function App() {
 
     const lng = navigator.language;
 
-    const navItems = [
+    const [user, setUser] = useState(getUser())
 
+    const navItems = 
+    // user.username == '' ? [] :
+    [
         // creating a list of react-router-dom Links to pass to our navbar
-        <Link to='/'>{t('link.home')}</Link>,
+        // <Link to='/'>{t('link.logOut')}</Link>,
+        <Link to='/home'>{t('link.home')}</Link>,
         <Link to='/tax-summary'>{t('link.taxSummary')}</Link>,
         // <Link to='/tax-filing'>{t('link.generalTaxInformation')}</Link>,
         <Link to='/add-w2'>{t('link.addW2')}</Link>,
         <Link to='/add-1099'>{t('link.add1099')}</Link>,
         <Link to='/personal-info'>{t('link.personalInformation')}</Link>,
-        <Link to='/login'>{t('link.logOut')}</Link>,
+        <Link to='/logout'>{t('link.logOut')}</Link>
         // <div>Browser Language: {lng}</div>
     ];
 
@@ -48,14 +51,15 @@ function App() {
                 </Header>
 
                 <Routes>
-                    <Route path='/' element={<Home />}/>
+                    <Route path='/' element={<Login />}/>
+                    <Route path='/signup' element={<SignUp />}/>     
+                    <Route path='/home' element={<Home />}/>
                     <Route path='/tax-summary' element={<TaxSummary isTaxFiling={false}/>}/>
                     <Route path='/tax-filing' element={<TaxFiling />}/>
                     <Route path='/add-w2' element={<W2Page />}/> 
                     <Route path='/add-1099' element={<Page1099/>}/> 
-                    <Route path='/personal-info' element={<PersonalInformation />}/>            
-                    <Route path='/login' element={<Login />}/>
-                    <Route path='/signup' element={<SignUp />}/>                
+                    <Route path='/personal-info' element={<PersonalInformation />}/>
+
                 </Routes>
 
             </BrowserRouter>         

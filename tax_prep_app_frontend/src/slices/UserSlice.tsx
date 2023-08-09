@@ -103,6 +103,7 @@ export const loginUser = createAsyncThunk(
     'users/loginUser',
     async (userCredentials: UserCredentials) => {
         // fetch request for login backend goes here --- currently just grabbing first user in the collection
+        // pass userCredentials in the body and encrypt the password
         fetch('http://localhost:8080/users')
             .then((res) => res.json())
             .then((data: User[]) => {

@@ -1,8 +1,13 @@
 package com.project2.tax_prep_app_backend.services;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 
@@ -15,10 +20,13 @@ import com.project2.tax_prep_app_backend.repositories.UserRepository;
 
 
 @Service
-public class UserService {
+public class UserService implements UserDetailsService {
     
     @Autowired
     UserRepository userRepository;
+
+    @Autowired
+    PasswordEncoder passwordEncoder;
 
     // Retrieves all users
     public List<User> getAllUsers() {
@@ -27,12 +35,26 @@ public class UserService {
 
     // get user by id
     public User findById(String userId) {
-        return userRepository.findById(userId).orElse(null);
+        Optional<User> user = userRepository.findById(userId);
+        if(user.isPresent()) {
+            return user.get();
+        }
+        return null;
     }
 
     // add new user to the database
     public User createUser(User user) {
-        return userRepository.save(user);
+        Optional<User> foundUser = userRepository.findByUsername(user.getUsername());
+        if(foundUser.isPresent()) {
+            throw new RuntimeException("That username is taken");
+        }
+        else {
+            user.setPassword(passwordEncoder.encode(user.getPassword()));
+
+            user.setRole("ROLE_USER");
+
+            return userRepository.save(user);
+        }
     }
 
     // update an existing user in the database
@@ -238,7 +260,11 @@ public class UserService {
             throw new RuntimeException("Form1099 not found");
         }
     }
-    
-    
 
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        User user = userRepository.findByUsername(username).orElseThrow(() -> new UsernameNotFoundException(username + " not found."));
+        return user;
+    }
+    
 }
