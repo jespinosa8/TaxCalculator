@@ -22,18 +22,19 @@ public class SecurityConfiguration {
             authorizeHttpRequests
                 .mvcMatchers(HttpMethod.POST, "/users/newUser").permitAll()
 
-                .mvcMatchers(HttpMethod.GET, "/users/**").authenticated()
-                .mvcMatchers(HttpMethod.PUT, "/users/**").authenticated()
-                .mvcMatchers(HttpMethod.DELETE, "/users/**").authenticated()
+                .mvcMathchers("/").permitAll() // remove this later
+                // .mvcMatchers(HttpMethod.GET, "/users/**").authenticated()
+                // .mvcMatchers(HttpMethod.PUT, "/users/**").authenticated()
+                // .mvcMatchers(HttpMethod.DELETE, "/users/**").authenticated()
                 
-                .mvcMatchers("/").permitAll()
-                .mvcMatchers("/signup").permitAll()
-                .mvcMatchers("/home").authenticated()
-                .mvcMatchers("/tax-summary").authenticated()
-                .mvcMatchers("/tax-filing").authenticated()
-                .mvcMatchers("/add-w2").authenticated()
-                .mvcMatchers("/add-1099").authenticated()
-                .mvcMatchers("/personal-info").authenticated()
+                // .mvcMatchers("/").permitAll()
+                // .mvcMatchers("/signup").permitAll()
+                // .mvcMatchers("/home").authenticated()
+                // .mvcMatchers("/tax-summary").authenticated()
+                // .mvcMatchers("/tax-filing").authenticated()
+                // .mvcMatchers("/add-w2").authenticated()
+                // .mvcMatchers("/add-1099").authenticated()
+                // .mvcMatchers("/personal-info").authenticated()
         )
         .httpBasic();
         http.csrf((csrf) ->
