@@ -1,9 +1,13 @@
 package com.project2.tax_prep_app_backend.models;
 
+import java.util.Date;
+
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
 
 import org.springframework.data.mongodb.core.mapping.Field;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -43,5 +47,9 @@ import lombok.NoArgsConstructor;
 
     @Field("total_compensation")
     private double totalCompensation;
+
+    @JsonFormat(pattern = "MM-dd-yyyy")
+    @Field("date_submitted2")
+    private Date dateSubmitted;
     
 }
