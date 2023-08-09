@@ -1,9 +1,9 @@
 package com.project2.tax_prep_app_backend.models;
 
-import java.util.Collection;
-import java.util.HashSet;
+// import java.util.Collection;
+// import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
+// import java.util.Set;
 
 import javax.validation.constraints.NotNull;
 
@@ -13,16 +13,16 @@ import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
+// import org.springframework.security.core.GrantedAuthority;
+// import org.springframework.security.core.authority.SimpleGrantedAuthority;
+// import org.springframework.security.core.userdetails.UserDetails;
 
 
 
 
 @NoArgsConstructor
 @Document(collection = "users")
-@Data public class User implements UserDetails{
+@Data public class User /**implements UserDetails*/{
     
     @Id    
     private String id;
@@ -50,30 +50,30 @@ import org.springframework.security.core.userdetails.UserDetails;
     @Field("form_1099s")
     private List<Form1099> form1099s;
 
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        Set<SimpleGrantedAuthority> authorities = new HashSet<>();
-        SimpleGrantedAuthority userRole = new SimpleGrantedAuthority(role);
-        authorities.add(userRole);
+    // @Override
+    // public Collection<? extends GrantedAuthority> getAuthorities() {
+    //     Set<SimpleGrantedAuthority> authorities = new HashSet<>();
+    //     SimpleGrantedAuthority userRole = new SimpleGrantedAuthority(role);
+    //     authorities.add(userRole);
 
-        return authorities;
-    }
+    //     return authorities;
+    // }
 
-    @Override
-    public boolean isAccountNonExpired() {
-        return true;
-    }
-    @Override
-    public boolean isAccountNonLocked() {
-        return true;
-    }
-    @Override
-    public boolean isCredentialsNonExpired() {
-        return true;
-    }
-    @Override
-    public boolean isEnabled() {
-        return true;
-    } 
+    // @Override
+    // public boolean isAccountNonExpired() {
+    //     return true;
+    // }
+    // @Override
+    // public boolean isAccountNonLocked() {
+    //     return true;
+    // }
+    // @Override
+    // public boolean isCredentialsNonExpired() {
+    //     return true;
+    // }
+    // @Override
+    // public boolean isEnabled() {
+    //     return true;
+    // } 
 
 }
