@@ -5,8 +5,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.userdetails.UserDetails;
+// import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+// import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -48,12 +48,12 @@ public class UserController {
     }
 
     // Create new user    
-    @PostMapping("/newUser")
-    public ResponseEntity<User> createUser(@RequestBody User user) {       
+    // @PostMapping("/newUser")
+    // public ResponseEntity<User> createUser(@RequestBody User user) {       
     
-        User newUser = userService.createUser(user);
-        return new ResponseEntity<>(newUser, HttpStatus.CREATED);
-    }
+    //     User newUser = userService.createUser(user);
+    //     return new ResponseEntity<>(newUser, HttpStatus.CREATED);
+    // }
 
     // Update User by ID
     @PutMapping("/{userId}")
