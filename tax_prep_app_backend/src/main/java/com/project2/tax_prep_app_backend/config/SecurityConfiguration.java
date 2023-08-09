@@ -22,7 +22,7 @@ public class SecurityConfiguration {
             authorizeHttpRequests
                 .mvcMatchers(HttpMethod.POST, "/users/newUser").permitAll()
 
-                .mvcMathchers("/").permitAll() // remove this later
+                .mvcMatchers("/").permitAll() // remove this later
                 // .mvcMatchers(HttpMethod.GET, "/users/**").authenticated()
                 // .mvcMatchers(HttpMethod.PUT, "/users/**").authenticated()
                 // .mvcMatchers(HttpMethod.DELETE, "/users/**").authenticated()
