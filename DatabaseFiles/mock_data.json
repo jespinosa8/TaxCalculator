@@ -11,7 +11,7 @@
       "middle_name": "David",
       "last_name": "Doe",
       "email": "john@example.com",
-      "dob": "1990-01-15",
+      "dob": "01-15-1995",
       "street1": "123 Main St",
       "street2": "Apt 456",
       "city": "Cityville",
@@ -37,7 +37,8 @@
           "wages_and_tips": 60000.00,
           "ss_withheld": 3500.00,
           "taxes_withheld": 7000.00,
-          "medicare_withheld": 1200.00
+          "medicare_withheld": 1200.00,
+          "date_submitted": "01-01-2023"
         }
       ],
       "form_1099s": [
@@ -50,7 +51,8 @@
           "payer_zip": 98765,
           "payer_tin": 123456789,
           "taxes_withheld2": 1800.00,
-          "total_compensation": 25000.00
+          "total_compensation": 25000.00,
+          "date_submitted2": "01-01-2023"
         }
       ]    
   },
@@ -66,7 +68,7 @@
       "middle_name": "",
       "last_name": "Smith",
       "email": "jane@example.com",
-      "dob": "1985-08-22",
+      "dob": "08-22-1985",
       "street1": "456 Elm St",
       "street2": "Unit 789",
       "city": "Townsville",
@@ -92,7 +94,8 @@
           "wages_and_tips": 55000.00,
           "ss_withheld": 3200.00,
           "taxes_withheld": 6500.00,
-          "medicare_withheld": 1100.00
+          "medicare_withheld": 1100.00,
+          "date_submitted": "01-01-2023"
         }
       ],
       "form_1099s": [{}]
@@ -109,7 +112,7 @@
       "middle_name": "William",
       "last_name": "Johnson",
       "email": "robert@example.com",
-      "dob": "1992-04-10",
+      "dob": "04-10-1992",
       "street1": "789 Oak St",
       "street2": "",
       "city": "Citytown",
@@ -134,7 +137,8 @@
           "payer_zip": 12345,
           "payer_tin": 987654321,
           "taxes_withheld2": 1600.00,
-          "total_compensation": 22000.00
+          "total_compensation": 22000.00,
+          "date_submitted2": "01-01-2023"
         }
       ]  
   }

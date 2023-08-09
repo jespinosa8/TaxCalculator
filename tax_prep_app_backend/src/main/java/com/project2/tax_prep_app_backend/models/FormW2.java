@@ -1,9 +1,13 @@
 package com.project2.tax_prep_app_backend.models;
 
+import java.util.Date;
+
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
 
 import org.springframework.data.mongodb.core.mapping.Field;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -50,4 +54,7 @@ import lombok.NoArgsConstructor;
     @Field("medicare_withheld")
     private double medicareWithheld;
     
+    @JsonFormat(pattern = "MM-dd-yyyy")
+    @Field("date_submitted")
+    private Date dateSubmitted;
 }
