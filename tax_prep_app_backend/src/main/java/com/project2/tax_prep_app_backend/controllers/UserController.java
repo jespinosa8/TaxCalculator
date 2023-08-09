@@ -50,13 +50,7 @@ public class UserController {
 
     // Create new user    
     @PostMapping("/newUser")
-    public ResponseEntity<User> createUser(@RequestBody User user) {
-        // Set embedded documents to be empty (NOT NULL otherwise NUll pointer exception when doing POST requests to them)
-        
-        user.setUserDetail(null);
-        user.setTaxFilings(null);
-        user.setFormW2s(null);
-        user.setForm1099s(null);
+    public ResponseEntity<User> createUser(@RequestBody User user) {       
     
         User newUser = userService.createUser(user);
         return new ResponseEntity<>(newUser, HttpStatus.CREATED);
@@ -64,23 +58,22 @@ public class UserController {
 
     // Update User by ID
     @PutMapping("/{userId}")
-    public ResponseEntity<User> updateUser(@PathVariable String userId, @RequestBody User user) {
+    public ResponseEntity<User> updateUser(@PathVariable String userId, @RequestBody User updatedUser) {
         User existingUser = userService.findById(userId);
         if (existingUser == null) {
             return ResponseEntity.notFound().build();
-        }
+        }      
         
-        // Update fields of the existing user with the new values
-        existingUser.setUsername(user.getUsername());
-        existingUser.setPassword(user.getPassword());
-        existingUser.setEnabled(user.isEnabled());
-        existingUser.setUserDetail(user.getUserDetail());
-        existingUser.setTaxFilings(user.getTaxFilings());
-        existingUser.setFormW2s(user.getFormW2s());
-        existingUser.setForm1099s(user.getForm1099s());
-        // ... Update other fields as needed ...
+        // Update the properties of the existing user with the properties from the updatedUser
+        existingUser.setUsername(updatedUser.getUsername());
+        existingUser.setPassword(updatedUser.getPassword());
+        existingUser.setEnabled(updatedUser.isEnabled());
+        existingUser.setUserDetail(updatedUser.getUserDetail());
+        existingUser.setTaxFilings(updatedUser.getTaxFilings());
+        existingUser.setFormW2s(updatedUser.getFormW2s());
+        existingUser.setForm1099s(updatedUser.getForm1099s());
         
-        User updatedUser = userService.updateUser(existingUser);
+        updatedUser = userService.updateUser(existingUser);
         return new ResponseEntity<>(updatedUser, HttpStatus.OK);
     }
     
