@@ -53,12 +53,12 @@ export default function GeneralTaxInformation(props: GeneralTaxInformationProps)
         padding: "2rem",
         textAlign: "center",
         display: "flex",
-        marginTop: "45px"
+        marginTop: "35px"
     }
 
     return (
         <>
-            <main id="main-content" style={containerStyle as React.CSSProperties}>
+            <div style={containerStyle as React.CSSProperties}>
                 <div className="bg-base-lightest" style={containerStyle as React.CSSProperties}>
                     <GridContainer className="usa-section">
                         <Grid row={true} className="flex-justify-center">
@@ -107,7 +107,7 @@ export default function GeneralTaxInformation(props: GeneralTaxInformationProps)
                         </Grid>
                     </GridContainer>
                 </div>
-            </main>
+            </div>
         </>
     )
 }

@@ -1,11 +1,12 @@
 import { Table } from "@trussworks/react-uswds";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useTranslation } from 'react-i18next';
+import { getUser } from "../../slices/UserSlice";
 // import SubmitDate from "./SubmitDate";
 
 
 export default function W2SummaryTable () {
-
+  
   const { t, i18n } = useTranslation();
 
   useEffect(() => {
@@ -14,8 +15,6 @@ export default function W2SummaryTable () {
   }, [])
 
   const lng = navigator.language;
-
-  // todo: fetch w2s here, feed to table
 
   return (
     <>

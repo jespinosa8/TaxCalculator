@@ -9,14 +9,18 @@ import {
     Button,
     Link
 } from "@trussworks/react-uswds"
-import { useDispatch } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import { loginUser } from "../slices/UserSlice"
 import { AppDispatch } from "../Store"
+import {useNavigate } from "react-router-dom"
+import toast from 'react-hot-toast'
 
 export default function Login() {
     const [username, setUsername] = React.useState("")
     const [password, setPassword] = React.useState("")
     const [showPassword, setShowPassword] = React.useState(false)
+
+    const { loading, error } = useSelector((state: any) => state.user)
 
     const handleUsernameChange = (event: any) => {
         setUsername(event.target.value)
@@ -27,6 +31,7 @@ export default function Login() {
     }
 
     const dispatch = useDispatch<AppDispatch>()
+    const navigate = useNavigate()
     const handleLoginSubmit = (event: any): void => {
         event.preventDefault()
 
@@ -34,7 +39,15 @@ export default function Login() {
             username, password
         }
 
-        dispatch(loginUser(userCredentials)) // dispatching loginUser function, passing in the userCredentials
+        // dispatching loginUser function, passing in the userCredentials
+        dispatch(loginUser(userCredentials)).then((success) => {
+            if(success) {
+                setUsername("")
+                setPassword("")
+                setShowPassword(false)
+                navigate("/")
+            }
+        })
     }
 
     const containerStyle = {
@@ -48,7 +61,7 @@ export default function Login() {
 
     return (
         <>
-            <main id="main-content" style={containerStyle as React.CSSProperties}
+            <div style={containerStyle as React.CSSProperties}
             >
                 <div className="bg-base-lightest" style={containerStyle as React.CSSProperties}
                 >
@@ -95,7 +108,10 @@ export default function Login() {
                                                 </a>
                                             </p>
                                         </Fieldset>
-                                        <Button style={{ marginTop: "-15px" }} type="submit">Sign in</Button>
+                                        <Button style={{ marginTop: "-15px" }} type="submit">{loading ? "loading" : "Sign In"}</Button>
+                                        {error && 
+                                            toast.error("Passwords must match")
+                                        }
                                     </Form>
                                 </div>
 
@@ -108,7 +124,7 @@ export default function Login() {
                         </Grid>
                     </GridContainer>
                 </div>
-            </main>
+            </div>
         </>
     )
 }
