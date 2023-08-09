@@ -1,6 +1,5 @@
 package com.project2.tax_prep_app_backend.controllers;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,9 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.project2.tax_prep_app_backend.models.Form1099;
 import com.project2.tax_prep_app_backend.models.FormW2;
-import com.project2.tax_prep_app_backend.models.TaxFiling;
 import com.project2.tax_prep_app_backend.models.User;
-import com.project2.tax_prep_app_backend.models.UserDetail;
 import com.project2.tax_prep_app_backend.services.UserService;
 
 @RestController
