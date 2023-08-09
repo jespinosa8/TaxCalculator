@@ -13,47 +13,62 @@ import {
 import StatesDropdown from '../dropdown/StatesDropdown'
 import CountriesDropdown from '../dropdown/CountriesDropdown'
 import toast, { Toaster } from 'react-hot-toast'
-
-type userType = {
-    username: string;
-    password: string;
-    enabled: boolean;
-}
-
-type userDetailsType = {
-    user: any,
-    ssn: string,
-    dob: string,
-    firstName: string,
-    middleName: string,
-    lastName: string,
-    email: string,
-    street1: string,
-    street2: string,
-    city: string,
-    state: string,
-    country: string,
-    zip: string
-}
+import { User } from '../../slices/UserSlice'
 
 interface CreateEditUserAccountProps {
     accountExists: boolean,
-    user: userType,
-    userDetails: userDetailsType,
+    existingUser?: User,
     hidden: boolean,
     handleUpdateTransition: () => void
 
 }
 
 export default function CreateEditUserAccount(props: CreateEditUserAccountProps) {
+
+    const userToCreateOrEdit = props.existingUser ? {
+        username: props.existingUser.username,
+        password: props.existingUser.password,
+        enabled: true,
+        userDetail: {
+            ssn: "" + props.existingUser.userDetail.ssn,
+            firstName: props.existingUser.userDetail.firstName,
+            middleName: props.existingUser.userDetail.middleName,
+            lastName: props.existingUser.userDetail.lastName,
+            email: props.existingUser.userDetail.email,
+            dob: "" + props.existingUser.userDetail.dob,
+            street1: props.existingUser.userDetail.street1,
+            street2: props.existingUser.userDetail.street2,
+            city: props.existingUser.userDetail.city,
+            state: props.existingUser.userDetail.state,
+            zip: "" + props.existingUser.userDetail.zip,
+            country: props.existingUser.userDetail.country,
+        }
+    } : {
+        username: "",
+        password: "",
+        enabled: true,
+        userDetail: {
+            ssn: "",
+            firstName: "",
+            middleName: "",
+            lastName: "",
+            email: "",
+            dob: "",
+            street1: "",
+            street2: "",
+            city: "",
+            state: "",
+            zip: "",
+            country: "",
+        }
+    }
+
+    const [user, setUser] = React.useState(userToCreateOrEdit)
+
     const [showPassword, setShowPassword] = React.useState(false)
-    const [retypedPassword, setRetypedPassword] = React.useState<string>(props.user.password)
+    const [retypedPassword, setRetypedPassword] = React.useState<string>(user.password)
 
     const now = new Date();
-
-    const [user, setUser] = React.useState(props.user)
-
-    const [userDetails, setUserDetails] = React.useState(props.userDetails)
 
     const handleUsernameChange = (event: any) => {
         setUser((prev) => ({ ...prev, username: event.target.value }))
@@ -70,73 +85,72 @@ export default function CreateEditUserAccount(props: CreateEditUserAccountProps)
 
     const handleFirstNameChange = (event: any) => {
         if (!/\d/.test(event.target.value)) {
-            setUserDetails((prev) => ({ ...prev, firstName: event.target.value }))
+            setUser((prev) => ({ ...prev, userDetail: { ...prev.userDetail, firstName: event.target.value } }))
         }
     }
 
     const handleMiddleNameChange = (event: any) => {
         if (!/\d/.test(event.target.value)) {
-            setUserDetails((prev) => ({ ...prev, middleName: event.target.value }))
+            setUser((prev) => ({ ...prev, userDetail: { ...prev.userDetail, middleName: event.target.value } }))
         }
     }
 
 
     const handleLastNameChange = (event: any) => {
         if (!/\d/.test(event.target.value)) {
-            setUserDetails((prev) => ({ ...prev, lastName: event.target.value }))
+            setUser((prev) => ({ ...prev, userDetail: { ...prev.userDetail, lastName: event.target.value } }))
 
         }
     }
 
     const handleSsnChange = (event: any) => {
         if (event.target.value == "" || /^\d+$/.test(event.target.value)) {
-            setUserDetails((prev) => ({ ...prev, ssn: event.target.value }))
+            setUser((prev) => ({ ...prev, userDetail: { ...prev.userDetail, ssn: event.target.value } }))
         }
     }
 
     const handleDobChange = (selectedDate?: string | undefined) => {
-        setUserDetails((prev) => ({ ...prev, dob: selectedDate === undefined ? "" : selectedDate }))
+        setUser((prev) => ({ ...prev, userDetail: { ...prev.userDetail, dob: selectedDate === undefined ? "" : selectedDate } }))
     }
 
     const handleZipChange = (event: any) => {
         if (event.target.value == "" || /^\d+$/.test(event.target.value)) {
-            setUserDetails((prev) => ({ ...prev, zip: event.target.value }))
+            setUser((prev) => ({ ...prev, userDetail: { ...prev.userDetail, zip: event.target.value } }))
         }
 
     }
 
     const handleEmailChange = (event: any) => {
-        setUserDetails((prev) => ({ ...prev, email: event.target.value }))
-
+        setUser((prev) => ({ ...prev, userDetail: { ...prev.userDetail, email: event.target.value } }))
     }
 
     const handleStreet1Change = (event: any) => {
-        setUserDetails((prev) => ({ ...prev, street1: event.target.value }))
+        setUser((prev) => ({ ...prev, userDetail: { ...prev.userDetail, street1: event.target.value } }))
 
     }
 
     const handleStreet2Change = (event: any) => {
-        setUserDetails((prev) => ({ ...prev, street2: event.target.value }))
+        setUser((prev) => ({ ...prev, userDetail: { ...prev.userDetail, street2: event.target.value } }))
 
     }
 
     const handleCityChange = (event: any) => {
         if (!/\d/.test(event.target.value)) {
-            setUserDetails((prev) => ({ ...prev, city: event.target.value }))
+            setUser((prev) => ({ ...prev, userDetail: { ...prev.userDetail, city: event.target.value } }))
 
         }
     }
 
     const handleStateChange = (event: any) => {
-        if (userDetails.country == "United States") {
-            setUserDetails((prev) => ({ ...prev, state: event.target.value }))
+        if (user.userDetail.country == "United States") {
+            setUser((prev) => ({ ...prev, userDetail: { ...prev.userDetail, state: event.target.value } }))
         }
 
     }
 
     const handleCountryChange = (event: any) => {
-        if (event.target.value != "United States") { setUserDetails((prev) => ({ ...prev, state: "" })) }
-        setUserDetails((prev) => ({ ...prev, country: event.target.value }))
+        if (event.target.value != "United States") { setUser((prev) => ({ ...prev, userDetail: { ...prev.userDetail, state: "" } })) }
+        setUser((prev) => ({ ...prev, userDetail: { ...prev.userDetail, country: event.target.value } }))
     }
 
     const handleCreateAccountSubmit = (event: any): void => {
@@ -149,11 +163,11 @@ export default function CreateEditUserAccount(props: CreateEditUserAccountProps)
             // passwords must match
             toast.error("Passwords must match")
         }
-        else if (userDetails.ssn.length != 0 && userDetails.ssn.length != 9) {
+        else if (user.userDetail.ssn.length != 0 && user.userDetail.ssn.length != 9) {
             // ssn must either be blank or 9 digits
             toast.error("SSN must be blank or 9 digits")
         }
-        else if (userDetails.zip.length != 0 && userDetails.zip.length != 5 && userDetails.zip.length != 9 && userDetails.zip.length != 10) {
+        else if (user.userDetail.zip.length != 0 && user.userDetail.zip.length != 5 && user.userDetail.zip.length != 9 && user.userDetail.zip.length != 10) {
             // zip must be blank, 5, 9, or 10 digits
             toast.error("Zip must be blank or 5, 9, or 10 digits")
         }
@@ -163,23 +177,27 @@ export default function CreateEditUserAccount(props: CreateEditUserAccountProps)
             // cast ssn and zip strings to number, convert dob string to date, set all empty fields to null
             // create user -> new user return value here --- setUserDetails((prev) => ({...prev, user: data})) -> create final user details as new object and save that
 
-            const userDetailsFinal = {
-                user: userDetails.user,
-                ssn: userDetails.ssn.length == 0 ? null : parseInt(userDetails.ssn),
-                dob: new Date(userDetails.dob),
-                firstName: userDetails.firstName,
-                middleName: userDetails.middleName.length == 0 ? null : userDetails.middleName,
-                lastName: userDetails.lastName,
-                email: userDetails.email,
-                street1: userDetails.street1,
-                street2: userDetails.street2.length == 0 ? null : userDetails.street2,
-                city: userDetails.city.length == 0 ? null : userDetails.city,
-                state: userDetails.state.length == 0 ? null : userDetails.state,
-                country: userDetails.country,
-                zip: userDetails.zip.length == 0 ? null : parseInt(userDetails.zip)
+            const userFinal = {
+                username: user.username,
+                password: user.password,
+                enabled: user.enabled,
+                userDetail: {
+                    ssn: user.userDetail.ssn.length == 0 ? null : parseInt(user.userDetail.ssn),
+                    dob: new Date(user.userDetail.dob),
+                    firstName: user.userDetail.firstName,
+                    middleName: user.userDetail.middleName.length == 0 ? null : user.userDetail.middleName,
+                    lastName: user.userDetail.lastName,
+                    email: user.userDetail.email,
+                    street1: user.userDetail.street1,
+                    street2: user.userDetail.street2.length == 0 ? null : user.userDetail.street2,
+                    city: user.userDetail.city.length == 0 ? null : user.userDetail.city,
+                    state: user.userDetail.state.length == 0 ? null : user.userDetail.state,
+                    country: user.userDetail.country,
+                    zip: user.userDetail.zip.length == 0 ? null : parseInt(user.userDetail.zip)
+                }
             }
 
-            console.log(userDetailsFinal)
+            console.log(userFinal)
 
             toast.success("Account Successfully Created!")
         }
@@ -195,7 +213,7 @@ export default function CreateEditUserAccount(props: CreateEditUserAccountProps)
             // passwords must match
             toast.error("Passwords must match")
         }
-        else if (userDetails.zip.length != 0 && userDetails.zip.length != 5 && userDetails.zip.length != 9 && userDetails.zip.length != 10) {
+        else if (user.userDetail.zip.length != 0 && user.userDetail.zip.length != 5 && user.userDetail.zip.length != 9 && user.userDetail.zip.length != 10) {
             // zip must be blank, 5, 9, or 10 digits
             toast.error("Zip must be blank or 5, 9, or 10 digits")
         }
@@ -206,24 +224,27 @@ export default function CreateEditUserAccount(props: CreateEditUserAccountProps)
             // create user -> new user return value here --- setUserDetails((prev) => ({...prev, user: data})) -> create final user details as new object and save that
 
             // need to add the existing userId to the user object so that we're updating and not creating
-            const userDetailsFinal = {
-                // userDetailId: pull from redux
-                user: userDetails.user,
-                ssn: userDetails.ssn.length == 0 ? null : parseInt(userDetails.ssn),
-                dob: new Date(userDetails.dob),
-                firstName: userDetails.firstName,
-                middleName: userDetails.middleName.length == 0 ? null : userDetails.middleName,
-                lastName: userDetails.lastName,
-                email: userDetails.email,
-                street1: userDetails.street1,
-                street2: userDetails.street2.length == 0 ? null : userDetails.street2,
-                city: userDetails.city.length == 0 ? null : userDetails.city,
-                state: userDetails.state.length == 0 ? null : userDetails.state,
-                country: userDetails.country,
-                zip: userDetails.zip.length == 0 ? null : parseInt(userDetails.zip)
+            const userFinal = {
+                username: user.username,
+                password: user.password,
+                enabled: user.enabled,
+                userDetail: {
+                    ssn: user.userDetail.ssn.length == 0 ? null : parseInt(user.userDetail.ssn),
+                    dob: new Date(user.userDetail.dob),
+                    firstName: user.userDetail.firstName,
+                    middleName: user.userDetail.middleName.length == 0 ? null : user.userDetail.middleName,
+                    lastName: user.userDetail.lastName,
+                    email: user.userDetail.email,
+                    street1: user.userDetail.street1,
+                    street2: user.userDetail.street2.length == 0 ? null : user.userDetail.street2,
+                    city: user.userDetail.city.length == 0 ? null : user.userDetail.city,
+                    state: user.userDetail.state.length == 0 ? null : user.userDetail.state,
+                    country: user.userDetail.country,
+                    zip: user.userDetail.zip.length == 0 ? null : parseInt(user.userDetail.zip)
+                }
             }
 
-            console.log(userDetailsFinal)
+            console.log(userFinal)
 
             toast.success("Account Successfully Updated!")
 
@@ -242,7 +263,7 @@ export default function CreateEditUserAccount(props: CreateEditUserAccountProps)
     return (
         <>
             <div><Toaster /></div>
-            {!props.hidden && (<main id="main-content" style={containerStyle as React.CSSProperties}>
+            {!props.hidden && (<div style={containerStyle as React.CSSProperties}>
                 <div className="bg-base-lightest" style={containerStyle as React.CSSProperties}>
                     <Grid row>
                         <Grid col={12}>
@@ -261,7 +282,9 @@ export default function CreateEditUserAccount(props: CreateEditUserAccountProps)
                                                     type="text"
                                                     autoCapitalize="off"
                                                     autoCorrect="off"
-                                                    required={true}
+                                                    required={props.accountExists ? false : true}
+                                                    readOnly={props.accountExists ? true : false}
+                                                    style={props.accountExists ? { backgroundColor: "grey" } : {}}
                                                     value={user.username}
                                                     onChange={handleUsernameChange}
                                                 />
@@ -275,7 +298,9 @@ export default function CreateEditUserAccount(props: CreateEditUserAccountProps)
                                                     type={showPassword ? 'text' : 'password'}
                                                     autoCapitalize="off"
                                                     autoCorrect="off"
-                                                    required={true}
+                                                    required={props.accountExists ? false : true}
+                                                    readOnly={props.accountExists ? true : false}
+                                                    style={props.accountExists ? { backgroundColor: "grey" } : {}}
                                                     value={user.password}
                                                     onChange={handlePasswordChange}
                                                 />
@@ -289,7 +314,9 @@ export default function CreateEditUserAccount(props: CreateEditUserAccountProps)
                                                     type={showPassword ? 'text' : 'password'}
                                                     autoCapitalize="off"
                                                     autoCorrect="off"
-                                                    required={true}
+                                                    required={props.accountExists ? false : true}
+                                                    readOnly={props.accountExists ? true : false}
+                                                    style={props.accountExists ? { backgroundColor: "grey" } : {}}
                                                     value={retypedPassword}
                                                     onChange={handleRetypedPasswordChange}
                                                 />
@@ -319,7 +346,7 @@ export default function CreateEditUserAccount(props: CreateEditUserAccountProps)
                                                             autoCapitalize="off"
                                                             autoCorrect="off"
                                                             required={true}
-                                                            value={userDetails.firstName}
+                                                            value={user.userDetail.firstName}
                                                             onChange={handleFirstNameChange}
                                                         />
 
@@ -333,7 +360,7 @@ export default function CreateEditUserAccount(props: CreateEditUserAccountProps)
                                                             autoCapitalize="off"
                                                             autoCorrect="off"
                                                             required={true}
-                                                            value={userDetails.lastName}
+                                                            value={user.userDetail.lastName}
                                                             onChange={handleLastNameChange}
                                                         />
                                                     </Grid>
@@ -350,7 +377,7 @@ export default function CreateEditUserAccount(props: CreateEditUserAccountProps)
                                                             autoCapitalize="off"
                                                             autoCorrect="off"
                                                             required={false}
-                                                            value={userDetails.middleName}
+                                                            value={user.userDetail.middleName}
                                                             onChange={handleMiddleNameChange}
                                                         />
 
@@ -364,7 +391,7 @@ export default function CreateEditUserAccount(props: CreateEditUserAccountProps)
                                                             autoCapitalize="off"
                                                             autoCorrect="off"
                                                             required={true}
-                                                            value={userDetails.email}
+                                                            value={user.userDetail.email}
                                                             onChange={handleEmailChange}
                                                         />
                                                     </Grid>
@@ -384,7 +411,8 @@ export default function CreateEditUserAccount(props: CreateEditUserAccountProps)
                                                         autoCorrect="off"
                                                         required={props.accountExists ? false : true}
                                                         readOnly={props.accountExists ? true : false}
-                                                        value={userDetails.ssn}
+                                                        style={props.accountExists ? { backgroundColor: "grey" } : {}}
+                                                        value={user.userDetail.ssn}
                                                         onChange={handleSsnChange}
                                                     />
                                                 </Grid>
@@ -393,7 +421,7 @@ export default function CreateEditUserAccount(props: CreateEditUserAccountProps)
                                                         Date of Birth{' '}
                                                     </Label>
                                                     <DatePicker
-                                                        id="dobId" name="dob" defaultValue={userDetails.dob} maxDate={"" + now.getFullYear() + "-" + (now.getMonth() + 1) + "-" + now.getDate()} required={true} onChange={handleDobChange}>
+                                                        id="dobId" name="dob" defaultValue={user.userDetail.dob} maxDate={"" + now.getFullYear() + "-" + (now.getMonth() + 1) + "-" + now.getDate()} required={true} onChange={handleDobChange}>
                                                     </DatePicker>
                                                 </Grid>
                                             </Grid>
@@ -412,7 +440,7 @@ export default function CreateEditUserAccount(props: CreateEditUserAccountProps)
                                                         autoCapitalize="off"
                                                         autoCorrect="off"
                                                         required={true}
-                                                        value={userDetails.street1}
+                                                        value={user.userDetail.street1}
                                                         onChange={handleStreet1Change}
                                                     />
 
@@ -426,7 +454,7 @@ export default function CreateEditUserAccount(props: CreateEditUserAccountProps)
                                                         autoCapitalize="off"
                                                         autoCorrect="off"
                                                         required={false}
-                                                        value={userDetails.city}
+                                                        value={user.userDetail.city}
                                                         onChange={handleCityChange}
                                                     />
 
@@ -438,7 +466,7 @@ export default function CreateEditUserAccount(props: CreateEditUserAccountProps)
                                                         name="zip"
                                                         type="text"
                                                         required={false}
-                                                        value={userDetails.zip}
+                                                        value={user.userDetail.zip}
                                                         onChange={handleZipChange}
                                                     />
                                                 </Grid>
@@ -455,19 +483,19 @@ export default function CreateEditUserAccount(props: CreateEditUserAccountProps)
                                                         autoCapitalize="off"
                                                         autoCorrect="off"
                                                         required={false}
-                                                        value={userDetails.street2}
+                                                        value={user.userDetail.street2}
                                                         onChange={handleStreet2Change}
                                                     />
 
                                                     <Label htmlFor="state">
                                                         State{' '}
                                                     </Label>
-                                                    <StatesDropdown value={userDetails.state} disabled={userDetails.country != "United States"} onChange={handleStateChange} />
+                                                    <StatesDropdown value={user.userDetail.state} disabled={user.userDetail.country != "United States"} onChange={handleStateChange} />
 
                                                     <Label htmlFor="country">
                                                         Country{' '}
                                                     </Label>
-                                                    <CountriesDropdown value={userDetails.country} required={true} onChange={handleCountryChange} />
+                                                    <CountriesDropdown value={user.userDetail.country} required={true} onChange={handleCountryChange} />
                                                 </Grid>
                                             </Grid>
 
@@ -484,7 +512,7 @@ export default function CreateEditUserAccount(props: CreateEditUserAccountProps)
                         </Grid>
                     </Grid>
                 </div>
-            </main>)}
+            </div>)}
         </>
     )
 }

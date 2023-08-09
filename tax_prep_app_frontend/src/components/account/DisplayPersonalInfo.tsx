@@ -4,32 +4,10 @@ import {
     Grid,
     Label
 } from '@trussworks/react-uswds'
-
-type userType = {
-    username: string;
-    password: string;
-    enabled: boolean;
-}
-
-type userDetailsType = {
-    user: any,
-    ssn: number,
-    dob: string, // change to Date at some point?
-    firstName: string,
-    middleName: string,
-    lastName: string,
-    email: string,
-    street1: string,
-    street2: string,
-    city: string,
-    state: string,
-    country: string,
-    zip: number
-}
+import { User } from '../../slices/UserSlice'
 
 interface DisplayPersonalInfoProps {
-    user: userType,
-    userDetails: userDetailsType,
+    user: User,
     hidden: boolean,
     handleUpdateTransition: () => void
 }
@@ -46,7 +24,7 @@ export default function CreateEditUserAccount(props: DisplayPersonalInfoProps) {
 
     return (
         <>
-            {!props.hidden && (<main id="main-content" style={containerStyle as React.CSSProperties}>
+            {props.user && !props.hidden && (<div style={containerStyle as React.CSSProperties}>
                 <div className="bg-base-lightest" style={containerStyle as React.CSSProperties}>
                     <Grid row>
                         <Grid col={12}>
@@ -68,7 +46,7 @@ export default function CreateEditUserAccount(props: DisplayPersonalInfoProps) {
                                                 <Label htmlFor="first-name" style={{ fontWeight: "bold" }}>
                                                     Name{' '}
                                                 </Label>
-                                                <div>{props.userDetails.firstName + " " + props.userDetails.middleName + " " + props.userDetails.lastName}</div>
+                                                <div>{props.user.userDetail.firstName + " " + props.user.userDetail.middleName + " " + props.user.userDetail.lastName}</div>
 
 
                                             </Grid>
@@ -76,7 +54,7 @@ export default function CreateEditUserAccount(props: DisplayPersonalInfoProps) {
                                                 <Label htmlFor="email" style={{ fontWeight: "bold" }}>
                                                     Email{' '}
                                                 </Label>
-                                                <div>{props.userDetails.email}</div>
+                                                <div>{props.user.userDetail.email}</div>
 
 
                                             </Grid>
@@ -89,14 +67,14 @@ export default function CreateEditUserAccount(props: DisplayPersonalInfoProps) {
                                             <Label htmlFor="ssn" style={{ fontWeight: "bold" }}>
                                                 Social Security Number{' '}
                                             </Label>
-                                            <div>{"*****" + ("" + props.userDetails.ssn).substring(5, 9)}</div>
+                                            <div>{"*****" + ("" + props.user.userDetail.ssn).substring(5, 9)}</div>
 
                                         </Grid>
                                         <Grid style={{ width: "48%" }}>
                                             <Label htmlFor="date-of-birth" style={{ fontWeight: "bold" }}>
                                                 Date of Birth{' '}
                                             </Label>
-                                            <div>{props.userDetails.dob}</div>
+                                            <div>{props.user.userDetail.dob}</div>
 
                                         </Grid>
                                     </Grid>
@@ -108,37 +86,37 @@ export default function CreateEditUserAccount(props: DisplayPersonalInfoProps) {
                                             <Label htmlFor="street1" style={{ fontWeight: "bold" }}>
                                                 Address Line 1{' '}
                                             </Label>
-                                            <div>{props.userDetails.street1}</div>
+                                            <div>{props.user.userDetail.street1}</div>
 
                                             <Label htmlFor="city" style={{ fontWeight: "bold" }}>
                                                 City{' '}
                                             </Label>
-                                            <div>{props.userDetails.city}</div>
+                                            <div>{props.user.userDetail.city}</div>
 
                                             <Label htmlFor="zip" style={{ fontWeight: "bold" }}>
                                                 Zip{' '}
                                             </Label>
-                                            <div>{props.userDetails.zip}</div>
+                                            <div>{props.user.userDetail.zip}</div>
 
                                         </Grid>
 
                                         <Grid col={6} style={{ width: "48%" }}>
 
-                                            {props.userDetails.street2 != "" && (<Label htmlFor="street2" style={{ fontWeight: "bold" }}>
+                                            {props.user.userDetail.street2 != "" && (<Label htmlFor="street2" style={{ fontWeight: "bold" }}>
                                                 Address Line 2{' '}
                                             </Label>)}
-                                            {props.userDetails.street2 != "" && (<div hidden>{props.userDetails.street2}</div>)}
+                                            {props.user.userDetail.street2 != "" && (<div>{props.user.userDetail.street2}</div>)}
 
 
                                             <Label htmlFor="state" style={{ fontWeight: "bold" }}>
                                                 State{' '}
                                             </Label>
-                                            <div>{props.userDetails.state}</div>
+                                            <div>{props.user.userDetail.state}</div>
 
                                             <Label htmlFor="country" style={{ fontWeight: "bold" }}>
                                                 Country{' '}
                                             </Label>
-                                            <div>{props.userDetails.country}</div>
+                                            <div>{props.user.userDetail.country}</div>
                                         </Grid>
                                     </Grid>
                                 </div>
@@ -146,7 +124,7 @@ export default function CreateEditUserAccount(props: DisplayPersonalInfoProps) {
                         </Grid>
                     </Grid>
                 </div>
-            </main>)}
+            </div>)}
         </>
     )
 }

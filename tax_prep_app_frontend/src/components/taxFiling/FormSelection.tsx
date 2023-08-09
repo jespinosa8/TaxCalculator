@@ -1,5 +1,7 @@
-import { Button, Grid, Label } from "@trussworks/react-uswds";
+import { Button, Grid } from "@trussworks/react-uswds";
 import CustomCard from "../home/Card";
+import { useState } from "react"
+import { getUser } from "../../slices/UserSlice"
 
 interface FormsProps {
     onW2Click?: (event: any) => void
@@ -9,13 +11,14 @@ interface FormsProps {
 }
 
 export default function FormSelection(props: FormsProps) {
+    const [user, setUser] = useState(getUser())
 
     const containerStyle = {
-        maxWidth: "1280px",
+        maxWidth: "1000px",
         margin: "0 auto",
         padding: "2rem",
         textAlign: "center",
-        marginTop: "45px"
+        marginTop: "35px"
     }
 
     const formW2ColumnStyle = {
@@ -33,13 +36,20 @@ export default function FormSelection(props: FormsProps) {
         margin: "0 auto",
         padding: "2rem",
         textAlign: "center",
-        marginTop: "285px",
-        display: "flex",
+        display: "flex"
+    }
+
+    const countersContainer = {
+        width: "700px",
+        margin: "0 auto",
+        padding: "2rem",
+        textAlign: "center",
+        marginTop: "285px"
     }
 
     return (
         <>
-            <main id="main-content" style={containerStyle as React.CSSProperties}>
+            <div id="main-content" style={containerStyle as React.CSSProperties}>
                 <div className="bg-base-lightest" style={containerStyle as React.CSSProperties}>
                     <div className="bg-white padding-y-3 padding-x-5 border border-base-lighter">
                         <h1 style={{ fontSize: "38px", marginBottom: "-20px" }}>Step 2: Add Tax Forms</h1>
@@ -50,6 +60,10 @@ export default function FormSelection(props: FormsProps) {
                             <Grid col={6} style={form1099ColumnStyle as React.CSSProperties}>
                                 <CustomCard title={"Add a 1099"} onClick={props.on1099Click} imageSrc={"/1099Image.webp"} imageHoverSrc={"/1099Image - Dark.webp"}></CustomCard>
                             </Grid>
+                            <Grid row style={countersContainer as React.CSSProperties}>
+                                <Grid col={6} style={{ fontSize: 18 }}>Completed W2s Count: {user.formW2s == null ? 0 : user.formW2s.length}</Grid>
+                                <Grid col={6} style={{ fontSize: 18 }}>Completed 1099s Count: {user.form1099s == null ? 0 : user.form1099s.length}</Grid>
+                            </Grid>
                             <Grid row style={buttonsContainer as React.CSSProperties}>
                                 <Grid col={12}>
                                     <Button type="button" onClick={props.onBackClick} style={{ marginRight: "10px" }}>Back</Button>
@@ -59,7 +73,7 @@ export default function FormSelection(props: FormsProps) {
                         </Grid>
                     </div>
                 </div>
-            </main>
+            </div>
         </>
     )
 }
