@@ -43,19 +43,20 @@ public class UserService /**implements UserDetailsService*/ {
     }
 
     // add new user to the database
-    // public User createUser(User user) {
-    //     Optional<User> foundUser = userRepository.findByUsername(user.getUsername());
-    //     if(foundUser.isPresent()) {
-    //         throw new RuntimeException("That username is taken");
-    //     }
-    //     else {
-    //         user.setPassword(passwordEncoder.encode(user.getPassword()));
+    public User createUser(User user) {
+        return userRepository.save(user);
+        // Optional<User> foundUser = userRepository.findByUsername(user.getUsername());
+        // if(foundUser.isPresent()) {
+        //     throw new RuntimeException("That username is taken");
+        // }
+        // else {
+        //     user.setPassword(passwordEncoder.encode(user.getPassword()));
 
-    //         user.setRole("ROLE_USER");
+        //     user.setRole("ROLE_USER");
 
-    //         return userRepository.save(user);
-    //     }
-    // }
+        //     return userRepository.save(user);
+        // }
+    }
 
     // update an existing user in the database
     public User updateUser(User user) {

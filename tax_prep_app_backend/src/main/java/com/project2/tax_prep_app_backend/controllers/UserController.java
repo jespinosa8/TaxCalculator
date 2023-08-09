@@ -48,12 +48,12 @@ public class UserController {
     }
 
     // Create new user    
-    // @PostMapping("/newUser")
-    // public ResponseEntity<User> createUser(@RequestBody User user) {       
+    @PostMapping("/newUser")
+    public ResponseEntity<User> createUser(@RequestBody User user) {       
     
-    //     User newUser = userService.createUser(user);
-    //     return new ResponseEntity<>(newUser, HttpStatus.CREATED);
-    // }
+        User newUser = userService.createUser(user);
+        return new ResponseEntity<>(newUser, HttpStatus.CREATED);
+    }
 
     // Update User by ID
     @PutMapping("/{userId}")
