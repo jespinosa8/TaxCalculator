@@ -1,11 +1,11 @@
-import { Grid } from '@trussworks/react-uswds';
+import { Button, Card, CardBody, CardFooter, CardHeader, CardMedia, Grid } from '@trussworks/react-uswds';
 import W2Form from './W2Form';
 import W2Table from './W2SummaryTable';
 import { useState } from 'react';
 import { getUser } from '../../slices/UserSlice';
 
 const containerStyle = {
-  maxWidth: "1280px",
+  maxWidth: "1800px",
   margin: "0 auto",
   padding: "2rem",
   textAlign: "center"

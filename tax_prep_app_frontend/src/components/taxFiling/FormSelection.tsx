@@ -55,10 +55,10 @@ export default function FormSelection(props: FormsProps) {
                         <h1 style={{ fontSize: "38px", marginBottom: "-20px" }}>Step 2: Add Tax Forms</h1>
                         <Grid row style={containerStyle as React.CSSProperties}>
                             <Grid col={6} style={formW2ColumnStyle as React.CSSProperties}>
-                                <CustomCard title={"Add a W2"} onClick={props.onW2Click} imageSrc={"/W2Image.jpg"} imageHoverSrc={"/W2Image - Dark.jpg"}></CustomCard>
+                                <CustomCard title={"Add a W2"} imageOnly={false} onClick={props.onW2Click} imageSrc={"/W2Image.jpg"} imageHoverSrc={"/W2Image - Dark.jpg"}></CustomCard>
                             </Grid>
                             <Grid col={6} style={form1099ColumnStyle as React.CSSProperties}>
-                                <CustomCard title={"Add a 1099"} onClick={props.on1099Click} imageSrc={"/1099Image.webp"} imageHoverSrc={"/1099Image - Dark.webp"}></CustomCard>
+                                <CustomCard title={"Add a 1099"} imageOnly={false} onClick={props.on1099Click} imageSrc={"/1099Image.webp"} imageHoverSrc={"/1099Image - Dark.webp"}></CustomCard>
                             </Grid>
                             <Grid row style={countersContainer as React.CSSProperties}>
                                 <Grid col={6} style={{ fontSize: 18 }}>Completed W2s Count: {user.formW2s == null ? 0 : user.formW2s.length}</Grid>

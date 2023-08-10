@@ -24,7 +24,7 @@ export default function Home() {
     <>
       <div className="bg-base-lightest" style={containerStyle as React.CSSProperties}>
         {/** hide this card and replace it with one that routes to the tax summary page if the user has already filed their taxes */}
-        <CustomCard title="File Taxes Now" onClick={handleFileTaxesNow} imageSrc="/TaxFilingImage.jpg" imageHoverSrc="/TaxFilingImage - Dark.jpg" description="Begin the tax filing process" marginTop="300px" />
+        <CustomCard title="File Taxes Now" imageOnly={false} onClick={handleFileTaxesNow} imageSrc="/TaxFilingImage.jpg" imageHoverSrc="/TaxFilingImage - Dark.jpg" description="Begin the tax filing process" marginTop="300px" />
       </div>
     </>
   )

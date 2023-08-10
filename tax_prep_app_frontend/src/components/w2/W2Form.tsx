@@ -228,7 +228,8 @@ export default function W2Form(props: W2FormProps) {
     maxWidth: "1280px",
     margin: "0 auto",
     padding: "2rem",
-    textAlign: "center"
+    textAlign: "center",
+    marginTop: "20px"
   }
 
   return (

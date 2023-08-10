@@ -185,7 +185,8 @@ export default function Form1099(props: Form1099Props) {
     maxWidth: "1280px",
     margin: "0 auto",
     padding: "2rem",
-    textAlign: "center"
+    textAlign: "center",
+    marginTop: "20px"
   }
 
   return (
