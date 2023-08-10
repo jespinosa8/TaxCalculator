@@ -1,4 +1,4 @@
-import { Button, Grid, Label } from "@trussworks/react-uswds"
+import { Button, Grid, Label, TextInput } from "@trussworks/react-uswds"
 import { useState } from "react"
 import W2SummaryTable from "../components/w2/W2SummaryTable"
 import Table1099 from "../components/1099/Table1099"
@@ -6,9 +6,7 @@ import { getUser } from "../slices/UserSlice"
 
 interface taxFiling {
   married: boolean,
-  dependents: number,
-  totalRefundAmount: number,
-  totalAmountDue: number
+  dependents: number
 }
 
 interface TaxSummaryProps {
@@ -30,6 +28,7 @@ const containerStyle = {
 }
 
 export default function TaxSummary(props: TaxSummaryProps) {
+
   const [user, setUser] = useState(getUser()); 
   const dependents = user.taxFilings?.dependents || 0;  // get dependents from taxFilings document or default to 0
   const married = user.taxFilings?.married;   // get marital status from taxFilings document
@@ -111,6 +110,9 @@ export default function TaxSummary(props: TaxSummaryProps) {
     return Math.round(refundAmount * 100) / 100;
   };
 
+
+  
+
   return (
     <>
       <div style={containerStyle as React.CSSProperties}>
@@ -148,10 +150,12 @@ export default function TaxSummary(props: TaxSummaryProps) {
                       </Grid>
                     </Grid>
 
+                    {/** hide these lines if there are no W2s */}
                     {!(user.formW2s == null) && (<><hr className="solid" style={{ marginBottom: "5px", marginTop: "35px" }}></hr>
                     <h2 style={{ textAlign: "center", marginBottom: "-15px" }}>W2s</h2>
                     <W2SummaryTable /></>)}
 
+                    {/** hide these lines if there are no 1099s */}
                     {!(user.form1099s == null) && (<><hr className="solid" style={{ marginBottom: "5px", marginTop: "35px" }}></hr>
                     <h2 style={{ textAlign: "center", marginBottom: "-15px" }}>1099s</h2>
                     <Table1099 /></>)}
@@ -173,7 +177,7 @@ export default function TaxSummary(props: TaxSummaryProps) {
                         <div>
                           {"$" + calculateRefundAmount(user.formW2s || [], user.form1099s || [], dependents, married)}
                         </div>
-                      </Grid>
+                      </Grid>)}
                     </Grid>
 
                   </Grid>
