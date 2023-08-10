@@ -93,27 +93,18 @@ export default function TaxSummary(props: TaxSummaryProps) {
         }
       }, 0);
     }
-  }
+  }    
 
-    let refundAmount = Math.abs(totalRefundAmount - totalAmountDue);
-
-    if (totalAmountDue > refundAmount) {
-      totalAmountDue -= refundAmount;
-      refundAmount = 0;
+    if (totalAmountDue > totalRefundAmount) {
+      totalAmountDue -= totalRefundAmount;
+      totalRefundAmount = 0;
+      return totalAmountDue;
     } else {
-      refundAmount -= totalAmountDue;
+      totalRefundAmount -= totalAmountDue;
       totalAmountDue = 0;
-    }
+      return totalRefundAmount;
+    }    
 
-    // // Deduct for dependents. $1,250 is the standard deduction per dependent
-    // const dependentDeduction = 1250 * dependents;
-    // if (totalAmountDue >= dependentDeduction) {
-    //   totalAmountDue -= dependentDeduction;
-    // } else {
-    //   totalRefundAmount += dependentDeduction;
-    // }
-
-    return Math.round(refundAmount * 100) / 100;
   };
 
 
