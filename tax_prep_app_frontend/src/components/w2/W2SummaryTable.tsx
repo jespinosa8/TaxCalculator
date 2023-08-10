@@ -1,58 +1,72 @@
-import { Table } from "@trussworks/react-uswds";
+import { Button, Card, Grid, Table } from "@trussworks/react-uswds";
 import { useEffect, useState } from "react";
 import { useTranslation } from 'react-i18next';
 import { getUser } from "../../slices/UserSlice";
-// import SubmitDate from "./SubmitDate";
+import CustomCard from "../home/Card";
 
+export default function W2SummaryTable() {
+  const [user, setUser] = useState(getUser())
+  const [applyHoverStyle, setApplyHoverStyle] = useState(false)
 
-export default function W2SummaryTable () {
-  
   const { t, i18n } = useTranslation();
 
   useEffect(() => {
-      const lng = navigator.language;
-      i18n.changeLanguage(lng);
+    const lng = navigator.language;
+    i18n.changeLanguage(lng);
   }, [])
 
   const lng = navigator.language;
 
+  function formatCurrency(amount: number): string {
+    return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(amount);
+  }
+
   return (
     <>
-        <Table striped fullWidth className="bg-primary-lighter" >
-          <thead>
-              <tr>
-                  <th>{t('w2Table.employee')}</th>
-                  <th>{t('w2Table.employer')}</th>
-                  <th>{t('w2Table.totalIncome')}</th>
-                  <th>{t('w2Table.dateSubmitted')}</th>
-              </tr>
-          </thead>
-          <tbody>
-              {/* {tableData.map((w2) =>
+      <Table striped fullWidth className="bg-primary-lighter" >
+        <thead>
+          <tr>
+            <th>{t('w2Table.employer')}</th>
+            <th>{t('w2Table.totalIncome')}</th>
+            <th>{t('w2Table.ssWithheld')}</th>
+            <th>{t('w2Table.taxesWithheld')}</th>
+            <th>{t('w2Table.medicareWithheld')}</th>
+            {/* <th>{t('w2Table.dateSubmitted')}</th> */}
+          </tr>
+        </thead>
+        <tbody>
+          {user.formW2s == null ? <></> : user.formW2s.map((w2, w) =>
+            <tr key={w}>
+              <td>{w2.employerName}</td>
+              <td>{formatCurrency(w2?.wagesAndTips)}</td>
+              <td>{formatCurrency(w2?.ssWithheld)}</td>
+              <td>{formatCurrency(w2?.taxesWithheld)}</td>
+              <td>{formatCurrency(w2?.medicareWithheld)}</td>
+              {/* <td>{w2.dateSubmitted}</td> */}
+              <td>
+                <Grid row style={{maxHeight: "50px"}}>
+                  <Grid col={6}>
+                    <CustomCard title={"Update"} imageOnly={true} imageSrc="/PencilIcon.jpg" marginTop={"-5px"} marginLeft={"-30px"}></CustomCard>
+                  </Grid>
+                  <Grid col={6}>
+                  <Grid col={6}>
+                    <CustomCard title={"Update"} imageOnly={true} imageSrc="/Red_X_Icon.png" marginTop={"-5px"} marginLeft={"-10px"}></CustomCard>
+                  </Grid>
 
-                (
-                  <tr key={w2.form_w2_id}>
-                      <td>{w2.form_w2_id}</td>
-                      <td>{w2.user_id}</td>
-                      <td>{w2.tax_filing_id}</td>
-                      <td>{w2.employerName}</td>
-                      <td>{w2.ein}</td>
-                      <td>{w2.employer_street1}</td>
-                      <td>{w2.employer_street2}</td>
-                      <td>{w2.employer_city}</td>
-                      <td>{w2.employer_state}</td>
-                      <td>{w2.employer_zip}</td>
-                      <td>{w2.wages_and_tips}</td>
-                      <td>{w2.ss_withheld}</td>
-                      <td>{w2.taxes_withheld}</td>
-                      <td>{w2.medicare_withheld}</td>
-                      <SubmitDate/>
-                  </tr>
-                )
-              )
-              } */}
-          </tbody>
-        </Table>  
+                  </Grid>
+                </Grid>
+              </td>
+              
+
+            </tr>
+          )}
+
+        </tbody>
+      </Table>
+      <Button className="clickable-pencil" onClick={() => { }} type={"button"}>
+        <span className="pencil-icon"></span>
+        Edit
+      </Button>
     </>
   )
 }
