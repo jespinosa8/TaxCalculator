@@ -14,6 +14,10 @@ const containerStyle = {
 export default function Container1099() {
   const [user, setUser] = useState(getUser())
 
+  function handleCreateUpdate1099() {
+    setUser(getUser())
+  }
+
   return (
     <>
       <div style={containerStyle as React.CSSProperties}>
@@ -23,7 +27,7 @@ export default function Container1099() {
           </Grid>
           }
           <Grid col={user.form1099s == null ? 12 : 6}>
-            <Form1099 isTaxFiling={false} isNewForm={true} />
+            <Form1099 isTaxFiling={false} isNewForm={true} handleCreateUpdate1099={handleCreateUpdate1099}/>
           </Grid>
         </Grid>
       </div>

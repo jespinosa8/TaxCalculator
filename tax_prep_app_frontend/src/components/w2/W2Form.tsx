@@ -34,6 +34,7 @@ interface W2FormProps {
 
 export default function W2Form(props: W2FormProps) {
   const [user, setUser] = useState(getUser())
+  const [updatedUser, setUpdatedUser] = useState(getUser())
 
   const [w2, setW2] = useState(props.isNewForm ? {
     ein: "", // convert this to number when writing to db
@@ -253,37 +254,31 @@ export default function W2Form(props: W2FormProps) {
         submittedDate: getCurrentFormattedDate()
       }
 
-      setUser((prev) => ({...prev, formW2s: formW2s[props.indexOfW2ToUpdate]}))
+      // setUser((prev) => ({ ...prev, user.formW2s[props.indexOfW2ToUpdate]: w2Final}))
+      // setUpdatedUser((prevUser) => {
+      //   const updatedUser = { ...prevUser };
+      //   updatedUser.formW2s[props.indexOfW2ToUpdate] = w2Final;
+      //   console.log(props.indexOfW2ToUpdate)
+      //   console.log(updatedUser)
+      //   return updatedUser;
+      // });
 
-      fetch('http://localhost:8080/users/' + user.id, {
+      fetch('http://localhost:8080/users/' + user.id + '/formw2s/' + props.indexOfW2ToUpdate, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(user)
+        body: JSON.stringify(w2Final)
       })
         .then((res) => res.json())
         .then((data) => {
           setUser(data)
-          setW2({
-            ein: "",
-            employerCity: "",
-            employerName: "",
-            employerState: "",
-            employerStreet1: "",
-            employerStreet2: "",
-            employerZip: "",
-            medicareWithheld: "",
-            ssWithheld: "",
-            taxesWithheld: "",
-            wagesAndTips: "",
-            dateSubmitted: ""
-          })
 
-          console.log(user)
+          // console.log(user)
+          // console.log(updatedUser)
 
           localStorage.setItem('user', JSON.stringify(user))
-          props.handleSubmit
+          // props.handleSubmit
           toast.success("W2 Successfully Updated!")
         })
         .catch((err) => {
@@ -373,7 +368,7 @@ export default function W2Form(props: W2FormProps) {
 
               {(props.isTaxFiling || props.existingForm) && (<Button type="button" onClick={props.handleCancel}>Cancel</Button>)}
               {props.isNewForm && (<Button type="button" onClick={handleCreateW2Submit} data-close-modal='true'>{t('w2Form.submit')}</Button>)}
-              {(!props.isTaxFiling && !props.isNewForm) && (<Button type="button" onClick={props.handleSubmit} data-close-modal='true'>Update</Button>)}
+              {(!props.isTaxFiling && !props.isNewForm) && (<Button type="button" onClick={handleUpdateW2Submit} data-close-modal='true'>Update</Button>)}
 
             </Form>
           </div>

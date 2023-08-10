@@ -2,12 +2,12 @@ import { useRef, useState } from "react";
 import { getUser } from "../../slices/UserSlice";
 import { Button, Modal, ModalRef } from "@trussworks/react-uswds";
 
-interface DeleteW2Props {
-    indexOfW2ToDelete: any
-    handleDeleteW2: (event: any) => void
+interface Delete1099Props {
+    indexOf1099ToDelete: any
+    handleDelete1099: (event: any) => void
 }
 
-export default function DeleteW2(props: DeleteW2Props) {
+export default function Delete1099(props: Delete1099Props) {
     const [user, setUser] = useState(getUser())
 
     const modalRef = useRef<ModalRef>(null)
@@ -17,7 +17,7 @@ export default function DeleteW2(props: DeleteW2Props) {
     };
 
     function handleDeleteButtonClick(event: any) {
-        setUser((prev) => ({...prev, formW2s: user.formW2s.splice(props.indexOfW2ToDelete, 1)}))
+        setUser((prev) => ({...prev, form1099s: user.form1099s.splice(props.indexOf1099ToDelete, 1)}))
         fetch('http://localhost:8080/users/' + user.id, {
             method: 'PUT',
             headers: {
@@ -25,7 +25,7 @@ export default function DeleteW2(props: DeleteW2Props) {
             },
             body: JSON.stringify(user)
         }).then(() => {
-            props.handleDeleteW2(event)
+            props.handleDelete1099(event)
             toggleModal()
         })
             .catch((err) => {
@@ -41,8 +41,8 @@ export default function DeleteW2(props: DeleteW2Props) {
                 style={{ cursor: 'pointer', marginTop: "5px" }}
                 onClick={toggleModal}
             />
-            <Modal ref={modalRef} id={"delete"} title={"Do you really want to delete this W2?"} isInitiallyOpen={false} style={{ textAlign: "center", fontWeight: "bold" }}>
-                <div>Are you sure you want to delete this W2?<br></br> This action cannot be undone.</div>
+            <Modal ref={modalRef} id={"delete"} title={"delete"} isInitiallyOpen={false} style={{ textAlign: "center", fontWeight: "bold" }}>
+                <div>Are you sure you want to delete this 1099?<br></br> This action cannot be undone.</div>
                 <Button type="button" onClick={toggleModal} style={{ marginTop: "50px", marginRight: "50px" }}>
                     Cancel
                 </Button>

@@ -1,15 +1,15 @@
 import { useRef, useState } from "react";
 import { getUser } from "../../slices/UserSlice";
 import { Modal, ModalRef } from "@trussworks/react-uswds";
-import W2Form from "./W2Form";
+import Form1099 from "./Form1099";
 
-interface DeleteW2Props {
-    indexOfW2ToUpdate: any
+interface Delete1099Props {
+    indexOf1099ToUpdate: any
     existingForm: any
-    handleUpdateW2: (event: any) => void
+    handleUpdate1099: (event: any) => void
 }
 
-export default function DeleteW2(props: DeleteW2Props) {
+export default function Delete1099(props: Delete1099Props) {
     const [user, setUser] = useState(getUser())
 
     const modalRef = useRef<ModalRef>(null)
@@ -31,7 +31,7 @@ export default function DeleteW2(props: DeleteW2Props) {
                 onClick={toggleModal}
             />
             <Modal ref={modalRef} id={"delete"} title={""} isInitiallyOpen={false} style={{ textAlign: "center", fontWeight: "bold", minWidth: "600px"}}>
-                <W2Form existingForm={props.existingForm} isNewForm={false} isTaxFiling={false} indexOfW2ToUpdate={props.indexOfW2ToUpdate} handleSubmit={handleUpdateButtonClick} handleCancel={toggleModal}></W2Form>
+                <Form1099 existingForm={props.existingForm} isNewForm={false} isTaxFiling={false} indexOf1099ToUpdate={props.indexOf1099ToUpdate} handleSubmit={handleUpdateButtonClick} handleCancel={toggleModal}></Form1099>
             </Modal>
         </>
     )

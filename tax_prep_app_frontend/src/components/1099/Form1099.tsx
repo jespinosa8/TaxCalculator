@@ -3,7 +3,7 @@ import StatesDropdown from "../dropdown/StatesDropdown";
 import { useEffect, useState } from "react";
 import { useTranslation } from 'react-i18next';
 import { getUser } from "../../slices/UserSlice";
-import toast from "react-hot-toast";
+import toast, { Toaster } from "react-hot-toast";
 
 type Form1099Type = {
   payerCity: string
@@ -22,7 +22,9 @@ interface Form1099Props {
   isTaxFiling: boolean
   isNewForm: boolean
   existingForm?: Form1099Type
+  indexOf1099ToUpdate?: number
 
+  handleCreateUpdate1099?: (event: any) => void
   handleCancel?: (event: any) => void
   handleSubmit?: (event: any) => void
 }
@@ -178,7 +180,56 @@ export default function Form1099(props: Form1099Props) {
   }
 
   const handleUpdate1099Submit = (event: any): void => {
+    event.preventDefault()
+    if (form1099.payerTin.length != 9) { // change the 9 to whatever the standard ein length is
+      toast.error("EIN must 9 digits")
+    }
+    else if (form1099.payerZip.length != 5 && form1099.payerZip.length != 9) {
+      toast.error("Zip must be 5 or 9 digits")
+    }
+    else {
+      function getCurrentFormattedDate(): string {
+        const now = new Date();
+        const month = (now.getMonth() + 1).toString().padStart(2, '0');
+        const day = now.getDate().toString().padStart(2, '0');
+        const year = now.getFullYear().toString();
 
+        return `${month}-${day}-${year}`;
+      }
+      const form1099Final = {
+        payerTin: parseInt(form1099.payerTin),
+        payerCity: form1099.payerCity,
+        payerName: form1099.payerName,
+        payerState: form1099.payerState,
+        payerStreet1: form1099.payerStreet1,
+        payerStreet2: form1099.payerStreet2,
+        payerZip: parseInt(form1099.payerZip),
+        taxesWithheld2: parseInt(form1099.taxesWithheld2),
+        totalCompensation: parseInt(form1099.totalCompensation),
+        submittedDate: getCurrentFormattedDate()
+      }
+
+      user.form1099s.push(form1099Final)
+
+      fetch('http://localhost:8080/users/' + user.id + '/form1099s/' + props.indexOf1099ToUpdate, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(form1099Final)
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          setUser(data)
+          localStorage.setItem('user', JSON.stringify(user))
+          // props.handleCreateUpdate1099
+          toast.success("1099 Successfully Updated!")
+        })
+        .catch((err) => {
+          console.log(err.message);
+        });
+
+    }
   }
 
   const containerStyle = {
@@ -191,70 +242,15 @@ export default function Form1099(props: Form1099Props) {
 
   return (
     <>
+      <Toaster
+        position="top-center"
+        reverseOrder={false}
+      />
       <div className="bg-base-lightest" style={containerStyle as React.CSSProperties}>
         <div id="w2-submit-form" className="bg-white padding-y-3 padding-x-5 border border-base-lighter">
-          <Form onSubmit={props.isNewForm ? handleCreate1099Submit : handleUpdate1099Submit}>
+          <Form onSubmit={()=>{}}>
 
             <h1>{t('form1099.title')}</h1>
-
-            {/* RECIPIENT INFORMATION */}
-            {/* <Label htmlFor="name" style={{ fontWeight: 'bold' }}>Recipient Information</Label>
-            <Grid row style={{ display: "flex", justifyContent: "space-between" }}>
-
-              <Grid col={4}>
-                <Label htmlFor="first-name-input">First Name</Label>
-                <TextInput id="first-name-input" name="first_name" type="text" required/>
-
-              </Grid>
-
-              <Grid col = {4}>
-                <Label htmlFor="middle-name-input">Middle</Label>
-                <TextInput id="middle-name-input" name="middle_name" type="text"/>
-
-              </Grid>
-
-              <Grid col={4}>
-                <Label htmlFor="last-name-input">Last Name</Label>
-                <TextInput id="last-name-input" name="last_name" type="text" required/>
-              </Grid>
-
-              <Grid col={4}>
-                <Label htmlFor="ssn-input">Recipient Social Security Number</Label>
-                <TextInput id="ssn-input" name="recipient_ssn" type="number" required/>
-              </Grid>
-
-              <Grid col={12}>
-                <Label htmlFor="recipient-tin-input">Recipient's TIN</Label>
-                <TextInput id="recipient-tin-input" name="recipient_tin" type="number"/>
-              </Grid> 
-
-            </Grid>    */}
-
-            <Grid row style={{ display: "flex", justifyContent: "space-between" }}>
-              {/* <Grid col={6} style={{ width: "48%" }}>
-                <Label htmlFor="street-address-input">Street Address</Label>
-                <TextInput id="street-address-input" name="streetAddress" type="text" required/>
-              
-                <Label htmlFor="city-input">City</Label>
-                <TextInput id="city-input" name="city" type="text" required/>
-
-                <Label htmlFor="zip-input">Zip Code</Label>
-                <TextInput id="zip-input" name="zipCode" type="number" required/>
-              </Grid>
-
-              <Grid col={6} style={{ width: "48%" }}>
-                <Label htmlFor="street-address2-input">Apt., Unit, Ste</Label>
-                <TextInput id="street-address2-input" name="streetAddress2" type="text"/>
-
-                <Label htmlFor="state-input">State</Label>
-                <StatesDropdown/>
-              </Grid> */}
-
-
-            </Grid>
-
-
-
             {/* PAYER'S INFORMATION */}
             <Label htmlFor="name" style={{ fontWeight: 'bold' }}>{t('form1099.payersInformation')}</Label>
             <Grid row style={{ display: "flex", justifyContent: "space-between" }}>
@@ -309,8 +305,8 @@ export default function Form1099(props: Form1099Props) {
             <TextInput id="compensation-input" name="total_compensation" type="text" value={form1099.totalCompensation} onChange={handleCompensationChange} required={true} />
 
             {props.isTaxFiling && (<Button type="button" onClick={props.handleCancel}>Cancel</Button>)}
-            {props.isNewForm && (<Button type="submit" data-close-modal='true'>{t('form1099.submit')}</Button>)}
-            {(!props.isTaxFiling && !props.isNewForm) && (<Button type="submit" data-close-modal='true'>Update</Button>)}
+            {props.isNewForm && (<Button type="button" onClick={handleCreate1099Submit} data-close-modal='true'>{t('form1099.submit')}</Button>)}
+            {(!props.isTaxFiling && !props.isNewForm) && (<Button type="button" onClick={handleUpdate1099Submit} data-close-modal='true'>Update</Button>)}
 
           </Form>
 

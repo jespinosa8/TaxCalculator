@@ -22,7 +22,7 @@ export default function W2SummaryTable() {
   }
 
   function handleUpdateW2() {
-
+    setUser(getUser())
   }
 
   function handleDeleteW2() {
@@ -51,16 +51,14 @@ export default function W2SummaryTable() {
               <td>{formatCurrency(w2?.taxesWithheld)}</td>
               <td>{formatCurrency(w2?.medicareWithheld)}</td>
               {/* <td>{w2.dateSubmitted}</td> */}
-              {/* {(user.taxFilings == null &&  */}         {/** uncomment this in prod */}
-              <td>
+              {(user.taxFilings == null && <td style={{ width: "60px" }}>
                 <UpdateW2 existingForm={w2} indexOfW2ToUpdate={w} handleUpdateW2={handleUpdateW2}></UpdateW2>
               </td>
-              {/* )}  */}
-              <td>
-                {/* {(user.taxFilings == null &&  */}         {/** uncomment this in prod */}
+              )}
+              {(user.taxFilings == null && <td style={{ width: "60px" }}>
                 <DeleteW2 indexOfW2ToDelete={w} handleDeleteW2={handleDeleteW2}></DeleteW2>
-                {/* )}  */}
               </td>
+              )}
             </tr>
           )}
 
