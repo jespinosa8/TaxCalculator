@@ -1,4 +1,4 @@
-import { Button, Grid, Label, TextInput } from "@trussworks/react-uswds"
+import { Button, Grid, Label } from "@trussworks/react-uswds"
 import { useState } from "react"
 import W2SummaryTable from "../components/w2/W2SummaryTable"
 import Table1099 from "../components/1099/Table1099"
@@ -6,7 +6,9 @@ import { getUser } from "../slices/UserSlice"
 
 interface taxFiling {
   married: boolean,
-  dependents: number
+  dependents: number,
+  totalRefundAmount: number,
+  totalAmountDue: number
 }
 
 interface TaxSummaryProps {
@@ -162,22 +164,22 @@ export default function TaxSummary(props: TaxSummaryProps) {
 
                     <hr className="solid" style={{ marginBottom: "5px", marginTop: "35px" }}></hr>
                     <Grid row style={{ display: "flex", justifyContent: "space-between" }}>
-                      {calculateRefundAmount(user.formW2s || [], user.form1099s || [], dependents, married) < 0 && (<Grid col={12} style={{}}>
-                        <Label htmlFor="marital-status" style={{ fontWeight: "bold" }}>
+                    <Grid col={6} style={{}}>
+                        <Label htmlFor="amount-due" style={{ fontWeight: "bold" }}>
                           Total Amount Due{' '}
                         </Label>
                         <div>
                           {"$" + calculateRefundAmount(user.formW2s || [], user.form1099s || [], dependents, married)}
                         </div>
-                      </Grid>)}
-                      {calculateRefundAmount(user.formW2s || [], user.form1099s || [], dependents, married) >= 0 && (<Grid col={12} style={{}}>
-                        <Label htmlFor="dependents" style={{ fontWeight: "bold" }}>
+                      </Grid>
+                      <Grid col={6} style={{}}>
+                        <Label htmlFor="estimated-refund" style={{ fontWeight: "bold" }}>
                           Estimated Refund Amount{' '}
                         </Label>
                         <div>
                           {"$" + calculateRefundAmount(user.formW2s || [], user.form1099s || [], dependents, married)}
                         </div>
-                      </Grid>)}
+                      </Grid>
                     </Grid>
 
                   </Grid>
