@@ -41,7 +41,11 @@ export default function TaxSummary(props: TaxSummaryProps) {
 
   // Check if user has a completed w2 form
   if (formW2s) {
-    totalRefundAmount = formW2s.reduce((acc, w2) => acc + (w2.wagesAndTips - w2.ssWithheld - w2.taxesWithheld - w2.medicareWithheld), 0);
+    totalRefundAmount = formW2s.reduce((acc, w2) => acc + (w2.ssWithheld + w2.taxesWithheld + w2.medicareWithheld), 0);
+
+    // Deduct for dependents. $1,250 is the standard deduction per dependent
+    const dependentDeduction = 1250 * dependents;
+    totalRefundAmount += dependentDeduction;
   }
 
   // Check if user has a completed 1099 form and marital status
@@ -101,13 +105,13 @@ export default function TaxSummary(props: TaxSummaryProps) {
       totalAmountDue = 0;
     }
 
-    // Deduct for dependents. $1,250 is the standard deduction per dependent
-    const dependentDeduction = 1250 * dependents;
-    if (totalAmountDue >= dependentDeduction) {
-      totalAmountDue -= dependentDeduction;
-    } else {
-      totalRefundAmount += dependentDeduction;
-    }
+    // // Deduct for dependents. $1,250 is the standard deduction per dependent
+    // const dependentDeduction = 1250 * dependents;
+    // if (totalAmountDue >= dependentDeduction) {
+    //   totalAmountDue -= dependentDeduction;
+    // } else {
+    //   totalRefundAmount += dependentDeduction;
+    // }
 
     return Math.round(refundAmount * 100) / 100;
   };
