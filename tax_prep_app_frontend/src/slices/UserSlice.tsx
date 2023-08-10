@@ -117,6 +117,10 @@ export const loginUser = createAsyncThunk(
     }
 )
 
+export const logoutUser = () => {
+    localStorage.setItem('user', "") // may need to change this to null instead of "" later
+}
+
 const userSlice = createSlice({
     name: 'user',
     initialState: {

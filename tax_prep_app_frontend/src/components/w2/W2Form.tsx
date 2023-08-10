@@ -4,7 +4,7 @@ import "./W2FormStyle.css";
 import { useEffect, useState } from "react";
 import { useTranslation } from 'react-i18next';
 import { getUser } from "../../slices/UserSlice";
-import toast from "react-hot-toast";
+import toast, { Toaster } from "react-hot-toast";
 
 type FormW2Type = {
   ein: number
@@ -25,13 +25,16 @@ interface W2FormProps {
   isTaxFiling: boolean
   isNewForm: boolean // true for new, false for update
   existingForm?: FormW2Type
+  indexOfW2ToUpdate?: number
 
+  handleCreateUpdateW2?: (event: any) => void
   handleCancel?: (event: any) => void
   handleSubmit?: (event: any) => void
 }
 
 export default function W2Form(props: W2FormProps) {
   const [user, setUser] = useState(getUser())
+  const [updatedUser, setUpdatedUser] = useState(getUser())
 
   const [w2, setW2] = useState(props.isNewForm ? {
     ein: "", // convert this to number when writing to db
@@ -47,6 +50,7 @@ export default function W2Form(props: W2FormProps) {
     wagesAndTips: "",
     dateSubmitted: ""
   } : {
+    // the "errors" below will never be reached unless we pass isNewForm = false, so as long as we pass the appropriate props this will never be an issue
     ein: "" + props?.existingForm?.ein, // convert this to number when writing to db
     employerCity: props.existingForm.employerCity,
     employerName: props.existingForm.employerName,
@@ -133,10 +137,8 @@ export default function W2Form(props: W2FormProps) {
 
   const handleCreateW2Submit = (event: any): void => {
     console.log(user)
-    // todo
     // convert number fields to numbers, then append to w2 array of user object, then write user to db
     // not sure but with the way things are set up, may need to use the username to query db and get the ID back, add it to the user object, and THEN do the put
-    event.preventDefault()
     if (w2.ein.length != 9) { // change the 9 to whatever the standard ein length is
       toast.error("EIN must 9 digits")
     }
@@ -149,9 +151,9 @@ export default function W2Form(props: W2FormProps) {
         const month = (now.getMonth() + 1).toString().padStart(2, '0');
         const day = now.getDate().toString().padStart(2, '0');
         const year = now.getFullYear().toString();
-    
+
         return `${month}-${day}-${year}`;
-    }    
+      }
       const w2Final = {
         ein: parseInt(w2.ein),
         employerCity: w2.employerCity,
@@ -168,9 +170,9 @@ export default function W2Form(props: W2FormProps) {
       }
 
       // this is not working, still get null
-      if(user.formW2s == null) {
+      if (user.formW2s == null) {
         console.log("isnull")
-        setUser((prev) => ({ ...prev, formW2s: [w2Final]}))
+        setUser((prev) => ({ ...prev, formW2s: [w2Final] }))
         console.log(user)
       }
       else {
@@ -179,36 +181,37 @@ export default function W2Form(props: W2FormProps) {
       fetch('http://localhost:8080/users/' + user.id, {
         method: 'PUT',
         headers: {
-            'Content-Type': 'application/json',
+          'Content-Type': 'application/json',
         },
         body: JSON.stringify(user)
-    })
+      })
         .then((res) => res.json())
         .then((data) => {
-            setUser(data)
-            setW2({
-              ein: "",
-              employerCity: "",
-              employerName: "",
-              employerState: "",
-              employerStreet1: "",
-              employerStreet2: "",
-              employerZip: "",
-              medicareWithheld: "",
-              ssWithheld: "",
-              taxesWithheld: "",
-              wagesAndTips: "",
-              dateSubmitted: ""
-            })
-            
-            
-            console.log(user)
+          setUser(data)
+          setW2({
+            ein: "",
+            employerCity: "",
+            employerName: "",
+            employerState: "",
+            employerStreet1: "",
+            employerStreet2: "",
+            employerZip: "",
+            medicareWithheld: "",
+            ssWithheld: "",
+            taxesWithheld: "",
+            wagesAndTips: "",
+            dateSubmitted: ""
+          })
 
-            localStorage.setItem('user', JSON.stringify(user))
-            toast.success("W2 Successfully Submitted!")
+
+          console.log(user)
+
+          localStorage.setItem('user', JSON.stringify(user))
+          props.handleCreateUpdateW2
+          toast.success("W2 Successfully Submitted!")
         })
         .catch((err) => {
-            console.log(err.message);
+          console.log(err.message);
         });
 
     }
@@ -221,7 +224,68 @@ export default function W2Form(props: W2FormProps) {
     // convert number fields to numbers, then append to w2 array of user object, then write user to db
     // not sure but with the way things are set up, may need to use the username to query db and get the ID back, add it to the user object, and THEN do the put
 
+    if (w2.ein.length != 9) { // change the 9 to whatever the standard ein length is
+      toast.error("EIN must 9 digits")
+    }
+    else if (w2.employerZip.length != 5 && w2.employerZip.length != 9) {
+      toast.error("Zip must be 5 or 9 digits")
+    }
+    else {
+      function getCurrentFormattedDate(): string {
+        const now = new Date();
+        const month = (now.getMonth() + 1).toString().padStart(2, '0');
+        const day = now.getDate().toString().padStart(2, '0');
+        const year = now.getFullYear().toString();
 
+        return `${month}-${day}-${year}`;
+      }
+      const w2Final = {
+        ein: parseInt(w2.ein),
+        employerCity: w2.employerCity,
+        employerName: w2.employerName,
+        employerState: w2.employerState,
+        employerStreet1: w2.employerStreet1,
+        employerStreet2: w2.employerStreet2,
+        employerZip: parseInt(w2.employerZip),
+        medicareWithheld: parseInt(w2.medicareWithheld),
+        ssWithheld: parseInt(w2.ssWithheld),
+        taxesWithheld: parseInt(w2.taxesWithheld),
+        wagesAndTips: parseInt(w2.wagesAndTips),
+        submittedDate: getCurrentFormattedDate()
+      }
+
+      // setUser((prev) => ({ ...prev, user.formW2s[props.indexOfW2ToUpdate]: w2Final}))
+      // setUpdatedUser((prevUser) => {
+      //   const updatedUser = { ...prevUser };
+      //   updatedUser.formW2s[props.indexOfW2ToUpdate] = w2Final;
+      //   console.log(props.indexOfW2ToUpdate)
+      //   console.log(updatedUser)
+      //   return updatedUser;
+      // });
+
+      fetch('http://localhost:8080/users/' + user.id + '/formw2s/' + props.indexOfW2ToUpdate, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(w2Final)
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          setUser(data)
+
+          // console.log(user)
+          // console.log(updatedUser)
+
+          localStorage.setItem('user', JSON.stringify(user))
+          // props.handleSubmit
+          toast.success("W2 Successfully Updated!")
+        })
+        .catch((err) => {
+          console.log(err.message);
+        });
+
+    }
   }
 
   const containerStyle = {
@@ -234,77 +298,82 @@ export default function W2Form(props: W2FormProps) {
 
   return (
     <>
-        <div className="bg-base-lightest" style={containerStyle as React.CSSProperties}>
-          <div className="bg-white padding-y-3 padding-x-5 border border-base-lighter">
-            <div id="w2-submit-form">
-              <Form onSubmit={props.isNewForm ? handleCreateW2Submit : handleUpdateW2Submit}>
+      <Toaster
+        position="top-center"
+        reverseOrder={false}
+      />
+      <div className="bg-base-lightest" style={containerStyle as React.CSSProperties}>
+        <div className="bg-white padding-y-3 padding-x-5 border border-base-lighter">
+          <div id="w2-submit-form">
+            <Form onSubmit={()=>{}}> {/** props.isNewForm ? handleCreateW2Submit : handleUpdateW2Submit*/}
 
-                <h1>{t('w2Form.taxStatement')}</h1>
+              <h1>{t('w2Form.taxStatement')}</h1>
 
-                {/* EMPLOYER INFORMATION */}
-                <Label htmlFor="name" style={{ fontWeight: 'bold' }}>{t('w2Form.employerInformationLabel')}</Label>
+              {/* EMPLOYER INFORMATION */}
+              <Label htmlFor="name" style={{ fontWeight: 'bold' }}>{t('w2Form.employerInformationLabel')}</Label>
 
-                <Grid row style={{ display: "flex", justifyContent: "space-between" }}>
+              <Grid row style={{ display: "flex", justifyContent: "space-between" }}>
 
-                  <Grid col={12}>
-                    <Label htmlFor="employer-name-input">{t('w2Form.employerName')}</Label>
-                    <TextInput id="employer-name-input" name="employerName" type="text" value={w2.employerName} onChange={handleEmployerNameChange} required={true} />
-                  </Grid>
+                <Grid col={12}>
+                  <Label htmlFor="employer-name-input">{t('w2Form.employerName')}</Label>
+                  <TextInput id="employer-name-input" name="employerName" type="text" value={w2.employerName} onChange={handleEmployerNameChange} required={true} />
+                </Grid>
 
-                  <Grid col={12}>
-                    <Label htmlFor="employer-address-input">{t('w2Form.streetAddress')}</Label>
-                    <TextInput id="employer-address-input" name="employerAddress" type="text" value={w2.employerStreet1} onChange={handleStreet1Change} />
-                  </Grid>
+                <Grid col={12}>
+                  <Label htmlFor="employer-address-input">{t('w2Form.streetAddress')}</Label>
+                  <TextInput id="employer-address-input" name="employerAddress" type="text" value={w2.employerStreet1} onChange={handleStreet1Change} />
+                </Grid>
 
-                  <Grid col={12}>
-                    <Label htmlFor="street-address2-input">{t('w2Form.apt')}</Label>
-                    <TextInput id="street-address2-input" name="streetAddress2" type="text" value={w2.employerStreet2} onChange={handleStreet2Change} required={true} />
-                  </Grid>
+                <Grid col={12}>
+                  <Label htmlFor="street-address2-input">{t('w2Form.apt')}</Label>
+                  <TextInput id="street-address2-input" name="streetAddress2" type="text" value={w2.employerStreet2} onChange={handleStreet2Change} required={true} />
+                </Grid>
 
-                  <Grid col={6} style={{ width: "48%" }}>
-                    <Label htmlFor="employer-city-input">{t('w2Form.employerCity')}</Label>
-                    <TextInput id="employer-city-input" name="employerCity" type="text" value={w2.employerCity} onChange={handleCityChange} required={true} />
-                  </Grid>
+                <Grid col={6} style={{ width: "48%" }}>
+                  <Label htmlFor="employer-city-input">{t('w2Form.employerCity')}</Label>
+                  <TextInput id="employer-city-input" name="employerCity" type="text" value={w2.employerCity} onChange={handleCityChange} required={true} />
+                </Grid>
 
-                  <Grid col={6} style={{ width: "48%" }}>
-                    <Label htmlFor="employer-state-input">{t('w2Form.employerState')}</Label>
-                    <StatesDropdown value={w2.employerState} onChange={handleStateChange} required={true} />
-                  </Grid>
+                <Grid col={6} style={{ width: "48%" }}>
+                  <Label htmlFor="employer-state-input">{t('w2Form.employerState')}</Label>
+                  <StatesDropdown value={w2.employerState} onChange={handleStateChange} required={true} />
+                </Grid>
 
-                  <Grid col={6} style={{ width: "48%" }}>
-                    <Label htmlFor="employer-zipCode-input">{t('w2Form.employerZip')}</Label>
-                    <TextInput id="employer-zipCode-input" name="employerZipCode" type="text" value={w2.employerZip} onChange={handleZipChange} required={true} />
-
-                  </Grid>
-
-                  <Grid col={12}>
-                    <Label htmlFor="employer-ein-input">{t('w2Form.employerEin')}</Label>
-                    <TextInput id="employer-ein-input" name="employerEin" type="text" value={w2.ein} onChange={handleEinChange} required={true} />
-                  </Grid>
+                <Grid col={6} style={{ width: "48%" }}>
+                  <Label htmlFor="employer-zipCode-input">{t('w2Form.employerZip')}</Label>
+                  <TextInput id="employer-zipCode-input" name="employerZipCode" type="text" value={w2.employerZip} onChange={handleZipChange} required={true} />
 
                 </Grid>
 
-                {/* TAX WITHHELD INFORMATION */}
-                <Label htmlFor="federal-income-tax--input">{t('w2Form.federalIncomeTaxWithheld')}</Label>
-                <TextInput id="federal-income-tax-withheld-input" name="federalIncomeTaxWithheld" type="text" value={w2.taxesWithheld} onChange={handleTaxesWithheldChange} required={true} />
+                <Grid col={12}>
+                  <Label htmlFor="employer-ein-input">{t('w2Form.employerEin')}</Label>
+                  <TextInput id="employer-ein-input" name="employerEin" type="text" value={w2.ein} onChange={handleEinChange} required={true} />
+                </Grid>
 
-                <Label htmlFor="social-security-tax-withheld-input">{t('w2Form.socialSecurityTaxWithheld')}</Label>
-                <TextInput id="social-security-tax-withheld-input" name="socialSecurityTaxWithheld" type="text" value={w2.ssWithheld} onChange={handleSsChange} required={true} />
+              </Grid>
 
-                <Label htmlFor="medicare-tax-withheld">{t('w2Form.medicareTaxWithheld')}</Label>
-                <TextInput id="medicare-tax-withheld" name="medicareTaxWithheld" type="text" value={w2.medicareWithheld} onChange={handleMedicareWithheldChange} required={true} />
+              {/* TAX WITHHELD INFORMATION */}
+              <Label htmlFor="federal-income-tax--input">{t('w2Form.federalIncomeTaxWithheld')}</Label>
+              <TextInput id="federal-income-tax-withheld-input" name="federalIncomeTaxWithheld" type="text" value={w2.taxesWithheld} onChange={handleTaxesWithheldChange} required={true} />
 
-                {/* WAGES AND COMPENSATION */}
-                <Label htmlFor="wages-input">{t('w2Form.wagesTipsOtherCompensation')}</Label>
-                <TextInput id="wages-input" name="wages" type="text" value={w2.wagesAndTips} onChange={handleWagesAndTipsChange} required={true} />
+              <Label htmlFor="social-security-tax-withheld-input">{t('w2Form.socialSecurityTaxWithheld')}</Label>
+              <TextInput id="social-security-tax-withheld-input" name="socialSecurityTaxWithheld" type="text" value={w2.ssWithheld} onChange={handleSsChange} required={true} />
 
-                {props.isTaxFiling && (<Button type="button" onClick={props.handleCancel}>Cancel</Button>)}
-                {props.isNewForm && (<Button type="submit" data-close-modal='true'>{t('w2Form.submit')}</Button>)}
-                {(!props.isTaxFiling && !props.isNewForm) && (<Button type="submit" data-close-modal='true'>Update</Button>)}
-              </Form>
-            </div>
+              <Label htmlFor="medicare-tax-withheld">{t('w2Form.medicareTaxWithheld')}</Label>
+              <TextInput id="medicare-tax-withheld" name="medicareTaxWithheld" type="text" value={w2.medicareWithheld} onChange={handleMedicareWithheldChange} required={true} />
+
+              {/* WAGES AND COMPENSATION */}
+              <Label htmlFor="wages-input">{t('w2Form.wagesTipsOtherCompensation')}</Label>
+              <TextInput id="wages-input" name="wages" type="text" value={w2.wagesAndTips} onChange={handleWagesAndTipsChange} required={true} />
+
+              {(props.isTaxFiling || props.existingForm) && (<Button type="button" onClick={props.handleCancel}>Cancel</Button>)}
+              {props.isNewForm && (<Button type="button" onClick={handleCreateW2Submit} data-close-modal='true'>{t('w2Form.submit')}</Button>)}
+              {(!props.isTaxFiling && !props.isNewForm) && (<Button type="button" onClick={handleUpdateW2Submit} data-close-modal='true'>Update</Button>)}
+
+            </Form>
           </div>
         </div>
+      </div>
 
     </>
   )

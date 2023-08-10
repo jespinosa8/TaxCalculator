@@ -26,14 +26,15 @@ export default function CustomCard(props: CardProps) {
         <>
             <Card onClick={props.onClick} onMouseEnter={toggleHoverStyle} onMouseLeave={toggleHoverStyle} 
                 style={!props.imageOnly ? {position: "absolute", width: "300px", listStyleType: "none", marginTop: props.marginTop, cursor: applyHoverStyle ? "pointer" : "" } :
-                { backgroundColor: "rgba(1,1,1,0)", width: "80px", listStyleType: "none", marginTop: props.marginTop, marginLeft: props.marginLeft, marginRight: props.marginRight, cursor: applyHoverStyle ? "pointer" : "" }}
+                { color: "rgba(1,1,1,0)", width: "90px", listStyleType: "none", marginTop: props.marginTop, marginLeft: props.marginLeft, marginRight: props.marginRight, cursor: applyHoverStyle ? "pointer" : "" }}
                 gridLayout={{ tablet: { col: 6 }}}
                 >
                     {!props.imageOnly && (<CardHeader style={{ background: applyHoverStyle ? "#d4d4d4" : "" }}>
                         <h2 className="usa-card__heading">{props.title}</h2>
                     </CardHeader>)}
                     <CardMedia>
-                        <img src={applyHoverStyle ? props.imageHoverSrc : props.imageSrc} alt="A placeholder" />
+                        {!props.imageOnly && (<img src={applyHoverStyle ? props.imageHoverSrc : props.imageSrc} alt="A placeholder" />)}
+                        {props.imageOnly && (<img src={props.imageSrc}/>)}
                     </CardMedia>
                     {!props.imageOnly && (<CardBody style={{ background: applyHoverStyle ? "#d4d4d4" : "" }}>
                         <p> {props.description} </p>

@@ -28,15 +28,15 @@ function App() {
     const [user, setUser] = useState(getUser())
 
     const navItems = 
-    // user.username == '' ? [] :
+    user.username == '' ? [] :
     [
         // creating a list of react-router-dom Links to pass to our navbar
         // <Link to='/'>{t('link.logOut')}</Link>,
         <Link to='/home'>{t('link.home')}</Link>,
         <Link to='/tax-summary'>{t('link.taxSummary')}</Link>,
         // <Link to='/tax-filing'>{t('link.generalTaxInformation')}</Link>,
-        <Link to='/add-w2'>{t('link.addW2')}</Link>,
-        <Link to='/add-1099'>{t('link.add1099')}</Link>,
+        user.taxFilings == null ? <Link to='/add-w2'>{t('link.addW2')}</Link> : "",
+        user.taxFilings == null ?<Link to='/add-1099'>{t('link.add1099')}</Link> : "",
         <Link to='/personal-info'>{t('link.personalInformation')}</Link>,
         <Link to='/logout'>{t('link.logOut')}</Link>
         // <div>Browser Language: {lng}</div>

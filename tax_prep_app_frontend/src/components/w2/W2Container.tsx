@@ -11,8 +11,14 @@ const containerStyle = {
   textAlign: "center"
 }
 
+
 export default function W2Container() {
   const [user, setUser] = useState(getUser())
+
+  function handleCreateUpdateW2() {
+    setUser(getUser())
+  }
+
   return (
     <>
       <div style={containerStyle as React.CSSProperties}>
@@ -22,7 +28,7 @@ export default function W2Container() {
           </Grid>
           }
           <Grid col={user.formW2s == null ? 12 : 6}>
-            <W2Form isTaxFiling={false} isNewForm={true} />
+            <W2Form isTaxFiling={false} isNewForm={true} handleCreateUpdateW2={handleCreateUpdateW2}/>
           </Grid>
         </Grid>
       </div>
