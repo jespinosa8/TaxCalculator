@@ -167,9 +167,11 @@ export default function W2Form(props: W2FormProps) {
         submittedDate: getCurrentFormattedDate()
       }
 
+      // this is not working, still get null
       if(user.formW2s == null) {
         console.log("isnull")
         setUser((prev) => ({ ...prev, formW2s: [w2Final]}))
+        console.log(user)
       }
       else {
         user.formW2s.push(w2Final)

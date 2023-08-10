@@ -1,12 +1,11 @@
-import { Table } from "@trussworks/react-uswds";
+import { Button, Table } from "@trussworks/react-uswds";
 import { useEffect, useState } from "react";
 import { useTranslation } from 'react-i18next';
 import { getUser } from "../../slices/UserSlice";
-// import SubmitDate from "./SubmitDate";
-
 
 export default function W2SummaryTable () {
   const [user, setUser] = useState(getUser())
+  const [showHover, setShowHover] = useState(false)
 
   const { t, i18n } = useTranslation();
 
@@ -19,6 +18,10 @@ export default function W2SummaryTable () {
 
   function formatCurrency(amount: number): string {
     return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(amount);
+}
+
+function handleShowHover() {
+  setShowHover(!showHover)
 }
 
   return (
@@ -36,7 +39,9 @@ export default function W2SummaryTable () {
           </thead>
           <tbody>
               {user.formW2s == null ? <></> : user.formW2s.map((w2, w) =>
-                  <tr key={w}>
+                  <tr key={w}
+                  // style={showHover ? {borderColor: "#f0f0f0"} : {}} onClick={() => console.log(w2.employerName)} onMouseEnter={handleShowHover} onMouseLeave={handleShowHover}
+                  >
                       <td>{w2.employerName}</td>
                       <td>{formatCurrency(w2?.wagesAndTips)}</td>
                       <td>{formatCurrency(w2?.ssWithheld)}</td>
@@ -44,11 +49,14 @@ export default function W2SummaryTable () {
                       <td>{formatCurrency(w2?.medicareWithheld)}</td>
                       {/* <td>{w2.dateSubmitted}</td> */}
                   </tr>
-                
               )}
               
           </tbody>
         </Table>  
+        <Button className="clickable-pencil" onClick={() => {}} type={"button"}>
+  <span className="pencil-icon"></span>
+  Edit
+</Button>
     </>
   )
 }

@@ -10,7 +10,7 @@ export default function PersonalInformation() {
 
 
   const handleUpdateTransition = (): void => {
-    setShowUpdateForm(!showUpdateForm)
+    showUpdateForm ? window.location.reload() : setShowUpdateForm(!showUpdateForm)
   }
 
   return (

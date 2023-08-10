@@ -14,6 +14,7 @@ import StatesDropdown from '../dropdown/StatesDropdown'
 import CountriesDropdown from '../dropdown/CountriesDropdown'
 import toast, { Toaster } from 'react-hot-toast'
 import { User } from '../../slices/UserSlice'
+import { useNavigate } from 'react-router-dom'
 
 interface CreateEditUserAccountProps {
     accountExists: boolean,
@@ -68,6 +69,8 @@ export default function CreateEditUserAccount(props: CreateEditUserAccountProps)
 
     const [showPassword, setShowPassword] = React.useState(false)
     const [retypedPassword, setRetypedPassword] = React.useState<string>(user.password)
+
+    const navigate = useNavigate()
 
     const now = new Date();
 
@@ -197,9 +200,22 @@ export default function CreateEditUserAccount(props: CreateEditUserAccountProps)
                 }
             }
 
-            console.log(userFinal)
-
-            toast.success("Account Successfully Created!")
+            fetch('http://localhost:8080/users/newUser', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(userFinal)
+            })
+                .then((res) => res.json())
+                .then((data) => {
+                    localStorage.setItem('user', JSON.stringify(data))
+                    toast.success("Account Successfully Created!")
+                    navigate('/home')
+                })
+                .catch((err) => {
+                    console.log(err.message);
+                });
         }
     }
 
@@ -245,7 +261,7 @@ export default function CreateEditUserAccount(props: CreateEditUserAccountProps)
             }
 
             setUser((prev) => ({ ...prev, user: userFinal }))
-
+console.log(user)
             fetch('http://localhost:8080/users/' + user.id, {
                 method: 'PUT',
                 headers: {
@@ -258,7 +274,6 @@ export default function CreateEditUserAccount(props: CreateEditUserAccountProps)
                     setUser(data)
                     localStorage.setItem('user', JSON.stringify(user))
                     toast.success("Account Successfully Updated!")
-                    console.log(user)
                     props.handleUpdateTransition()
                 })
                 .catch((err) => {
