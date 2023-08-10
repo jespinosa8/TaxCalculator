@@ -3,6 +3,7 @@ import { Dropdown } from '@trussworks/react-uswds'
 interface StatesDropdownProps {
     value?: string,
     disabled?: boolean,
+    required?: boolean,
 
     onChange?: (event: any) => void
 }
@@ -21,7 +22,7 @@ export default function StatesDropdown(props: StatesDropdownProps) {
 
     return (
         <>
-            <Dropdown value={props.value} disabled={props.disabled} id="state" name="state" onChange={props.onChange}>
+            <Dropdown value={props.value} disabled={props.disabled} id="state" name="state" required={props.required} onChange={props.onChange}>
                 {/* Map through statesList and render options */}
                 <option>- Select -</option>
                 {statesList.map((state, index) => (

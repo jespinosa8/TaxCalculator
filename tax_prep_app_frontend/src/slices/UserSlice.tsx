@@ -6,7 +6,7 @@ type UserCredentials = {
 }
 
 export interface User {
-    // id: string
+    id: string
     username: string
     password: string
     enabled: boolean
@@ -71,6 +71,7 @@ export function getUser(): User {
 
   function getDefaultUser(): User {
     return {
+      id: '',
       username: '',
       password: '',
       enabled: false,
@@ -119,7 +120,16 @@ export const loginUser = createAsyncThunk(
 const userSlice = createSlice({
     name: 'user',
     initialState: {
-        user: null as any,
+        // user: null as any, <-- uncomment this and delete the fetch below once login is set up
+        user: fetch('http://localhost:8080/users')
+        .then((res) => res.json())
+        .then((data: User[]) => {
+            localStorage.setItem('user', JSON.stringify(data[7]))
+            return true
+        })
+        .catch((err) => {
+            console.log(err.message)
+        }) as any,
         loading: false as boolean,
         error: "" as string
     },

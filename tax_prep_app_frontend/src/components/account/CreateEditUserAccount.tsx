@@ -26,6 +26,7 @@ interface CreateEditUserAccountProps {
 export default function CreateEditUserAccount(props: CreateEditUserAccountProps) {
 
     const userToCreateOrEdit = props.existingUser ? {
+        id: props.existingUser.id,
         username: props.existingUser.username,
         password: props.existingUser.password,
         enabled: true,
@@ -117,7 +118,6 @@ export default function CreateEditUserAccount(props: CreateEditUserAccountProps)
         if (event.target.value == "" || /^\d+$/.test(event.target.value)) {
             setUser((prev) => ({ ...prev, userDetail: { ...prev.userDetail, zip: event.target.value } }))
         }
-
     }
 
     const handleEmailChange = (event: any) => {
@@ -236,19 +236,34 @@ export default function CreateEditUserAccount(props: CreateEditUserAccountProps)
                     lastName: user.userDetail.lastName,
                     email: user.userDetail.email,
                     street1: user.userDetail.street1,
-                    street2: user.userDetail.street2.length == 0 ? null : user.userDetail.street2,
+                    street2: (user.userDetail.street2 == null || user.userDetail.street2.length == 0) ? null : user.userDetail.street2,
                     city: user.userDetail.city.length == 0 ? null : user.userDetail.city,
-                    state: user.userDetail.state.length == 0 ? null : user.userDetail.state,
+                    state: (user.userDetail.state == null || user.userDetail.state.length == 0) ? null : user.userDetail.state,
                     country: user.userDetail.country,
                     zip: user.userDetail.zip.length == 0 ? null : parseInt(user.userDetail.zip)
                 }
             }
 
-            console.log(userFinal)
+            setUser((prev) => ({ ...prev, user: userFinal }))
 
-            toast.success("Account Successfully Updated!")
-
-            props.handleUpdateTransition()
+            fetch('http://localhost:8080/users/' + user.id, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(userFinal)
+            })
+                .then((res) => res.json())
+                .then((data) => {
+                    setUser(data)
+                    localStorage.setItem('user', JSON.stringify(user))
+                    toast.success("Account Successfully Updated!")
+                    console.log(user)
+                    props.handleUpdateTransition()
+                })
+                .catch((err) => {
+                    console.log(err.message);
+                });
         }
     }
 
@@ -453,7 +468,7 @@ export default function CreateEditUserAccount(props: CreateEditUserAccountProps)
                                                         type="text"
                                                         autoCapitalize="off"
                                                         autoCorrect="off"
-                                                        required={false}
+                                                        required={true}
                                                         value={user.userDetail.city}
                                                         onChange={handleCityChange}
                                                     />
@@ -490,7 +505,7 @@ export default function CreateEditUserAccount(props: CreateEditUserAccountProps)
                                                     <Label htmlFor="state">
                                                         State{' '}
                                                     </Label>
-                                                    <StatesDropdown value={user.userDetail.state} disabled={user.userDetail.country != "United States"} onChange={handleStateChange} />
+                                                    <StatesDropdown value={user.userDetail.state == null ? "" : user.userDetail.state} disabled={user.userDetail.country != "United States"} onChange={handleStateChange} />
 
                                                     <Label htmlFor="country">
                                                         Country{' '}

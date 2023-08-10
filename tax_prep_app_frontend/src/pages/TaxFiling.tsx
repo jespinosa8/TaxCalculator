@@ -4,13 +4,20 @@ import FormSelection from "../components/taxFiling/FormSelection"
 import TaxSummary from "./TaxSummary"
 import W2Form from "../components/w2/W2Form"
 import Form1099 from "../components/1099/Form1099"
+import { getUser } from "../slices/UserSlice"
+import { useNavigate } from "react-router-dom"
+import toast from "react-hot-toast"
 
 
 export default function TaxFiling() {
+  const [user, setUser] = useState(getUser())
   const [taxFiling, setTaxFiling] = useState({
     married: false,
-    dependents: 0
+    dependents: 0,
+    totalRefundAmount: 0,
+    totalAmountDue: 0
   })
+  const navigate = useNavigate()
 
   /**
    * page 1: general tax info
@@ -32,6 +39,10 @@ export default function TaxFiling() {
   }
 
   const handleNextButtonClick = () => {
+    if (currentPage == 2) {
+      setTaxFiling((prev) => ({ ...prev, totalRefundAmound: calculateRefundAmount() }))
+      setTaxFiling((prev) => ({ ...prev, totalAmountDue: calculateTotalAmountDue() }))
+    }
     setCurrentPage(currentPage + 1)
   }
 
@@ -47,20 +58,46 @@ export default function TaxFiling() {
     setCurrentPage(6)
   }
 
-  const handleW2FormSubmit = (event: any) => {
-
-  }
-
-  const handle1099FormSubmit = (event: any) => {
-
-  }
-
   const handleFormCancel = () => {
     setCurrentPage(2)
   }
 
   const handleTaxSummarySubmit = (event: any) => {
+    setUser((prev) => ({ ...prev, taxFilings: taxFiling }))
 
+    fetch('http://localhost:8080/users/' + user.id, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(user)
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        setUser(data)
+        localStorage.setItem('user', JSON.stringify(user))
+        toast.success("1099 Successfully Submitted!")
+        navigate("/")
+      })
+      .catch((err) => {
+        console.log(err.message);
+      });
+  }
+
+  const calculateRefundAmount = () => {
+    // do calculations here 
+    const amount = Math.round(
+      (100) // <-- logic goes here --- the 100 is dummy data
+      * 100) / 100
+    return amount
+  }
+
+  const calculateTotalAmountDue = () => {
+    // do calculations here 
+    const amount = Math.round(
+      (100) // <-- logic goes here --- the 100 is dummy data
+      * 100) / 100
+    return amount
   }
 
   const containerStyle = {
@@ -80,14 +117,14 @@ export default function TaxFiling() {
       {currentPage == 5 && (
         <main id="main-content" style={containerStyle as React.CSSProperties}>
           <div className="bg-base-lightest" style={containerStyle as React.CSSProperties}>
-            <W2Form isTaxFiling={true} handleSubmit={handleW2FormSubmit} handleCancel={handleFormCancel} />
+            <W2Form isTaxFiling={true} isNewForm={true} handleCancel={handleFormCancel} />
           </div>
         </main>
       )}
       {currentPage == 6 && (
         <main id="main-content" style={containerStyle as React.CSSProperties}>
           <div className="bg-base-lightest" style={containerStyle as React.CSSProperties}>
-            <Form1099 isTaxFiling={true} handleSubmit={handle1099FormSubmit} handleCancel={handleFormCancel} />
+            <Form1099 isTaxFiling={true} isNewForm={true} handleCancel={handleFormCancel} />
           </div>
         </main>
       )}

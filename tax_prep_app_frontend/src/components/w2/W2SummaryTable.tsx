@@ -6,7 +6,8 @@ import { getUser } from "../../slices/UserSlice";
 
 
 export default function W2SummaryTable () {
-  
+  const [user, setUser] = useState(getUser())
+
   const { t, i18n } = useTranslation();
 
   useEffect(() => {
@@ -16,41 +17,36 @@ export default function W2SummaryTable () {
 
   const lng = navigator.language;
 
+  function formatCurrency(amount: number): string {
+    return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(amount);
+}
+
   return (
     <>
         <Table striped fullWidth className="bg-primary-lighter" >
           <thead>
               <tr>
-                  <th>{t('w2Table.employee')}</th>
                   <th>{t('w2Table.employer')}</th>
                   <th>{t('w2Table.totalIncome')}</th>
-                  <th>{t('w2Table.dateSubmitted')}</th>
+                  <th>{t('w2Table.ssWithheld')}</th>
+                  <th>{t('w2Table.taxesWithheld')}</th>
+                  <th>{t('w2Table.medicareWithheld')}</th>
+                  {/* <th>{t('w2Table.dateSubmitted')}</th> */}
               </tr>
           </thead>
           <tbody>
-              {/* {tableData.map((w2) =>
-
-                (
-                  <tr key={w2.form_w2_id}>
-                      <td>{w2.form_w2_id}</td>
-                      <td>{w2.user_id}</td>
-                      <td>{w2.tax_filing_id}</td>
+              {user.formW2s == null ? <></> : user.formW2s.map((w2, w) =>
+                  <tr key={w}>
                       <td>{w2.employerName}</td>
-                      <td>{w2.ein}</td>
-                      <td>{w2.employer_street1}</td>
-                      <td>{w2.employer_street2}</td>
-                      <td>{w2.employer_city}</td>
-                      <td>{w2.employer_state}</td>
-                      <td>{w2.employer_zip}</td>
-                      <td>{w2.wages_and_tips}</td>
-                      <td>{w2.ss_withheld}</td>
-                      <td>{w2.taxes_withheld}</td>
-                      <td>{w2.medicare_withheld}</td>
-                      <SubmitDate/>
+                      <td>{formatCurrency(w2?.wagesAndTips)}</td>
+                      <td>{formatCurrency(w2?.ssWithheld)}</td>
+                      <td>{formatCurrency(w2?.taxesWithheld)}</td>
+                      <td>{formatCurrency(w2?.medicareWithheld)}</td>
+                      {/* <td>{w2.dateSubmitted}</td> */}
                   </tr>
-                )
-              )
-              } */}
+                
+              )}
+              
           </tbody>
         </Table>  
     </>

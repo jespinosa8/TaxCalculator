@@ -1,8 +1,11 @@
 import { Table } from "@trussworks/react-uswds";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useTranslation } from 'react-i18next';
+import { getUser } from "../../slices/UserSlice";
 
 export default function Table1099 () {
+  const [user, setUser] = useState(getUser())
+
 
   const { t, i18n } = useTranslation();
 
@@ -13,41 +16,34 @@ export default function Table1099 () {
 
   const lng = navigator.language;
 
+  function formatCurrency(amount: number): string {
+    return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(amount);
+}
+
   return (
     <>
       <Table striped fullWidth className="bg-primary-lighter" >
           <thead>
               <tr>
-                  <th>{t('table1099.recipient')}</th>
                   <th>{t('table1099.payer')}</th>
                   <th>{t('table1099.totalCompensation')}</th>
-                  <th>{t('table1099.dateSubmitted')}</th>
+                  <th>{t('table1099.federalIncomeTaxWithheld')}</th>
+                  {/* <th>{t('table1099.dateSubmitted')}</th> */}
               </tr>
           </thead>
           <tbody>
-              {/* {tableData.map((filed1099) =>
+              {user.form1099s.map((form1099, f) =>
 
-                (
-                  <tr key={filed1099.form_1099_id}>
-                      <td>{filed1099.form_1099_id}</td>
-                      <td>{filed1099.user_id}</td>
-                      <td>{filed1099.recipient_snn}</td>
-                      <td>{filed1099.recipient_tin}</td>
-                      <td>{filed1099.tax_filing_id}</td>
-                      <td>{filed1099.payer_name}</td>
-                      <td>{filed1099.payer_street1}</td>
-                      <td>{filed1099.payer_street_2}</td>
-                      <td>{filed1099.payer_city}</td>
-                      <td>{filed1099.payer_state}</td>
-                      <td>{filed1099.payer_zip}</td>
-                      <td>{filed1099.payer_tin}</td>
-                      <td>{filed1099.taxes_withheld2}</td>
-                      <td>{filed1099.total_compensation}</td>
-                      <SubmitDate/>
+                
+                  <tr key={f}>
+                      <td>{form1099.payerName}</td>
+                      <td>{formatCurrency(form1099.totalCompensation)}</td>
+                      <td>{formatCurrency(form1099.taxesWithheld2)}</td>
+                      {/* <td>{form1099.dateSubmitted}</td> */}
                   </tr>
-                )
+                
               )
-              } */}
+              }
           </tbody>
         </Table>
     

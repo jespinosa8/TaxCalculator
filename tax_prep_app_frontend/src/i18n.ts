@@ -34,6 +34,9 @@ i18n
             employee: "Employee",
             employer: "Employer",
             totalIncome: "Total Income",
+            ssWithheld: "Social Security Withheld",
+            taxesWithheld: "Taxes Withheld",
+            medicareWithheld: "Medicare Withheld",
             dateSubmitted: "Date Submitted"
           },
           w2Form: {
@@ -72,6 +75,7 @@ i18n
             recipient: "Recipient",
             payer: "Payer",
             totalCompensation: "Total Compensation",
+            federalIncomeTaxWithheld: "Federal Income Tax Withheld",
             dateSubmitted: "Date Submitted"
           }
         }
@@ -91,6 +95,9 @@ i18n
             employee: "Empleado",
             employer: "Empleador",
             totalIncome: "Ingresos Totales",
+            ssWithheld: "Seguro Social Retenido",
+            taxesWithheld: "Impuestos Retenidos",
+            medicareWithheld: "Medicare Retenido",
             dateSubmitted: "Fecha Enviado"
           },
           w2Form: {
@@ -129,6 +136,7 @@ i18n
             recipient: "Destinatario(a)",
             payer: "Pagador",
             totalCompensation: "Compensación Total",
+            federalIncomeTaxWithheld: "Impuesto Federal Sobre la Renta Retenido",
             dateSubmitted: "Fecha Enviado"
           }
         }

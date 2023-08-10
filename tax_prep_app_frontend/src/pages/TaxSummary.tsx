@@ -1,4 +1,4 @@
-import { Button, Grid, Label, TextInput } from "@trussworks/react-uswds"
+import { Button, Grid, Label } from "@trussworks/react-uswds"
 import { useState } from "react"
 import W2SummaryTable from "../components/w2/W2SummaryTable"
 import Table1099 from "../components/1099/Table1099"
@@ -6,7 +6,9 @@ import { getUser } from "../slices/UserSlice"
 
 interface taxFiling {
   married: boolean,
-  dependents: number
+  dependents: number,
+  totalRefundAmount: number,
+  totalAmountDue: number
 }
 
 interface TaxSummaryProps {
@@ -29,14 +31,6 @@ const containerStyle = {
 
 export default function TaxSummary(props: TaxSummaryProps) {
   const [user, setUser] = useState(getUser())
-
-  const calculateRefundAmount = () => {
-    // do calculations here 
-    const amount = Math.round(
-      (100) // <-- logic goes here --- the 100 is dummy data
-      * 100) / 100
-    return amount
-  }
 
   return (
     <>
@@ -75,34 +69,32 @@ export default function TaxSummary(props: TaxSummaryProps) {
                       </Grid>
                     </Grid>
 
-                    {/** hide these lines if there are no W2s */}
                     {!(user.formW2s == null) && (<><hr className="solid" style={{ marginBottom: "5px", marginTop: "35px" }}></hr>
                     <h2 style={{ textAlign: "center", marginBottom: "-15px" }}>W2s</h2>
                     <W2SummaryTable /></>)}
 
-                    {/** hide these lines if there are no 1099s */}
                     {!(user.form1099s == null) && (<><hr className="solid" style={{ marginBottom: "5px", marginTop: "35px" }}></hr>
                     <h2 style={{ textAlign: "center", marginBottom: "-15px" }}>1099s</h2>
                     <Table1099 /></>)}
 
                     <hr className="solid" style={{ marginBottom: "5px", marginTop: "35px" }}></hr>
                     <Grid row style={{ display: "flex", justifyContent: "space-between" }}>
-                      {calculateRefundAmount() < 0 && (<Grid col={12} style={{}}>
-                        <Label htmlFor="marital-status" style={{ fontWeight: "bold" }}>
+                      <Grid col={6} style={{}}>
+                        <Label htmlFor="amount-due" style={{ fontWeight: "bold" }}>
                           Total Amount Due{' '}
                         </Label>
                         <div>
-                          {"$" + calculateRefundAmount().toFixed(2)}
+                          {"$" + props.taxFiling?.totalRefundAmount.toFixed(2)}
                         </div>
-                      </Grid>)}
-                      {calculateRefundAmount() >= 0 && (<Grid col={12} style={{}}>
-                        <Label htmlFor="dependents" style={{ fontWeight: "bold" }}>
-                          Estimated Refund Amount{' '}
+                      </Grid>
+                      <Grid col={6} style={{}}>
+                        <Label htmlFor="amount-owed" style={{ fontWeight: "bold" }}>
+                          Estimated Amount Owed{' '}
                         </Label>
                         <div>
-                          {"$" + calculateRefundAmount().toFixed(2)}
+                          {"$" + props.taxFiling?.totalAmountDue.toFixed(2)}
                         </div>
-                      </Grid>)}
+                      </Grid>
                     </Grid>
 
                   </Grid>

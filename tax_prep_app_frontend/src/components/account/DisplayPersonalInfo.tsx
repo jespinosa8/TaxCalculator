@@ -93,10 +93,10 @@ export default function CreateEditUserAccount(props: DisplayPersonalInfoProps) {
                                             </Label>
                                             <div>{props.user.userDetail.city}</div>
 
-                                            <Label htmlFor="zip" style={{ fontWeight: "bold" }}>
+                                            {(!(props.user.userDetail.zip == null) && !(props.user.userDetail.zip == 0)) && (<><Label htmlFor="zip" style={{ fontWeight: "bold" }}>
                                                 Zip{' '}
                                             </Label>
-                                            <div>{props.user.userDetail.zip}</div>
+                                            <div>{props.user.userDetail.zip}</div></>)}
 
                                         </Grid>
 
@@ -108,10 +108,10 @@ export default function CreateEditUserAccount(props: DisplayPersonalInfoProps) {
                                             {props.user.userDetail.street2 != "" && (<div>{props.user.userDetail.street2}</div>)}
 
 
-                                            <Label htmlFor="state" style={{ fontWeight: "bold" }}>
+                                            {(!(props.user.userDetail.state == null) && !(props.user.userDetail.state == "")) && (<><Label htmlFor="state" style={{ fontWeight: "bold" }}>
                                                 State{' '}
                                             </Label>
-                                            <div>{props.user.userDetail.state}</div>
+                                            <div>{props.user.userDetail.state}</div></>)}
 
                                             <Label htmlFor="country" style={{ fontWeight: "bold" }}>
                                                 Country{' '}
