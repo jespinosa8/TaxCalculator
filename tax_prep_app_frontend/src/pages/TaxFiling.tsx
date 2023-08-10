@@ -76,7 +76,7 @@ export default function TaxFiling() {
       .then((data) => {
         setUser(data)
         localStorage.setItem('user', JSON.stringify(user))
-        toast.success("1099 Successfully Submitted!")
+        toast.success("Taxes Successfully Submitted!")
         navigate("/")
       })
       .catch((err) => {

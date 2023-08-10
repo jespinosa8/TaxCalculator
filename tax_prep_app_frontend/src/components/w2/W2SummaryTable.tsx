@@ -1,12 +1,12 @@
-import { Button, Card, Grid, Table } from "@trussworks/react-uswds";
+import { Table } from "@trussworks/react-uswds";
 import { useEffect, useState } from "react";
 import { useTranslation } from 'react-i18next';
 import { getUser } from "../../slices/UserSlice";
-import CustomCard from "../home/Card";
+import DeleteW2 from "./DeleteW2";
+import UpdateW2 from "./UpdateW2";
 
 export default function W2SummaryTable() {
   const [user, setUser] = useState(getUser())
-  const [applyHoverStyle, setApplyHoverStyle] = useState(false)
 
   const { t, i18n } = useTranslation();
 
@@ -19,6 +19,14 @@ export default function W2SummaryTable() {
 
   function formatCurrency(amount: number): string {
     return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(amount);
+  }
+
+  function handleUpdateW2() {
+
+  }
+
+  function handleDeleteW2() {
+    setUser(getUser())
   }
 
   return (
@@ -43,30 +51,21 @@ export default function W2SummaryTable() {
               <td>{formatCurrency(w2?.taxesWithheld)}</td>
               <td>{formatCurrency(w2?.medicareWithheld)}</td>
               {/* <td>{w2.dateSubmitted}</td> */}
+              {/* {(user.taxFilings == null &&  */}         {/** uncomment this in prod */}
               <td>
-                <Grid row style={{maxHeight: "50px"}}>
-                  <Grid col={6}>
-                    <CustomCard title={"Update"} imageOnly={true} imageSrc="/PencilIcon.jpg" marginTop={"-5px"} marginLeft={"-30px"}></CustomCard>
-                  </Grid>
-                  <Grid col={6}>
-                  <Grid col={6}>
-                    <CustomCard title={"Update"} imageOnly={true} imageSrc="/Red_X_Icon.png" marginTop={"-5px"} marginLeft={"-10px"}></CustomCard>
-                  </Grid>
-
-                  </Grid>
-                </Grid>
+                <UpdateW2 existingForm={w2} indexOfW2ToUpdate={w} handleUpdateW2={handleUpdateW2}></UpdateW2>
               </td>
-              
-
+              {/* )}  */}
+              <td>
+                {/* {(user.taxFilings == null &&  */}         {/** uncomment this in prod */}
+                <DeleteW2 indexOfW2ToDelete={w} handleDeleteW2={handleDeleteW2}></DeleteW2>
+                {/* )}  */}
+              </td>
             </tr>
           )}
 
         </tbody>
       </Table>
-      <Button className="clickable-pencil" onClick={() => { }} type={"button"}>
-        <span className="pencil-icon"></span>
-        Edit
-      </Button>
     </>
   )
 }
