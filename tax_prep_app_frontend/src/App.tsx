@@ -34,7 +34,7 @@ function App() {
         user.taxFilings == null ? <Link to='/add-w2'>{t('link.addW2')}</Link> : "",
         user.taxFilings == null ?<Link to='/add-1099'>{t('link.add1099')}</Link> : "",
         <Link to='/personal-info'>{t('link.personalInformation')}</Link>,
-        <Link to='/logout'>{t('link.logOut')}</Link>
+        // <Link to='/logout'>{t('link.logOut')}</Link>
         
     ];
 

@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { useTranslation } from 'react-i18next';
 import { getUser } from "../../slices/UserSlice";
 import toast, { Toaster } from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 
 type FormW2Type = {
   ein: number
@@ -65,6 +66,8 @@ export default function W2Form(props: W2FormProps) {
   })
 
   const { t, i18n } = useTranslation();
+
+  const navigate = useNavigate()
 
   useEffect(() => {
     const lng = navigator.language;
@@ -194,6 +197,7 @@ export default function W2Form(props: W2FormProps) {
             localStorage.setItem('user', JSON.stringify(user))
             toast.success("W2 Successfully Submitted!")
             props.handleSubmit
+            navigate(0)
 
           })
           .catch((err) => {
@@ -232,6 +236,7 @@ export default function W2Form(props: W2FormProps) {
             localStorage.setItem('user', JSON.stringify(user))
             toast.success("W2 Successfully Submitted!")
             props.handleSubmit
+            navigate(0)
           })
           .catch((err) => {
             console.log(err.message);
@@ -286,6 +291,7 @@ export default function W2Form(props: W2FormProps) {
           localStorage.setItem('user', JSON.stringify(user))
           toast.success("W2 Successfully Updated!")
           props.handleCreateUpdateW2
+          navigate(0)
 
         })
         .catch((err) => {
