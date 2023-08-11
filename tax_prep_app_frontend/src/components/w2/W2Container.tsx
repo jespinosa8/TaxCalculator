@@ -31,13 +31,13 @@ export default function W2Container() {
   const [user, setUser] = useState(getUser())
 
   const w2 : FormW2Type = {
-    ein: 0, // convert this to number when writing to db
+    ein: 0,
     employerCity: "",
     employerName: "",
     employerState: "",
     employerStreet1: "",
     employerStreet2: "",
-    employerZip: 0, // convert this and below to numbers when writing to db
+    employerZip: 0,
     medicareWithheld: 0,
     ssWithheld: 0,
     taxesWithheld: 0,
