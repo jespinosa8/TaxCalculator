@@ -1,5 +1,4 @@
-import { useRef, useState } from "react";
-import { getUser } from "../../slices/UserSlice";
+import { useRef } from "react";
 import { Modal, ModalRef } from "@trussworks/react-uswds";
 import Form1099 from "./Form1099";
 
@@ -10,15 +9,13 @@ interface Delete1099Props {
 }
 
 export default function Delete1099(props: Delete1099Props) {
-    const [user, setUser] = useState(getUser())
-
     const modalRef = useRef<ModalRef>(null)
 
     const toggleModal = () => {
         modalRef.current?.toggleModal();
     };
 
-    function handleUpdateButtonClick(event: any) {
+    function handleUpdateButtonClick() {
 
     }
 

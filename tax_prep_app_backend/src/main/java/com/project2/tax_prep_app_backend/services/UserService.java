@@ -23,18 +23,19 @@ public class UserService {
     UserRepository userRepository;    
     
     // Authenticate Credentials
-    public boolean authenticateUser(String username, String password) {
+    public User authenticateUser(String username, String password) {
         Optional<User> optionalUser = userRepository.findByUsername(username);
 
         if (optionalUser.isPresent()) {
             User user = optionalUser.get();
             String hashedPassword = DigestUtils.sha256Hex(password);
 
-            //compare the hash passwwords
-            return user.getPassword().equals(hashedPassword);
+            if (user.getPassword().equals(hashedPassword)) {
+                return user; // Authentication successful, return the user
+            }
         }
 
-        return false;
+        return null; // Authentication failed, return null
     }
 
 
@@ -42,6 +43,7 @@ public class UserService {
     public List<User> getAllUsers() {
         return userRepository.findAll();
     }
+    
 
     // Get user by id
     public User findById(String userId) {

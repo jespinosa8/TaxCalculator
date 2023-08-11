@@ -72,7 +72,7 @@ export default function TaxFiling() {
     newUser.taxFilings = taxFiling
     console.log(newUser)
     
-    fetch('http://localhost:8080/users/' + user.id, {
+    fetch('users/' + user.id, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
