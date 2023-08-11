@@ -55,6 +55,14 @@ export default function Login() {
         })
     }
 
+    const handleLogin = () => {
+        navigate("/")
+    }
+
+    const handleGoToSignup = () => {
+        navigate("/signup")
+    }
+
     const containerStyle = {
         maxWidth: "1280px",
         margin: "0 auto",
@@ -113,7 +121,7 @@ export default function Login() {
                                                 </a>
                                             </p>
                                         </Fieldset>
-                                        <Button style={{ marginTop: "-15px" }} type="submit">{loading ? "loading" : "Sign In"}</Button>
+                                        <Button onClick={handleLogin} style={{ marginTop: "-15px" }} type="submit">{loading ? "loading" : "Sign In"}</Button>
                                         {error && 
                                             toast.error("Passwords must match")
                                         }
@@ -122,7 +130,7 @@ export default function Login() {
 
                                 <p className="text-center">
                                     {"Don't have an account? "}
-                                    <Link href="/signup">Create your account now</Link>
+                                    <Button onClick={handleGoToSignup} type={"button"}>Create your account now</Button>
                                     .
                                 </p>
                             </Grid>
