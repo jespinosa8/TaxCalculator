@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { useTranslation } from 'react-i18next';
 import { getUser } from "../../slices/UserSlice";
 import toast, { Toaster } from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 
 type Form1099Type = {
   payerCity: string
@@ -57,6 +58,8 @@ export default function Form1099(props: Form1099Props) {
   }
 
   )
+
+  const navigate = useNavigate()
 
   const { t, i18n } = useTranslation();
 
@@ -172,6 +175,7 @@ export default function Form1099(props: Form1099Props) {
           localStorage.setItem('user', JSON.stringify(user))
           toast.success("1099 Successfully Submitted!")
           props.handleSubmit
+          navigate('/')
         })
         .catch((err) => {
           console.log(err.message);
@@ -207,6 +211,7 @@ export default function Form1099(props: Form1099Props) {
           localStorage.setItem('user', JSON.stringify(user))
           toast.success("1099 Successfully Submitted!")
           props.handleSubmit
+          navigate('/')
         })
         .catch((err) => {
           console.log(err.message);
@@ -261,6 +266,7 @@ export default function Form1099(props: Form1099Props) {
           localStorage.setItem('user', JSON.stringify(user))
           // props.handleCreateUpdate1099
           toast.success("1099 Successfully Updated!")
+          navigate('/')
         })
         .catch((err) => {
           console.log(err.message);

@@ -297,7 +297,8 @@ export default function CreateEditUserAccount(props: CreateEditUserAccountProps)
                     setUser(data)
                     localStorage.setItem('user', JSON.stringify(user))
                     toast.success("Account Successfully Updated!")
-                    props.handleUpdateTransition()
+                    // props.handleUpdateTransition()
+                    navigate('/')
                 })
                 .catch((err) => {
                     console.log(err.message);

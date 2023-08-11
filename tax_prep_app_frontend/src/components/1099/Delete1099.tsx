@@ -1,6 +1,7 @@
 import { useRef, useState } from "react";
 import { getUser } from "../../slices/UserSlice";
 import { Button, Modal, ModalRef } from "@trussworks/react-uswds";
+import { useNavigate } from "react-router-dom";
 
 interface Delete1099Props {
     indexOf1099ToDelete: any
@@ -11,6 +12,8 @@ export default function Delete1099(props: Delete1099Props) {
     const [user, setUser] = useState(getUser())
 
     const modalRef = useRef<ModalRef>(null)
+
+    const navigate = useNavigate()
 
     const toggleModal = () => {
         modalRef.current?.toggleModal();
@@ -27,6 +30,7 @@ export default function Delete1099(props: Delete1099Props) {
         }).then(() => {
             props.handleDelete1099(event)
             toggleModal()
+            navigate('/')
         })
             .catch((err) => {
                 console.log(err.message);
