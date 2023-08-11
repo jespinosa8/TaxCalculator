@@ -40,8 +40,7 @@ import lombok.NoArgsConstructor;
     @NotBlank
     private String employerState;
 
-    @Field("employer_zip") 
-    @NotBlank   
+    @Field("employer_zip")       
     private int employerZip;
     
     @Field("wages_and_tips")

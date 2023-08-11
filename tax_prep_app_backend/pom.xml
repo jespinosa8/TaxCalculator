@@ -45,13 +45,7 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-mongodb</artifactId>
-    	</dependency>
-
-		<!-- needed for spring security -->
-		<!-- <dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-security</artifactId>
-		</dependency> -->
+    	</dependency>		
 
 		<!-- needed to hash password -->
 		<dependency>
