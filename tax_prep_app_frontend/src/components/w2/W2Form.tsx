@@ -51,17 +51,17 @@ export default function W2Form(props: W2FormProps) {
   } : {
     // the "errors" below will never be reached unless we pass isNewForm = false, so as long as we pass the appropriate props this will never be an issue
     ein: "" + props?.existingForm?.ein, // convert this to number when writing to db
-    employerCity: props.existingForm.employerCity,
-    employerName: props.existingForm.employerName,
-    employerState: props.existingForm.employerState,
-    employerStreet1: props.existingForm.employerStreet1,
-    employerStreet2: props.existingForm.employerStreet2,
-    employerZip: "" + props.existingForm.employerZip, // convert this and below to numbers when writing to db
-    medicareWithheld: "" + props.existingForm.medicareWithheld,
-    ssWithheld: "" + props.existingForm.ssWithheld,
-    taxesWithheld: "" + props.existingForm.taxesWithheld,
-    wagesAndTips: "" + props.existingForm.wagesAndTips,
-    dateSubmitted: props.existingForm.dateSubmitted
+    employerCity: props.existingForm?.employerCity,
+    employerName: props.existingForm?.employerName,
+    employerState: props.existingForm?.employerState,
+    employerStreet1: props.existingForm?.employerStreet1,
+    employerStreet2: props.existingForm?.employerStreet2,
+    employerZip: "" + props.existingForm?.employerZip, // convert this and below to numbers when writing to db
+    medicareWithheld: "" + props.existingForm?.medicareWithheld,
+    ssWithheld: "" + props.existingForm?.ssWithheld,
+    taxesWithheld: "" + props.existingForm?.taxesWithheld,
+    wagesAndTips: "" + props.existingForm?.wagesAndTips,
+    dateSubmitted: props.existingForm?.dateSubmitted
   })
 
   const { t, i18n } = useTranslation();
@@ -70,8 +70,6 @@ export default function W2Form(props: W2FormProps) {
     const lng = navigator.language;
     i18n.changeLanguage(lng);
   }, [])
-
-  const lng = navigator.language;
 
   const handleEinChange = (event: any) => {
     if (event.target.value == "" || /^\d+$/.test(event.target.value)) {
@@ -134,7 +132,7 @@ export default function W2Form(props: W2FormProps) {
     }
   }
 
-  const handleCreateW2Submit = (event: any): void => {
+  const handleCreateW2Submit = (): void => {
     // convert number fields to numbers, then append to w2 array of user object, then write user to db
     if (w2.ein.length != 9) { // change the 9 to whatever the standard ein length is
       toast.error("EIN must 9 digits")

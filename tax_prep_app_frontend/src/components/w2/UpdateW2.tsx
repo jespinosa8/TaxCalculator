@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useRef } from "react";
 import { Modal, ModalRef } from "@trussworks/react-uswds";
 import W2Form from "./W2Form";
 
@@ -15,9 +15,7 @@ export default function DeleteW2(props: DeleteW2Props) {
         modalRef.current?.toggleModal()
     }
 
-    function handleUpdateButtonClick(event: any) {
-        // window.location.reload()
-        
+    function handleUpdateButtonClick() {       
 
     }
 

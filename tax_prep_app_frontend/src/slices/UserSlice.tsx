@@ -1,9 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit"
 
-type UserCredentials = {
-    username: string
-    password: string
-}
 
 export interface User {
     id: string
@@ -115,39 +111,7 @@ export const loginUser = createAsyncThunk(
             .catch((err) => {
                 console.log(err.message)
             })
-        // fetch('http://localhost:8080/users', {
-        //     method: 'GET',
-        //     headers: {
-        //         'Content-Type': 'application/json'
-        //     },
-        // })
-        //     .then((res) => res.json())
-
-        //     .catch((err) => {
-        //         console.log(err.message)
-        //     })
         
-        // fetch('http://localhost:8080/login', {
-        //     method: 'POST',
-        //     headers: {
-        //         'Content-Type': 'application/json'
-        //     },
-        //     body: JSON.stringify(
-        //         {
-        //             "username": "logintest1",
-        //             "password": "logintest1"
-        //         }
-        //     )
-        // })
-        //     .then((res) => res.json())
-        //     .then((data: User) => {
-        //         localStorage.setItem('user', JSON.stringify(data))
-        //         console.log(getUser())
-        //         return true
-        //     })
-        //     .catch((err) => {
-        //         console.log(err.message)
-        //     })
     }
 )
 

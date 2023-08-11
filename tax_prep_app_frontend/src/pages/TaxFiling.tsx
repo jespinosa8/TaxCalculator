@@ -66,7 +66,7 @@ export default function TaxFiling() {
     setCurrentPage(2)
   }
 
-  const handleTaxSummarySubmit = (event: any) => {
+  const handleTaxSummarySubmit = () => {
     console.log(taxFiling)
     let newUser = user
     newUser.taxFilings = taxFiling

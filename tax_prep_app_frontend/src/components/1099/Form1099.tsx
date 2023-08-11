@@ -65,8 +65,6 @@ export default function Form1099(props: Form1099Props) {
     i18n.changeLanguage(lng);
   }, [])
 
-  const lng = navigator.language;
-
   const handleTinChange = (event: any) => {
     if (event.target.value == "" || /^\d+$/.test(event.target.value)) {
       setForm1099((prev) => ({ ...prev, payerTin: event.target.value }))

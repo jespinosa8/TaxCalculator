@@ -2,11 +2,10 @@ import './Home.css'
 import CustomCard from "../components/home/Card";
 import { useNavigate } from 'react-router-dom';
 import { getUser } from '../slices/UserSlice';
-import { useState } from 'react';
 
 export default function Home() {
 
-  const [user, setUser] = useState(getUser())
+  const user = getUser();
 
 
   const navigate = useNavigate()

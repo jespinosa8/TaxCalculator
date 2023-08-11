@@ -11,7 +11,7 @@ import TaxFiling from './pages/TaxFiling';
 import Login from './pages/Login';
 import SignUp from './pages/SignUp';
 import { useTranslation } from 'react-i18next';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { getUser } from './slices/UserSlice'
 
 function App() {
@@ -23,28 +23,19 @@ function App() {
         i18n.changeLanguage(lng);
     }, [])
 
-    const lng = navigator.language;
-
-
-
-    const [user, setUser] = useState(getUser())
-
-
-
-    console.log(user)
+    const user = getUser();
+    
     const navItems = 
-    // (user == null || user.username == null || user.username == '') ? [] :
+    
     [
-        // creating a list of react-router-dom Links to pass to our navbar
-        // <Link to='/'>{t('link.logOut')}</Link>,
+        
         <Link to='/home'>{t('link.home')}</Link>,
         <Link to='/tax-summary'>{t('link.taxSummary')}</Link>,
-        // <Link to='/tax-filing'>{t('link.generalTaxInformation')}</Link>,
         user.taxFilings == null ? <Link to='/add-w2'>{t('link.addW2')}</Link> : "",
         user.taxFilings == null ?<Link to='/add-1099'>{t('link.add1099')}</Link> : "",
         <Link to='/personal-info'>{t('link.personalInformation')}</Link>,
         <Link to='/logout'>{t('link.logOut')}</Link>
-        // <div>Browser Language: {lng}</div>
+        
     ];
 
     return (

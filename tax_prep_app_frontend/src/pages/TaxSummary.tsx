@@ -1,5 +1,4 @@
 import { Button, Grid, Label } from "@trussworks/react-uswds"
-import { useState } from "react"
 import W2SummaryTable from "../components/w2/W2SummaryTable"
 import Table1099 from "../components/1099/Table1099"
 import { getUser } from "../slices/UserSlice"
@@ -45,7 +44,7 @@ function formatCurrency(amount: number | undefined | null, currencyCode: string)
 
 export default function TaxSummary(props: TaxSummaryProps) {
 console.log(props.taxFiling)
-  const [user, setUser] = useState(getUser());   
+  const user = getUser();   
 
   return (
     <>
