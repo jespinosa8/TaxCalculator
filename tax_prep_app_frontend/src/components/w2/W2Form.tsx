@@ -166,7 +166,7 @@ export default function W2Form(props: W2FormProps) {
       if (user.formW2s == null || user.formW2s.length == 0) {
         let newUser = user
         newUser.formW2s = [w2Final]
-        fetch('http://54.221.143.25:8080/users' + user.id, {
+        fetch('http://54.221.143.25:8080/users/' + user.id, {
           method: 'PUT',
           headers: {
             'Content-Type': 'application/json',
@@ -204,7 +204,7 @@ export default function W2Form(props: W2FormProps) {
         console.log(user)
         user.formW2s.push(w2Final)
         console.log(user)
-        fetch('http://54.221.143.25:8080/users' + user.id, {
+        fetch('http://54.221.143.25:8080/users/' + user.id, {
           method: 'PUT',
           headers: {
             'Content-Type': 'application/json',
@@ -272,7 +272,7 @@ export default function W2Form(props: W2FormProps) {
         submittedDate: getCurrentFormattedDate()
       }
 
-      fetch('http://54.221.143.25:8080/users' + user.id + '/formw2s/' + props.indexOfW2ToUpdate, {
+      fetch('http://54.221.143.25:8080/users/' + user.id + '/formw2s/' + props.indexOfW2ToUpdate, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
