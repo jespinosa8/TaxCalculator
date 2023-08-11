@@ -26,9 +26,7 @@ import org.springframework.data.mongodb.core.mapping.Field;
     private String username;
     
     @NotNull
-    private String password;
-
-    private String role;
+    private String password;    
 
     private boolean enabled;
     

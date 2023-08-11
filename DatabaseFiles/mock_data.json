@@ -2,8 +2,7 @@
   {
     "_id": { "$oid": "5fdebc360a37a283c71e84a1" },
     "username": "john_doe",
-    "password": "hashed_password_123",
-    "role": "USER",
+    "password": "ef92b778bafe771e89245b89ecbc08a44a4e166c06659911881f383d4473e94f",    
     "enabled": true,
     "user_detail": {
       "ssn": 123456789,
@@ -59,8 +58,7 @@
   {
     "_id": { "$oid": "5fdebc360a37a283c71e84a2" },
     "username": "jane_smith",
-    "password": "hashed_password_456",
-    "role": "USER",
+    "password": "ef92b778bafe771e89245b89ecbc08a44a4e166c06659911881f383d4473e94f",    
     "enabled": true,
     "user_detail": {
       "ssn": 987654321,
@@ -103,8 +101,7 @@
   {
     "_id": { "$oid": "5fdebc360a37a283c71e84a3" },
     "username": "robert_johnson",
-    "password": "hashed_password_789",
-    "role": "USER",
+    "password": "ef92b778bafe771e89245b89ecbc08a44a4e166c06659911881f383d4473e94f",    
     "enabled": true,
     "user_detail": {
       "ssn": 555555555,
