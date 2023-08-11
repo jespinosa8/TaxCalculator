@@ -10,6 +10,7 @@ import javax.validation.constraints.NotNull;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import org.hibernate.validator.constraints.UniqueElements;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
@@ -23,6 +24,7 @@ import org.springframework.data.mongodb.core.mapping.Field;
     private String id;
     
     @NotNull
+    @UniqueElements
     private String username;
     
     @NotNull

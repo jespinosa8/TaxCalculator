@@ -56,6 +56,16 @@ public class UserService {
 
     // Add new user to the database
     public User createUser(User user) {
+        // // Check if username is already taken
+        // if (userRepository.existsByUsername(user.getUsername())) {
+        //     throw new DuplicateUsernameException("Username is already taken");
+        // }
+
+        // // Check if email is already taken
+        // if (userRepository.existsByEmail(user.getUserDetail().getEmail())) {
+        //     throw new DuplicateEmailException("Email is already taken");
+        // }
+
         // Hash the password before saving
         String hashedPassword = DigestUtils.sha256Hex(user.getPassword());
         user.setPassword(hashedPassword);
