@@ -9,6 +9,7 @@
     "lint": "eslint src --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview"
   },
+  "proxy": "http://localhost:8080",
   "dependencies": {
     "@reduxjs/toolkit": "^1.9.5",
     "@trussworks/react-uswds": "^5.1.1",
