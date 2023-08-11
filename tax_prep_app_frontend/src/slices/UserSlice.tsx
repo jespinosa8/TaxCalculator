@@ -105,48 +105,49 @@ export const loginUser = createAsyncThunk(
     async (user: User) => {
         // fetch request for login backend goes here --- currently just grabbing first user in the collection
         // pass userCredentials in the body and encrypt the password
-        // fetch('users')
-        //     .then((res) => res.json())
-        //     .then((data: User[]) => {
-        //         localStorage.setItem('user', JSON.stringify(data[1]))
-        //         return true
-        //     })
-        //     .catch((err) => {
-        //         console.log(err.message)
-        //     })
-        fetch('http://localhost:8080/users', {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-        })
+        fetch('http://54.221.143.25:8080/users')
             .then((res) => res.json())
-
-            .catch((err) => {
-                console.log(err.message)
-            })
-        
-        fetch('http://localhost:8080/login', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(
-                {
-                    "username": "logintest1",
-                    "password": "logintest1"
-                }
-            )
-        })
-            .then((res) => res.json())
-            .then((data: User) => {
-                localStorage.setItem('user', JSON.stringify(data))
-                console.log(getUser())
+            .then((data: User[]) => {
+                localStorage.setItem('user', JSON.stringify(data[0]))
+                console.log(user)
                 return true
             })
             .catch((err) => {
                 console.log(err.message)
             })
+        // fetch('http://localhost:8080/users', {
+        //     method: 'GET',
+        //     headers: {
+        //         'Content-Type': 'application/json'
+        //     },
+        // })
+        //     .then((res) => res.json())
+
+        //     .catch((err) => {
+        //         console.log(err.message)
+        //     })
+        
+        // fetch('http://localhost:8080/login', {
+        //     method: 'POST',
+        //     headers: {
+        //         'Content-Type': 'application/json'
+        //     },
+        //     body: JSON.stringify(
+        //         {
+        //             "username": "logintest1",
+        //             "password": "logintest1"
+        //         }
+        //     )
+        // })
+        //     .then((res) => res.json())
+        //     .then((data: User) => {
+        //         localStorage.setItem('user', JSON.stringify(data))
+        //         console.log(getUser())
+        //         return true
+        //     })
+        //     .catch((err) => {
+        //         console.log(err.message)
+        //     })
     }
 )
 
@@ -157,17 +158,17 @@ export const logoutUser = () => {
 const userSlice = createSlice({
     name: 'user',
     initialState: {
-        user: null as any,
+        // user: null as any,
 
-        // user: fetch('users')
-        // .then((res) => res.json())
-        // .then((data: User[]) => {
-        //     localStorage.setItem('user', JSON.stringify(data[10])) //7 for no forms
-        //     return true
-        // })
-        // .catch((err) => {
-        //     console.log(err.message)
-        // }) as any,
+        user: fetch('http://54.221.143.25:8080/users')
+        .then((res) => res.json())
+        .then((data: User[]) => {
+            localStorage.setItem('user', JSON.stringify(data[0])) //7 for no forms
+            return true
+        })
+        .catch((err) => {
+            console.log(err.message)
+        }) as any,
 
 
         loading: false as boolean,
