@@ -147,7 +147,7 @@ export default function Form1099(props: Form1099Props) {
         let newUser = user
         newUser.form1099s = [form1099Final]
 
-        fetch('http://54.221.143.25:8080/users' + user.id, {
+        fetch('http://54.221.143.25:8080/users/' + user.id, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -182,7 +182,7 @@ export default function Form1099(props: Form1099Props) {
       else {
       user.form1099s.push(form1099Final)
 
-      fetch('http://54.221.143.25:8080/users' + user.id, {
+      fetch('http://54.221.143.25:8080/users/' + user.id, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -248,7 +248,7 @@ export default function Form1099(props: Form1099Props) {
 
       user.form1099s.push(form1099Final)
 
-      fetch('http://54.221.143.25:8080/users' + user.id + '/form1099s/' + props.indexOf1099ToUpdate, {
+      fetch('http://54.221.143.25:8080/users/' + user.id + '/form1099s/' + props.indexOf1099ToUpdate, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',

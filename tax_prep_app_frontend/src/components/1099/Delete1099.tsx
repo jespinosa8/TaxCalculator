@@ -18,7 +18,7 @@ export default function Delete1099(props: Delete1099Props) {
 
     function handleDeleteButtonClick(event: any) {
         setUser((prev) => ({...prev, form1099s: user.form1099s.splice(props.indexOf1099ToDelete, 1)}))
-        fetch('http://54.221.143.25:8080/users' + user.id, {
+        fetch('http://54.221.143.25:8080/users/' + user.id, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',

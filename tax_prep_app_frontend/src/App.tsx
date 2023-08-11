@@ -47,9 +47,9 @@ function App() {
                 </Header>
 
                 <Routes>
-                    <Route path='/' element={<Login />}/>
+                    {/* <Route path='/' element={<Login />}/> */}
                     <Route path='/signup' element={<SignUp />}/>     
-                    <Route path='/home' element={<Home />}/>
+                    <Route path='/' element={<Home />}/>
                     <Route path='/tax-summary' element={<TaxSummary isTaxFiling={false}/>}/>
                     <Route path='/tax-filing' element={<TaxFiling />}/>
                     <Route path='/add-w2' element={<W2Page />}/> 
