@@ -8,6 +8,20 @@ import { getUser } from "../slices/UserSlice"
 import { useNavigate } from "react-router-dom"
 import toast from "react-hot-toast"
 
+type FormW2Type = {
+  ein: number
+  employerCity: string
+  employerName: string
+  employerState: string
+  employerStreet1: string
+  employerStreet2: string
+  employerZip: number
+  medicareWithheld: number
+  ssWithheld: number
+  taxesWithheld: number
+  wagesAndTips: number,
+  dateSubmitted: string
+}
 
 export default function TaxFiling() {
   const [user, setUser] = useState(getUser())
@@ -18,6 +32,21 @@ export default function TaxFiling() {
     totalAmountDue: 0
   })
   const navigate = useNavigate()
+
+  const w2 : FormW2Type = {
+    ein: 0,
+    employerCity: "",
+    employerName: "",
+    employerState: "",
+    employerStreet1: "",
+    employerStreet2: "",
+    employerZip: 0,
+    medicareWithheld: 0,
+    ssWithheld: 0,
+    taxesWithheld: 0,
+    wagesAndTips: 0,
+    dateSubmitted: ""
+  }
 
   /**
    * page 1: general tax info
@@ -208,7 +237,7 @@ export default function TaxFiling() {
       {currentPage == 5 && (
         <main id="main-content" style={containerStyle as React.CSSProperties}>
           <div className="bg-base-lightest" style={containerStyle as React.CSSProperties}>
-            <W2Form isTaxFiling={true} isNewForm={true} handleSubmit={handleW2Or1099Submit} handleCancel={handleFormCancel} />
+            <W2Form isTaxFiling={true} existingForm={w2} isNewForm={true} handleSubmit={handleW2Or1099Submit} handleCancel={handleFormCancel} />
           </div>
         </main>
       )}

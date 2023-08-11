@@ -24,7 +24,7 @@ type FormW2Type = {
 interface W2FormProps {
   isTaxFiling: boolean
   isNewForm: boolean // true for new, false for update
-  existingForm?: FormW2Type
+  existingForm: FormW2Type
   indexOfW2ToUpdate?: number
 
   handleCreateUpdateW2?: (event: any) => void
@@ -50,18 +50,18 @@ export default function W2Form(props: W2FormProps) {
     dateSubmitted: ""
   } : {
     // the "errors" below will never be reached unless we pass isNewForm = false, so as long as we pass the appropriate props this will never be an issue
-    ein: "" + props?.existingForm?.ein, // convert this to number when writing to db
-    employerCity: props.existingForm?.employerCity,
-    employerName: props.existingForm?.employerName,
-    employerState: props.existingForm?.employerState,
-    employerStreet1: props.existingForm?.employerStreet1,
-    employerStreet2: props.existingForm?.employerStreet2,
-    employerZip: "" + props.existingForm?.employerZip, // convert this and below to numbers when writing to db
-    medicareWithheld: "" + props.existingForm?.medicareWithheld,
-    ssWithheld: "" + props.existingForm?.ssWithheld,
-    taxesWithheld: "" + props.existingForm?.taxesWithheld,
-    wagesAndTips: "" + props.existingForm?.wagesAndTips,
-    dateSubmitted: props.existingForm?.dateSubmitted
+    ein: "" + props.existingForm.ein, // convert this to number when writing to db
+    employerCity: props.existingForm.employerCity,
+    employerName: props.existingForm.employerName,
+    employerState: props.existingForm.employerState,
+    employerStreet1: props.existingForm.employerStreet1,
+    employerStreet2: props.existingForm.employerStreet2,
+    employerZip: "" + props.existingForm.employerZip, // convert this and below to numbers when writing to db
+    medicareWithheld: "" + props.existingForm.medicareWithheld,
+    ssWithheld: "" + props.existingForm.ssWithheld,
+    taxesWithheld: "" + props.existingForm.taxesWithheld,
+    wagesAndTips: "" + props.existingForm.wagesAndTips,
+    dateSubmitted: props.existingForm.dateSubmitted
   })
 
   const { t, i18n } = useTranslation();
@@ -373,7 +373,7 @@ export default function W2Form(props: W2FormProps) {
               <Label htmlFor="wages-input">{t('w2Form.wagesTipsOtherCompensation')}</Label>
               <TextInput id="wages-input" name="wages" type="text" value={w2.wagesAndTips} onChange={handleWagesAndTipsChange} required={true} />
 
-              {(props.isTaxFiling || props.existingForm) && (<Button type="button" onClick={props.handleCancel}>Cancel</Button>)}
+              {(props.isTaxFiling || !props.isNewForm) && (<Button type="button" onClick={props.handleCancel}>Cancel</Button>)}
               {props.isNewForm && (<Button type="button" onClick={handleCreateW2Submit} data-close-modal='true'>{t('w2Form.submit')}</Button>)}
               {(!props.isTaxFiling && !props.isNewForm) && (<Button type="button" onClick={handleUpdateW2Submit} data-close-modal='true'>Update</Button>)}
 
