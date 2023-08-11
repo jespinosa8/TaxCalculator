@@ -34,7 +34,6 @@ interface W2FormProps {
 
 export default function W2Form(props: W2FormProps) {
   const [user, setUser] = useState(getUser())
-  const [updatedUser, setUpdatedUser] = useState(getUser())
 
   const [w2, setW2] = useState(props.isNewForm ? {
     ein: "", // convert this to number when writing to db
@@ -136,9 +135,7 @@ export default function W2Form(props: W2FormProps) {
   }
 
   const handleCreateW2Submit = (event: any): void => {
-    console.log(user)
     // convert number fields to numbers, then append to w2 array of user object, then write user to db
-    // not sure but with the way things are set up, may need to use the username to query db and get the ID back, add it to the user object, and THEN do the put
     if (w2.ein.length != 9) { // change the 9 to whatever the standard ein length is
       toast.error("EIN must 9 digits")
     }
@@ -168,62 +165,87 @@ export default function W2Form(props: W2FormProps) {
         wagesAndTips: parseInt(w2.wagesAndTips),
         submittedDate: getCurrentFormattedDate()
       }
+      if (user.formW2s == null || user.formW2s.length == 0) {
+        let newUser = user
+        newUser.formW2s = [w2Final]
+        fetch('http://localhost:8080/users/' + user.id, {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(newUser)
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            setUser(data)
+            setW2({
+              ein: "",
+              employerCity: "",
+              employerName: "",
+              employerState: "",
+              employerStreet1: "",
+              employerStreet2: "",
+              employerZip: "",
+              medicareWithheld: "",
+              ssWithheld: "",
+              taxesWithheld: "",
+              wagesAndTips: "",
+              dateSubmitted: ""
+            })
 
-      // this is not working, still get null
-      if (user.formW2s == null) {
-        console.log("isnull")
-        setUser((prev) => ({ ...prev, formW2s: [w2Final] }))
-        console.log(user)
+            localStorage.setItem('user', JSON.stringify(user))
+            toast.success("W2 Successfully Submitted!")
+            props.handleCreateUpdateW2
+            props.handleSubmit
+
+          })
+          .catch((err) => {
+            console.log(err.message);
+          });
       }
       else {
+        console.log(user)
         user.formW2s.push(w2Final)
-      }
-      fetch('http://localhost:8080/users/' + user.id, {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(user)
-      })
-        .then((res) => res.json())
-        .then((data) => {
-          setUser(data)
-          setW2({
-            ein: "",
-            employerCity: "",
-            employerName: "",
-            employerState: "",
-            employerStreet1: "",
-            employerStreet2: "",
-            employerZip: "",
-            medicareWithheld: "",
-            ssWithheld: "",
-            taxesWithheld: "",
-            wagesAndTips: "",
-            dateSubmitted: ""
-          })
-
-
-          console.log(user)
-
-          localStorage.setItem('user', JSON.stringify(user))
-          props.handleCreateUpdateW2
-          toast.success("W2 Successfully Submitted!")
+        console.log(user)
+        fetch('http://localhost:8080/users/' + user.id, {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(user)
         })
-        .catch((err) => {
-          console.log(err.message);
-        });
+          .then((res) => res.json())
+          .then((data) => {
+            setUser(data)
+            setW2({
+              ein: "",
+              employerCity: "",
+              employerName: "",
+              employerState: "",
+              employerStreet1: "",
+              employerStreet2: "",
+              employerZip: "",
+              medicareWithheld: "",
+              ssWithheld: "",
+              taxesWithheld: "",
+              wagesAndTips: "",
+              dateSubmitted: ""
+            })
 
+            localStorage.setItem('user', JSON.stringify(user))
+            props.handleCreateUpdateW2
+            toast.success("W2 Successfully Submitted!")
+            props.handleSubmit
+          })
+          .catch((err) => {
+            console.log(err.message);
+          });
+      }
     }
-
-
   }
 
   const handleUpdateW2Submit = (): void => {
-    // todo
     // convert number fields to numbers, then append to w2 array of user object, then write user to db
-    // not sure but with the way things are set up, may need to use the username to query db and get the ID back, add it to the user object, and THEN do the put
-
     if (w2.ein.length != 9) { // change the 9 to whatever the standard ein length is
       toast.error("EIN must 9 digits")
     }
@@ -253,15 +275,6 @@ export default function W2Form(props: W2FormProps) {
         wagesAndTips: parseInt(w2.wagesAndTips),
         submittedDate: getCurrentFormattedDate()
       }
-
-      // setUser((prev) => ({ ...prev, user.formW2s[props.indexOfW2ToUpdate]: w2Final}))
-      // setUpdatedUser((prevUser) => {
-      //   const updatedUser = { ...prevUser };
-      //   updatedUser.formW2s[props.indexOfW2ToUpdate] = w2Final;
-      //   console.log(props.indexOfW2ToUpdate)
-      //   console.log(updatedUser)
-      //   return updatedUser;
-      // });
 
       fetch('http://localhost:8080/users/' + user.id + '/formw2s/' + props.indexOfW2ToUpdate, {
         method: 'PUT',
@@ -274,12 +287,10 @@ export default function W2Form(props: W2FormProps) {
         .then((data) => {
           setUser(data)
 
-          // console.log(user)
-          // console.log(updatedUser)
-
           localStorage.setItem('user', JSON.stringify(user))
-          // props.handleSubmit
           toast.success("W2 Successfully Updated!")
+          props.handleCreateUpdateW2
+
         })
         .catch((err) => {
           console.log(err.message);
@@ -305,7 +316,7 @@ export default function W2Form(props: W2FormProps) {
       <div className="bg-base-lightest" style={containerStyle as React.CSSProperties}>
         <div className="bg-white padding-y-3 padding-x-5 border border-base-lighter">
           <div id="w2-submit-form">
-            <Form onSubmit={()=>{}}> {/** props.isNewForm ? handleCreateW2Submit : handleUpdateW2Submit*/}
+            <Form onSubmit={() => { }}> {/** props.isNewForm ? handleCreateW2Submit : handleUpdateW2Submit*/}
 
               <h1>{t('w2Form.taxStatement')}</h1>
 

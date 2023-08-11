@@ -10,15 +10,15 @@ interface DeleteW2Props {
 }
 
 export default function DeleteW2(props: DeleteW2Props) {
-    const [user, setUser] = useState(getUser())
-
     const modalRef = useRef<ModalRef>(null)
 
     const toggleModal = () => {
-        modalRef.current?.toggleModal();
-    };
+        modalRef.current?.toggleModal()
+    }
 
     function handleUpdateButtonClick(event: any) {
+        // window.location.reload()
+        
 
     }
 

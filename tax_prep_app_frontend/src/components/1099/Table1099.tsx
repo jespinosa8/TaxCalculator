@@ -50,7 +50,7 @@ export default function Table1099() {
               <td>{formatCurrency(form1099.totalCompensation)}</td>
               <td>{formatCurrency(form1099.taxesWithheld2)}</td>
               {/* <td>{form1099.dateSubmitted}</td> */}
-              {(user.taxFilings == null && <td style={{ width: "60px" }}>
+              {((user.taxFilings == null) && <td style={{ width: "60px" }}>
                 <Update1099 existingForm={form1099} indexOf1099ToUpdate={f} handleUpdate1099={handleUpdate1099}></Update1099>
               </td>
               )}

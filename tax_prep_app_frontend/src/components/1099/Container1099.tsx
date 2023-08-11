@@ -22,11 +22,11 @@ export default function Container1099() {
     <>
       <div style={containerStyle as React.CSSProperties}>
         <Grid row>
-          {!(user.form1099s == null) && <Grid col={6}>
+          {!(user.form1099s == null || user.form1099s.length == 0) && <Grid col={6}>
             <Table1099 />
           </Grid>
           }
-          <Grid col={user.form1099s == null ? 12 : 6}>
+          <Grid col={(user.form1099s == null || user.form1099s.length == 0) ? 12 : 6}>
             <Form1099 isTaxFiling={false} isNewForm={true} handleCreateUpdate1099={handleCreateUpdate1099}/>
           </Grid>
         </Grid>

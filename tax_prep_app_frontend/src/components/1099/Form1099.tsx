@@ -145,6 +145,43 @@ export default function Form1099(props: Form1099Props) {
         submittedDate: getCurrentFormattedDate()
       }
 
+      if(user.form1099s == null || user.form1099s.length == 0) {
+        let newUser = user
+        newUser.form1099s = [form1099Final]
+
+        fetch('http://localhost:8080/users/' + user.id, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(newUser)
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          setUser(data)
+          setForm1099({
+            payerCity: "",
+            payerName: "",
+            payerState: "",
+            payerStreet1: "",
+            payerStreet2: "",
+            payerTin: "",
+            payerZip: "",
+            taxesWithheld2: "",
+            totalCompensation: "",
+            dateSubmitted: ""
+          })
+          localStorage.setItem('user', JSON.stringify(user))
+          toast.success("1099 Successfully Submitted!")
+          props.handleSubmit
+        })
+        .catch((err) => {
+          console.log(err.message);
+        });
+
+      
+      }
+      else {
       user.form1099s.push(form1099Final)
 
       fetch('http://localhost:8080/users/' + user.id, {
@@ -171,11 +208,13 @@ export default function Form1099(props: Form1099Props) {
           })
           localStorage.setItem('user', JSON.stringify(user))
           toast.success("1099 Successfully Submitted!")
+          props.handleSubmit
         })
         .catch((err) => {
           console.log(err.message);
         });
 
+      }
     }
   }
 

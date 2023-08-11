@@ -11,6 +11,7 @@ export default function PersonalInformation() {
 
   const handleUpdateTransition = (): void => {
     showUpdateForm ? window.location.reload() : setShowUpdateForm(!showUpdateForm)
+    console.log(user)
   }
 
   return (
