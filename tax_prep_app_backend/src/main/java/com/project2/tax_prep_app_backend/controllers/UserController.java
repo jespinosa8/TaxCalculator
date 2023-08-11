@@ -30,6 +30,24 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+    // Login User
+    @PostMapping("/login")
+    public ResponseEntity<String> loginUser(@RequestBody User user) {
+
+        String username = user.getUsername();
+        String password = user.getPassword();
+
+        boolean isAuthenticated = userService.authenticateUser(username, password);
+
+        if (isAuthenticated) {
+            return ResponseEntity.ok("Authentication successful");
+        } else {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Authentication failed");
+        }
+        
+    }
+
+
     // Get all users
     @GetMapping
     public ResponseEntity<List<User>> getAllUsers() {

@@ -53,6 +53,12 @@
 			<artifactId>spring-boot-starter-security</artifactId>
 		</dependency> -->
 
+		<!-- needed to hash password -->
+		<dependency>
+			<groupId>commons-codec</groupId>
+			<artifactId>commons-codec</artifactId>    
+		</dependency>
+
 		<!-- Gives access to validation annotations -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
