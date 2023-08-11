@@ -1,4 +1,4 @@
-import { Button, Card, CardBody, CardFooter, CardHeader, CardMedia, Grid } from '@trussworks/react-uswds';
+import { Grid } from '@trussworks/react-uswds';
 import W2Form from './W2Form';
 import W2Table from './W2SummaryTable';
 import { useState } from 'react';
@@ -23,11 +23,11 @@ export default function W2Container() {
     <>
       <div style={containerStyle as React.CSSProperties}>
         <Grid row>
-          {!(user.formW2s == null) && <Grid col={6}>
+          {!(user.formW2s == null || user.formW2s.length == 0) && <Grid col={6}>
             <W2Table />
           </Grid>
           }
-          <Grid col={user.formW2s == null ? 12 : 6}>
+          <Grid col={(user.formW2s == null || user.formW2s.length == 0) ? 12 : 6}>
             <W2Form isTaxFiling={false} isNewForm={true} handleCreateUpdateW2={handleCreateUpdateW2}/>
           </Grid>
         </Grid>

@@ -17,7 +17,7 @@ export default function DeleteW2(props: DeleteW2Props) {
     };
 
     function handleDeleteButtonClick(event: any) {
-        setUser((prev) => ({...prev, formW2s: user.formW2s.splice(props.indexOfW2ToDelete, 1)}))
+        setUser((prev) => ({ ...prev, formW2s: user.formW2s.splice(props.indexOfW2ToDelete, 1) }))
         fetch('http://localhost:8080/users/' + user.id, {
             method: 'PUT',
             headers: {
@@ -41,7 +41,7 @@ export default function DeleteW2(props: DeleteW2Props) {
                 style={{ cursor: 'pointer', marginTop: "5px" }}
                 onClick={toggleModal}
             />
-            <Modal ref={modalRef} id={"delete"} title={"Do you really want to delete this W2?"} isInitiallyOpen={false} style={{ textAlign: "center", fontWeight: "bold" }}>
+            <Modal ref={modalRef} id={"delete"} title={"delete"} isInitiallyOpen={false} style={{ textAlign: "center", fontWeight: "bold" }}>
                 <div>Are you sure you want to delete this W2?<br></br> This action cannot be undone.</div>
                 <Button type="button" onClick={toggleModal} style={{ marginTop: "50px", marginRight: "50px" }}>
                     Cancel

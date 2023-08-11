@@ -128,7 +128,7 @@ const userSlice = createSlice({
         user: fetch('http://localhost:8080/users')
         .then((res) => res.json())
         .then((data: User[]) => {
-            localStorage.setItem('user', JSON.stringify(data[0])) //7 for no forms
+            localStorage.setItem('user', JSON.stringify(data[11])) //7 for no forms
             return true
         })
         .catch((err) => {

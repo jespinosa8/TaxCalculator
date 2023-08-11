@@ -38,6 +38,10 @@ export default function TaxFiling() {
 
   }
 
+  const handleW2Or1099Submit = () => {
+    setCurrentPage(2)
+  }
+
   const handleNextButtonClick = () => {
     if (currentPage == 2) {
       setTaxFiling((prev) => ({ ...prev, totalRefundAmount: calculateRefundAmount() }))
@@ -63,27 +67,31 @@ export default function TaxFiling() {
   }
 
   const handleTaxSummarySubmit = (event: any) => {
-    setUser((prev) => ({ ...prev, taxFilings: taxFiling }))
-
+    console.log(taxFiling)
+    let newUser = user
+    newUser.taxFilings = taxFiling
+    console.log(newUser)
+    
     fetch('http://localhost:8080/users/' + user.id, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(user)
+      body: JSON.stringify(newUser)
     })
       .then((res) => res.json())
       .then((data) => {
         setUser(data)
-        localStorage.setItem('user', JSON.stringify(user))
-        toast.success("1099 Successfully Submitted!")
-        navigate("/")
+        localStorage.setItem('user', JSON.stringify(newUser))
+        toast.success("Taxes Successfully Submitted!")
+        navigate("/home")
+        window.location.reload()
       })
       .catch((err) => {
         console.log(err.message);
       });
   }
-
+  
   // CALCULATIONS
   const calculateTaxRate = (): number => {
     let totalAmountDue = 0;
@@ -200,14 +208,14 @@ export default function TaxFiling() {
       {currentPage == 5 && (
         <main id="main-content" style={containerStyle as React.CSSProperties}>
           <div className="bg-base-lightest" style={containerStyle as React.CSSProperties}>
-            <W2Form isTaxFiling={true} isNewForm={true} handleCancel={handleFormCancel} />
+            <W2Form isTaxFiling={true} isNewForm={true} handleSubmit={handleW2Or1099Submit} handleCancel={handleFormCancel} />
           </div>
         </main>
       )}
       {currentPage == 6 && (
         <main id="main-content" style={containerStyle as React.CSSProperties}>
           <div className="bg-base-lightest" style={containerStyle as React.CSSProperties}>
-            <Form1099 isTaxFiling={true} isNewForm={true} handleCancel={handleFormCancel} />
+            <Form1099 isTaxFiling={true} isNewForm={true} handleSubmit={handleW2Or1099Submit} handleCancel={handleFormCancel} />
           </div>
         </main>
       )}

@@ -74,6 +74,26 @@ export default function CreateEditUserAccount(props: CreateEditUserAccountProps)
 
     const now = new Date();
 
+    function convertDateFormat(inputDate: string): string {
+        const parts = inputDate.split('/');
+        if (parts.length !== 3) {
+            throw new Error('Invalid date format. Expected mm/dd/yyyy.');
+        }
+    
+        const [month, day, year] = parts;
+        return `${month}-${day}-${year}`;
+    }
+
+    function convertToOriginalFormat(inputDate: string): string {
+        const parts = inputDate.split('-');
+        if (parts.length !== 3) {
+            throw new Error('Invalid date format. Expected mm-dd-yyyy.');
+        }
+    
+        const [month, day, year] = parts;
+        return `${month}/${day}/${year}`;
+    }
+
     const handleUsernameChange = (event: any) => {
         setUser((prev) => ({ ...prev, username: event.target.value }))
     }
@@ -114,7 +134,8 @@ export default function CreateEditUserAccount(props: CreateEditUserAccountProps)
     }
 
     const handleDobChange = (selectedDate?: string | undefined) => {
-        setUser((prev) => ({ ...prev, userDetail: { ...prev.userDetail, dob: selectedDate === undefined ? "" : selectedDate } }))
+        console.log(selectedDate)
+        setUser((prev) => ({ ...prev, userDetail: { ...prev.userDetail, dob: selectedDate === undefined ? "" : convertDateFormat(selectedDate) } }))
     }
 
     const handleZipChange = (event: any) => {
@@ -186,7 +207,7 @@ export default function CreateEditUserAccount(props: CreateEditUserAccountProps)
                 enabled: user.enabled,
                 userDetail: {
                     ssn: user.userDetail.ssn.length == 0 ? null : parseInt(user.userDetail.ssn),
-                    dob: new Date(user.userDetail.dob),
+                    dob: user.userDetail.dob,
                     firstName: user.userDetail.firstName,
                     middleName: user.userDetail.middleName.length == 0 ? null : user.userDetail.middleName,
                     lastName: user.userDetail.lastName,
@@ -197,7 +218,9 @@ export default function CreateEditUserAccount(props: CreateEditUserAccountProps)
                     state: user.userDetail.state.length == 0 ? null : user.userDetail.state,
                     country: user.userDetail.country,
                     zip: user.userDetail.zip.length == 0 ? null : parseInt(user.userDetail.zip)
-                }
+                },
+                formW2s: [],
+                form1099s: []
             }
 
             fetch('http://localhost:8080/users/newUser', {
@@ -246,7 +269,7 @@ export default function CreateEditUserAccount(props: CreateEditUserAccountProps)
                 enabled: user.enabled,
                 userDetail: {
                     ssn: user.userDetail.ssn.length == 0 ? null : parseInt(user.userDetail.ssn),
-                    dob: new Date(user.userDetail.dob),
+                    dob: user.userDetail.dob,
                     firstName: user.userDetail.firstName,
                     middleName: user.userDetail.middleName.length == 0 ? null : user.userDetail.middleName,
                     lastName: user.userDetail.lastName,
@@ -261,7 +284,6 @@ export default function CreateEditUserAccount(props: CreateEditUserAccountProps)
             }
 
             setUser((prev) => ({ ...prev, user: userFinal }))
-console.log(user)
             fetch('http://localhost:8080/users/' + user.id, {
                 method: 'PUT',
                 headers: {
@@ -451,7 +473,13 @@ console.log(user)
                                                         Date of Birth{' '}
                                                     </Label>
                                                     <DatePicker
-                                                        id="dobId" name="dob" defaultValue={user.userDetail.dob} maxDate={"" + now.getFullYear() + "-" + (now.getMonth() + 1) + "-" + now.getDate()} required={true} onChange={handleDobChange}>
+                                                        id="dobId"
+                                                        name="dob"
+                                                        defaultValue={user.userDetail.dob}
+                                                        maxDate={"" + now.getFullYear() + "-" + (now.getMonth() + 1) + "-" + now.getDate()}
+                                                        required={true}
+                                                        onChange={handleDobChange}
+                                                    >
                                                     </DatePicker>
                                                 </Grid>
                                             </Grid>
