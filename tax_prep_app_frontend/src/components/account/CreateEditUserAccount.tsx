@@ -94,6 +94,10 @@ export default function CreateEditUserAccount(props: CreateEditUserAccountProps)
         return `${year}-${month}-${day}`;
     }
 
+    function handleHasAccount() {
+        navigate('/login')
+    }
+
     const handleUsernameChange = (event: any) => {
         setUser((prev) => ({ ...prev, username: event.target.value }))
     }
@@ -570,7 +574,7 @@ export default function CreateEditUserAccount(props: CreateEditUserAccountProps)
                             </div>
                             <p className="text-center" hidden={props.accountExists ? true : false}>
                                 Already have an account?{' '}
-                                <Link href="/">Sign in</Link>.
+                                <Button onClick={handleHasAccount} type={'button'}>Sign in</Button>.
                             </p>
                         </Grid>
                     </Grid>
