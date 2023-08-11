@@ -16,6 +16,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Data public class FormW2 {    
 
+    // Must include @Field annotation with DB field name if variable name is different than field in DB
     @Field("employer_name")
     @NotBlank
     private String employerName;

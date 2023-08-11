@@ -13,6 +13,7 @@ import lombok.NoArgsConstructor;
     private boolean married;
     private int dependents;
     
+    // Must include @Field annotation with DB field name if variable name is different than field in DB
     @Field("total_refund_amount")
     private double totalRefundAmount;
 

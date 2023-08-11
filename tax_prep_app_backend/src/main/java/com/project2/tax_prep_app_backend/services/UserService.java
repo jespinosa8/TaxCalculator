@@ -5,10 +5,6 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.apache.commons.codec.digest.DigestUtils;
-// import org.springframework.security.core.userdetails.UserDetails;
-// import org.springframework.security.core.userdetails.UserDetailsService;
-// import org.springframework.security.core.userdetails.UsernameNotFoundException;
-// import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 
@@ -21,12 +17,10 @@ import com.project2.tax_prep_app_backend.repositories.UserRepository;
 
 
 @Service
-public class UserService /**implements UserDetailsService*/ {
+public class UserService {
     
     @Autowired
-    UserRepository userRepository;
-
-    
+    UserRepository userRepository;    
     
     // Authenticate Credentials
     public boolean authenticateUser(String username, String password) {
@@ -44,13 +38,12 @@ public class UserService /**implements UserDetailsService*/ {
     }
 
 
-
     // Retrieves all users
     public List<User> getAllUsers() {
         return userRepository.findAll();
     }
 
-    // get user by id
+    // Get user by id
     public User findById(String userId) {
         Optional<User> user = userRepository.findById(userId);
         if(user.isPresent()) {
@@ -59,7 +52,7 @@ public class UserService /**implements UserDetailsService*/ {
         return null;
     }
 
-    // add new user to the database
+    // Add new user to the database
     public User createUser(User user) {
         // Hash the password before saving
         String hashedPassword = DigestUtils.sha256Hex(user.getPassword());
@@ -69,12 +62,12 @@ public class UserService /**implements UserDetailsService*/ {
         return userRepository.save(user);
     }
 
-    // update an existing user in the database
+    // Update an existing user in the database
     public User updateUser(User user) {
         return userRepository.save(user);
     }
 
-    // delete a user from the database
+    // Delete a user from the database
     public void deleteUser(User user) {
         userRepository.delete(user);
     }
@@ -166,7 +159,7 @@ public class UserService /**implements UserDetailsService*/ {
         return newFormW2;
     }
 
-  // Update a specific W2 based on it index in List
+    // Update a specific W2 based on it index in List
     public FormW2 updateFormW2(String userId, int formW2Index, FormW2 updatedFormW2) {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new RuntimeException("User not found"));
@@ -271,12 +264,6 @@ public class UserService /**implements UserDetailsService*/ {
         } else {
             throw new RuntimeException("Form1099 not found");
         }
-    }
-
-    // @Override
-    // public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-    //     User user = userRepository.findByUsername(username).orElseThrow(() -> new UsernameNotFoundException(username + " not found."));
-    //     return user;
-    // }
+    }    
     
 }
