@@ -8,6 +8,7 @@ export default function Home() {
 
   const [user, setUser] = useState(getUser())
 
+
   const navigate = useNavigate()
 
   function handleFileTaxesNow() {

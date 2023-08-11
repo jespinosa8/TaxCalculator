@@ -114,16 +114,27 @@ export const loginUser = createAsyncThunk(
         //     .catch((err) => {
         //         console.log(err.message)
         //     })
-console.log(user)
-        fetch('login/', {
+        fetch('http://localhost:8080/users', {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+        })
+            .then((res) => res.json())
+
+            .catch((err) => {
+                console.log(err.message)
+            })
+        
+        fetch('http://localhost:8080/login', {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json',
+                'Content-Type': 'application/json'
             },
             body: JSON.stringify(
                 {
-                    username: user.username,
-                    password: user.password
+                    "username": "logintest1",
+                    "password": "logintest1"
                 }
             )
         })

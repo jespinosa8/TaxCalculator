@@ -223,7 +223,7 @@ export default function CreateEditUserAccount(props: CreateEditUserAccountProps)
                 form1099s: []
             }
 
-            fetch('users/newUser', {
+            fetch('http://localhost:8080/users/newUser/', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -235,6 +235,7 @@ export default function CreateEditUserAccount(props: CreateEditUserAccountProps)
                     localStorage.setItem('user', JSON.stringify(data))
                     toast.success("Account Successfully Created!")
                     navigate('/home')
+                    props.handleUpdateTransition()
                 })
                 .catch((err) => {
                     console.log(err.message);
@@ -284,7 +285,7 @@ export default function CreateEditUserAccount(props: CreateEditUserAccountProps)
             }
 
             setUser((prev) => ({ ...prev, user: userFinal }))
-            fetch('users/' + user.id, {
+            fetch('http://localhost:8080/users/' + user.id, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
@@ -475,7 +476,7 @@ export default function CreateEditUserAccount(props: CreateEditUserAccountProps)
                                                     <DatePicker
                                                         id="dobId"
                                                         name="dob"
-                                                        defaultValue={convertToDatePickerFormat(user.userDetail.dob)}
+                                                        defaultValue={props.existingUser ? convertToDatePickerFormat(user.userDetail.dob) : ""}
                                                         maxDate={"" + now.getFullYear() + "-" + (now.getMonth() + 1) + "-" + now.getDate()}
                                                         required={true}
                                                         onChange={handleDobChange}

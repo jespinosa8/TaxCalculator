@@ -168,7 +168,7 @@ export default function W2Form(props: W2FormProps) {
       if (user.formW2s == null || user.formW2s.length == 0) {
         let newUser = user
         newUser.formW2s = [w2Final]
-        fetch('users/' + user.id, {
+        fetch('http://localhost:8080/users/' + user.id, {
           method: 'PUT',
           headers: {
             'Content-Type': 'application/json',
@@ -195,7 +195,6 @@ export default function W2Form(props: W2FormProps) {
 
             localStorage.setItem('user', JSON.stringify(user))
             toast.success("W2 Successfully Submitted!")
-            props.handleCreateUpdateW2
             props.handleSubmit
 
           })
@@ -207,7 +206,7 @@ export default function W2Form(props: W2FormProps) {
         console.log(user)
         user.formW2s.push(w2Final)
         console.log(user)
-        fetch('users/' + user.id, {
+        fetch('http://localhost:8080/users/' + user.id, {
           method: 'PUT',
           headers: {
             'Content-Type': 'application/json',
@@ -233,7 +232,6 @@ export default function W2Form(props: W2FormProps) {
             })
 
             localStorage.setItem('user', JSON.stringify(user))
-            props.handleCreateUpdateW2
             toast.success("W2 Successfully Submitted!")
             props.handleSubmit
           })
