@@ -7,7 +7,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 
-import org.hibernate.validator.constraints.UniqueElements;
+import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Field;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -35,7 +35,7 @@ import lombok.NoArgsConstructor;
 
     @Email
     @NotBlank
-    @UniqueElements
+    @Indexed(unique = true)
     private String email;
     
     @JsonFormat(pattern = "MM-dd-yyyy")

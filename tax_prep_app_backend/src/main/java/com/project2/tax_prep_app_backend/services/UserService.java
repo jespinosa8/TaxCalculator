@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.stereotype.Service;
 
@@ -55,16 +56,7 @@ public class UserService {
     }
 
     // Add new user to the database
-    public User createUser(User user) {
-        // // Check if username is already taken
-        // if (userRepository.existsByUsername(user.getUsername())) {
-        //     throw new DuplicateUsernameException("Username is already taken");
-        // }
-
-        // // Check if email is already taken
-        // if (userRepository.existsByEmail(user.getUserDetail().getEmail())) {
-        //     throw new DuplicateEmailException("Email is already taken");
-        // }
+    public User createUser(User user) {        
 
         // Hash the password before saving
         String hashedPassword = DigestUtils.sha256Hex(user.getPassword());

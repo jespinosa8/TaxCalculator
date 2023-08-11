@@ -5,13 +5,13 @@ package com.project2.tax_prep_app_backend.models;
 import java.util.List;
 // import java.util.Set;
 
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.NotBlank;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import org.hibernate.validator.constraints.UniqueElements;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
@@ -23,11 +23,11 @@ import org.springframework.data.mongodb.core.mapping.Field;
     @Id    
     private String id;
     
-    @NotNull
-    @UniqueElements
+    @NotBlank
+    @Indexed(unique = true)
     private String username;
     
-    @NotNull
+    @NotBlank
     private String password;    
 
     private boolean enabled;
