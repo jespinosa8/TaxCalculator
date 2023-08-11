@@ -6,8 +6,7 @@ import {
     Fieldset,
     Label,
     TextInput,
-    Button,
-    Link
+    Button    
 } from "@trussworks/react-uswds"
 import { useDispatch, useSelector } from "react-redux"
 import { getUser, loginUser } from "../slices/UserSlice"

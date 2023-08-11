@@ -77,6 +77,21 @@ i18n
             totalCompensation: "Total Compensation",
             federalIncomeTaxWithheld: "Federal Income Tax Withheld",
             dateSubmitted: "Date Submitted"
+          },
+          personalInformationForm: {
+            title: "Personal Information",
+            username: "Username",
+            name: "Name",
+            email: "Email",
+            socialSecurity: "Social Security Number",
+            dob: "Date of Birth",
+            address1: "Address Line 1",
+            address2: "Address Line 2",
+            city: "City",
+            state: "State",
+            zip: "Zip",
+            country: "Country",
+            updateInformation: "Update Information"
           }
         }
       },
@@ -138,6 +153,21 @@ i18n
             totalCompensation: "Compensación Total",
             federalIncomeTaxWithheld: "Impuesto Federal Sobre la Renta Retenido",
             dateSubmitted: "Fecha Enviado"
+          },
+          personalInformationForm: {
+            title: "Información Personal",
+            username: "Nombre de Usuario",
+            name: "Nombre",
+            email: "Correo Electrónico",
+            socialSecurity: "Número de Seguro Social",
+            dob: "Fecha de Nacimiento",
+            address1: "Dirección Línea 1",
+            address2: "Dirección Línea 2",
+            city: "Ciudad",
+            state: "Estado",
+            zip: "Código Postal",
+            country: "País",
+            updateInformation: "Actualizar Información"
           }
         }
       }

@@ -1,10 +1,11 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import {
     Button,
     Grid,
     Label
 } from '@trussworks/react-uswds'
 import { User } from '../../slices/UserSlice'
+import { useTranslation } from 'react-i18next';
 
 interface DisplayPersonalInfoProps {
     user: User,
@@ -13,6 +14,13 @@ interface DisplayPersonalInfoProps {
 }
 
 export default function CreateEditUserAccount(props: DisplayPersonalInfoProps) {
+
+    const { t, i18n } = useTranslation();
+
+  useEffect(() => {
+    const lng = navigator.language;
+    i18n.changeLanguage(lng);
+  }, [])
 
     const containerStyle = {
         maxWidth: "1280px",
@@ -29,14 +37,14 @@ export default function CreateEditUserAccount(props: DisplayPersonalInfoProps) {
                     <Grid row>
                         <Grid col={12}>
                             <div className="bg-white padding-y-3 padding-x-15 border border-base-lighter">
-                                <h1 className="margin-bottom-0" style={{ fontSize: "3.2em", lineHeight: "1.1" }}>Personal Information</h1>
+                                <h1 className="margin-bottom-0" style={{ fontSize: "3.2em", lineHeight: "1.1" }}>{t('personalInformationForm.title')}</h1>
                                 <div>
 
-                                    <Button type="button" style={{ marginTop: "20px", marginBottom: "10px" }} onClick={props.handleUpdateTransition}>Update Information</Button>
+                                    <Button type="button" style={{ marginTop: "20px", marginBottom: "10px" }} onClick={props.handleUpdateTransition}>{t('personalInformationForm.updateInformation')}</Button>
 
                                     <Grid>
                                         <Label htmlFor="username" style={{ fontWeight: "bold" }}>
-                                            Username{' '}
+                                            {t('personalInformationForm.username')}{' '}
                                         </Label>
                                         <div>{props.user.username}</div>
 
@@ -44,7 +52,7 @@ export default function CreateEditUserAccount(props: DisplayPersonalInfoProps) {
                                         <Grid row style={{ display: "flex", justifyContent: "space-between" }}>
                                             <Grid col={6} style={{ width: "48%" }}>
                                                 <Label htmlFor="first-name" style={{ fontWeight: "bold" }}>
-                                                    Name{' '}
+                                                   {t('personalInformationForm.name')}{' '}
                                                 </Label>
                                                 <div>{props.user.userDetail.firstName + " " + props.user.userDetail.middleName + " " + props.user.userDetail.lastName}</div>
 
@@ -52,7 +60,7 @@ export default function CreateEditUserAccount(props: DisplayPersonalInfoProps) {
                                             </Grid>
                                             <Grid col={6} style={{ width: "48%" }}>
                                                 <Label htmlFor="email" style={{ fontWeight: "bold" }}>
-                                                    Email{' '}
+                                                    {t('personalInformationForm.email')}{' '}
                                                 </Label>
                                                 <div>{props.user.userDetail.email}</div>
 
@@ -65,14 +73,14 @@ export default function CreateEditUserAccount(props: DisplayPersonalInfoProps) {
                                     <Grid row style={{ display: "flex", justifyContent: "space-between" }}>
                                         <Grid style={{ width: "48%" }}>
                                             <Label htmlFor="ssn" style={{ fontWeight: "bold" }}>
-                                                Social Security Number{' '}
+                                                {t('personalInformationForm.socialSecurity')}{' '}
                                             </Label>
                                             <div>{"*****" + ("" + props.user.userDetail.ssn).substring(5, 9)}</div>
 
                                         </Grid>
                                         <Grid style={{ width: "48%" }}>
                                             <Label htmlFor="date-of-birth" style={{ fontWeight: "bold" }}>
-                                                Date of Birth{' '}
+                                                {t('personalInformationForm.dob')}{' '}
                                             </Label>
                                             <div>{props.user.userDetail.dob}</div>
 
@@ -84,17 +92,17 @@ export default function CreateEditUserAccount(props: DisplayPersonalInfoProps) {
                                     <Grid row style={{ display: "flex", justifyContent: "space-between" }}>
                                         <Grid col={6} style={{ width: "48%" }}>
                                             <Label htmlFor="street1" style={{ fontWeight: "bold" }}>
-                                                Address Line 1{' '}
+                                                {t('personalInformationForm.address1')}{' '}
                                             </Label>
                                             <div>{props.user.userDetail.street1}</div>
 
                                             <Label htmlFor="city" style={{ fontWeight: "bold" }}>
-                                                City{' '}
+                                                {t('personalInformationForm.city')}{' '}
                                             </Label>
                                             <div>{props.user.userDetail.city}</div>
 
                                             {(!(props.user.userDetail.zip == null) && !(props.user.userDetail.zip == 0)) && (<><Label htmlFor="zip" style={{ fontWeight: "bold" }}>
-                                                Zip{' '}
+                                                {t('personalInformationForm.zip')}{' '}
                                             </Label>
                                             <div>{props.user.userDetail.zip}</div></>)}
 
@@ -103,18 +111,18 @@ export default function CreateEditUserAccount(props: DisplayPersonalInfoProps) {
                                         <Grid col={6} style={{ width: "48%" }}>
 
                                             {props.user.userDetail.street2 != "" && (<Label htmlFor="street2" style={{ fontWeight: "bold" }}>
-                                                Address Line 2{' '}
+                                                {t('personalInformationForm.address2')}{' '}
                                             </Label>)}
                                             {props.user.userDetail.street2 != "" && (<div>{props.user.userDetail.street2}</div>)}
 
 
                                             {(!(props.user.userDetail.state == null) && !(props.user.userDetail.state == "")) && (<><Label htmlFor="state" style={{ fontWeight: "bold" }}>
-                                                State{' '}
+                                                {t('personalInformationForm.state')}{' '}
                                             </Label>
                                             <div>{props.user.userDetail.state}</div></>)}
 
                                             <Label htmlFor="country" style={{ fontWeight: "bold" }}>
-                                                Country{' '}
+                                                {t('personalInformationForm.country')}{' '}
                                             </Label>
                                             <div>{props.user.userDetail.country}</div>
                                         </Grid>
