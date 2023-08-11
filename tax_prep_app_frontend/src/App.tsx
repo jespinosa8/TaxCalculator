@@ -8,7 +8,6 @@ import W2Page from './pages/W2Page';
 import Page1099 from './pages/Page1099';
 import PersonalInformation from './pages/PersonalInformation';
 import TaxFiling from './pages/TaxFiling';
-import Login from './pages/Login';
 import SignUp from './pages/SignUp';
 import { useTranslation } from 'react-i18next';
 import { useEffect } from 'react';
