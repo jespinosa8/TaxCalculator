@@ -29,7 +29,7 @@ function App() {
     
     [
         
-        <Link to='/home'>{t('link.home')}</Link>,
+        <Link to='/'>{t('link.home')}</Link>,
         <Link to='/tax-summary'>{t('link.taxSummary')}</Link>,
         user.taxFilings == null ? <Link to='/add-w2'>{t('link.addW2')}</Link> : "",
         user.taxFilings == null ?<Link to='/add-1099'>{t('link.add1099')}</Link> : "",
