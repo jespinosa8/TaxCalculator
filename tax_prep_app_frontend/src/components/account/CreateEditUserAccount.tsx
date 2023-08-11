@@ -84,14 +84,14 @@ export default function CreateEditUserAccount(props: CreateEditUserAccountProps)
         return `${month}-${day}-${year}`;
     }
 
-    function convertToOriginalFormat(inputDate: string): string {
+    function convertToDatePickerFormat(inputDate: string): string {
         const parts = inputDate.split('-');
         if (parts.length !== 3) {
             throw new Error('Invalid date format. Expected mm-dd-yyyy.');
         }
     
         const [month, day, year] = parts;
-        return `${month}/${day}/${year}`;
+        return `${year}-${month}-${day}`;
     }
 
     const handleUsernameChange = (event: any) => {
@@ -134,7 +134,6 @@ export default function CreateEditUserAccount(props: CreateEditUserAccountProps)
     }
 
     const handleDobChange = (selectedDate?: string | undefined) => {
-        console.log(selectedDate)
         setUser((prev) => ({ ...prev, userDetail: { ...prev.userDetail, dob: selectedDate === undefined ? "" : convertDateFormat(selectedDate) } }))
     }
 
@@ -179,17 +178,18 @@ export default function CreateEditUserAccount(props: CreateEditUserAccountProps)
 
     const handleCreateAccountSubmit = (event: any): void => {
         event.preventDefault()
+        console.log(user)
 
-        if (false) { // first check should be to see if username already exists
-            toast.error("This username already exists")
-        }
-        else if (user.password !== retypedPassword) {
+        if (user.password !== retypedPassword) {
             // passwords must match
             toast.error("Passwords must match")
         }
         else if (user.userDetail.ssn.length != 0 && user.userDetail.ssn.length != 9) {
             // ssn must either be blank or 9 digits
             toast.error("SSN must be blank or 9 digits")
+        }
+        else if (user.userDetail.state == null && user.userDetail.country == "United States") {
+            toast.error("Select a state")
         }
         else if (user.userDetail.zip.length != 0 && user.userDetail.zip.length != 5 && user.userDetail.zip.length != 9 && user.userDetail.zip.length != 10) {
             // zip must be blank, 5, 9, or 10 digits
@@ -245,12 +245,12 @@ export default function CreateEditUserAccount(props: CreateEditUserAccountProps)
     const handleUpdateAccountSubmit = (event: any): void => {
         event.preventDefault()
 
-        if (false) { // first check should be to see if username already exists
-            toast.error("This username already exists")
-        }
-        else if (user.password !== retypedPassword) {
+        if (user.password !== retypedPassword) {
             // passwords must match
             toast.error("Passwords must match")
+        }
+        else if ((user.userDetail.state == null || user.userDetail.state == "- Select -") && user.userDetail.country == "United States") {
+            toast.error("Select a state")
         }
         else if (user.userDetail.zip.length != 0 && user.userDetail.zip.length != 5 && user.userDetail.zip.length != 9 && user.userDetail.zip.length != 10) {
             // zip must be blank, 5, 9, or 10 digits
@@ -475,7 +475,7 @@ export default function CreateEditUserAccount(props: CreateEditUserAccountProps)
                                                     <DatePicker
                                                         id="dobId"
                                                         name="dob"
-                                                        defaultValue={user.userDetail.dob}
+                                                        defaultValue={convertToDatePickerFormat(user.userDetail.dob)}
                                                         maxDate={"" + now.getFullYear() + "-" + (now.getMonth() + 1) + "-" + now.getDate()}
                                                         required={true}
                                                         onChange={handleDobChange}
@@ -548,8 +548,11 @@ export default function CreateEditUserAccount(props: CreateEditUserAccountProps)
                                                     <Label htmlFor="state">
                                                         State{' '}
                                                     </Label>
-                                                    <StatesDropdown value={user.userDetail.state == null ? "" : user.userDetail.state} disabled={user.userDetail.country != "United States"} onChange={handleStateChange} />
-
+                                                    <StatesDropdown
+                                                        value={user.userDetail.state == null ? "" : user.userDetail.state}
+                                                        disabled={user.userDetail.country != "United States"}
+                                                        onChange={handleStateChange}
+                                                    />
                                                     <Label htmlFor="country">
                                                         Country{' '}
                                                     </Label>
