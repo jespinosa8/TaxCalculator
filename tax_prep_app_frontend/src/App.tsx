@@ -25,10 +25,15 @@ function App() {
 
     const lng = navigator.language;
 
+
+
     const [user, setUser] = useState(getUser())
 
+
+
+    console.log(user)
     const navItems = 
-    user.username == '' ? [] :
+    (user == null || user.username == null || user.username == '') ? [] :
     [
         // creating a list of react-router-dom Links to pass to our navbar
         // <Link to='/'>{t('link.logOut')}</Link>,

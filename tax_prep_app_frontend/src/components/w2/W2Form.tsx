@@ -195,7 +195,6 @@ export default function W2Form(props: W2FormProps) {
 
             localStorage.setItem('user', JSON.stringify(user))
             toast.success("W2 Successfully Submitted!")
-            props.handleCreateUpdateW2
             props.handleSubmit
 
           })
@@ -233,7 +232,6 @@ export default function W2Form(props: W2FormProps) {
             })
 
             localStorage.setItem('user', JSON.stringify(user))
-            props.handleCreateUpdateW2
             toast.success("W2 Successfully Submitted!")
             props.handleSubmit
           })
@@ -276,7 +274,7 @@ export default function W2Form(props: W2FormProps) {
         submittedDate: getCurrentFormattedDate()
       }
 
-      fetch('http://localhost:8080/users/' + user.id + '/formw2s/' + props.indexOfW2ToUpdate, {
+      fetch('users/' + user.id + '/formw2s/' + props.indexOfW2ToUpdate, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',

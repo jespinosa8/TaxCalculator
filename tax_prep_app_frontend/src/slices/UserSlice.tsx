@@ -59,56 +59,89 @@ export interface User {
 export function getUser(): User {
     let userString = localStorage.getItem('user')
     if (userString) {
-      try {
-        const parsedUser = JSON.parse(userString);
-        return parsedUser;
-      } catch (error) {
-        console.error('Error parsing user from localStorage:', error);
-      }
+        try {
+            const parsedUser = JSON.parse(userString);
+            return parsedUser;
+        } catch (error) {
+            console.error('Error parsing user from localStorage:', error);
+        }
     }
     return getDefaultUser()
-  }
+}
 
-  function getDefaultUser(): User {
+function getDefaultUser(): User {
     return {
-      id: '',
-      username: '',
-      password: '',
-      enabled: false,
-      userDetail: {
-        ssn: 0,
-        firstName: '',
-        middleName: '',
-        lastName: '',
-        email: '',
-        dob: '',
-        street1: '',
-        street2: '',
-        city: '',
-        state: '',
-        zip: 0,
-        country: '',
-      },
-      taxFilings: {
-        married: false,
-        dependents: 0,
-        totalRefundAmount: 0,
-        totalAmountDue: 0,
-      },
-      formW2s: [],
-      form1099s: [],
+        id: '',
+        username: '',
+        password: '',
+        enabled: false,
+        userDetail: {
+            ssn: 0,
+            firstName: '',
+            middleName: '',
+            lastName: '',
+            email: '',
+            dob: '',
+            street1: '',
+            street2: '',
+            city: '',
+            state: '',
+            zip: 0,
+            country: '',
+        },
+        taxFilings: {
+            married: false,
+            dependents: 0,
+            totalRefundAmount: 0,
+            totalAmountDue: 0,
+        },
+        formW2s: [],
+        form1099s: [],
     }
-  }
+}
 
 export const loginUser = createAsyncThunk(
-    'users/loginUser',
-    async (userCredentials: UserCredentials) => {
+    'login',
+    async (user: User) => {
         // fetch request for login backend goes here --- currently just grabbing first user in the collection
         // pass userCredentials in the body and encrypt the password
-        fetch('http://localhost:8080/users')
+        // fetch('users')
+        //     .then((res) => res.json())
+        //     .then((data: User[]) => {
+        //         localStorage.setItem('user', JSON.stringify(data[1]))
+        //         return true
+        //     })
+        //     .catch((err) => {
+        //         console.log(err.message)
+        //     })
+        fetch('http://localhost:8080/users', {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+        })
             .then((res) => res.json())
-            .then((data: User[]) => {
-                localStorage.setItem('user', JSON.stringify(data[1]))
+
+            .catch((err) => {
+                console.log(err.message)
+            })
+        
+        fetch('http://localhost:8080/login', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(
+                {
+                    "username": "logintest1",
+                    "password": "logintest1"
+                }
+            )
+        })
+            .then((res) => res.json())
+            .then((data: User) => {
+                localStorage.setItem('user', JSON.stringify(data))
+                console.log(getUser())
                 return true
             })
             .catch((err) => {
@@ -124,16 +157,19 @@ export const logoutUser = () => {
 const userSlice = createSlice({
     name: 'user',
     initialState: {
-        // user: null as any, <-- uncomment this and delete the fetch below once login is set up
-        user: fetch('http://localhost:8080/users')
-        .then((res) => res.json())
-        .then((data: User[]) => {
-            localStorage.setItem('user', JSON.stringify(data[11])) //7 for no forms
-            return true
-        })
-        .catch((err) => {
-            console.log(err.message)
-        }) as any,
+        user: null as any,
+
+        // user: fetch('users')
+        // .then((res) => res.json())
+        // .then((data: User[]) => {
+        //     localStorage.setItem('user', JSON.stringify(data[10])) //7 for no forms
+        //     return true
+        // })
+        // .catch((err) => {
+        //     console.log(err.message)
+        // }) as any,
+
+
         loading: false as boolean,
         error: "" as string
     },
