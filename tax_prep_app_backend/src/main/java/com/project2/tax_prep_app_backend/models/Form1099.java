@@ -2,6 +2,8 @@ package com.project2.tax_prep_app_backend.models;
 
 import java.util.Date;
 
+import javax.validation.constraints.Digits;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
 
@@ -16,7 +18,7 @@ import lombok.NoArgsConstructor;
 @Data public class Form1099 {
 
     @Field("payer_tin")
-    @Pattern(regexp = "\\d{9}", message = "Payer TIN must contain exactly 9 digits")
+    @Digits(integer = 9, fraction = 0, message = "Payer TIN must contain exactly 9 digits")
     private int payerTin;
     
     @Field("payer_name")
@@ -38,8 +40,7 @@ import lombok.NoArgsConstructor;
     @NotBlank
     private String payerState;
 
-    @Field("payer_zip")
-    @Pattern(regexp = "\\d{5}|\\d{9}", message = "ZIP must have either 5 or 9 digits")
+    @Field("payer_zip")    
     private int payerZip;
     
     @Field("taxes_withheld2")

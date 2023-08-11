@@ -2,6 +2,7 @@ package com.project2.tax_prep_app_backend.models;
 
 import java.util.Date;
 
+import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
 
@@ -21,7 +22,7 @@ import lombok.NoArgsConstructor;
     @NotBlank
     private String employerName;
 
-    @Pattern(regexp = "\\d{9}", message = "SSN must contain exactly 9 digits")
+    @Digits(integer = 9, fraction = 0, message = "Employer EIN must contain exactly 9 digits")
     private int ein;
 
     @Field("employer_street1")
@@ -39,8 +40,8 @@ import lombok.NoArgsConstructor;
     @NotBlank
     private String employerState;
 
-    @Field("employer_zip")
-    @Pattern(regexp = "\\d{5}|\\d{9}", message = "ZIP must have either 5 or 9 digits")
+    @Field("employer_zip") 
+    @NotBlank   
     private int employerZip;
     
     @Field("wages_and_tips")

@@ -3,6 +3,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.*;
@@ -19,6 +20,7 @@ import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.dao.DuplicateKeyException;
 
+import com.project2.tax_prep_app_backend.models.Form1099;
 import com.project2.tax_prep_app_backend.models.FormW2;
 import com.project2.tax_prep_app_backend.models.User;
 import com.project2.tax_prep_app_backend.models.UserDetail;
@@ -26,7 +28,7 @@ import com.project2.tax_prep_app_backend.repositories.UserRepository;
 import com.project2.tax_prep_app_backend.services.UserService;
 
 @RunWith(MockitoJUnitRunner.class)
-public class UserServiceTest {
+public class UserServiceTests {
 
     @InjectMocks
     private UserService userService;
@@ -294,5 +296,123 @@ public class UserServiceTest {
     }
 
     // 1099 Tests
+    @Test
+    public void testCreateForm1099_Success() {
+        String userId = "userId";
 
+        Form1099 form1099 = new Form1099();
+        form1099.setPayerName("Test Payer");
+
+        User user = new User();
+        user.setId(userId);
+
+        when(userRepository.findById(userId)).thenReturn(Optional.of(user));
+
+        Form1099 createdForm1099 = userService.createForm1099(userId, form1099);
+
+        assertNotNull(createdForm1099);
+        assertEquals("Test Payer", createdForm1099.getPayerName());
+        assertTrue(user.getForm1099s().contains(createdForm1099));
+    }
+
+    @Test(expected = RuntimeException.class)
+    public void testCreateForm1099_UserNotFound() {
+        String userId = "nonExistentId";
+
+        Form1099 form1099 = new Form1099();
+        form1099.setPayerName("Test Payer");
+
+        when(userRepository.findById(userId)).thenReturn(Optional.empty());
+
+        userService.createForm1099(userId, form1099);
+    }
+
+    @Test
+    public void testUpdateForm1099_Success() {
+        String userId = "userId";
+        int form1099Index = 0;
+
+        Form1099 form1099 = new Form1099();
+        form1099.setPayerName("Test Payer");
+
+        User user = new User();
+        user.setId(userId);
+        user.getForm1099s().add(form1099);
+
+        when(userRepository.findById(userId)).thenReturn(Optional.of(user));
+
+        Form1099 updatedForm1099 = new Form1099();
+        updatedForm1099.setPayerName("Updated Payer");
+
+        Form1099 result = userService.updateForm1099(userId, form1099Index, updatedForm1099);
+
+        assertNotNull(result);
+        assertEquals("Updated Payer", result.getPayerName());
+        assertEquals("Updated Payer", user.getForm1099s().get(form1099Index).getPayerName());
+    }
+
+    @Test(expected = RuntimeException.class)
+    public void testUpdateForm1099_UserNotFound() {
+        String userId = "nonExistentId";
+        int form1099Index = 0;
+
+        Form1099 updatedForm1099 = new Form1099();
+        updatedForm1099.setPayerName("Updated Payer");
+
+        when(userRepository.findById(userId)).thenReturn(Optional.empty());
+
+        userService.updateForm1099(userId, form1099Index, updatedForm1099);
+    }
+
+    @Test(expected = RuntimeException.class)
+    public void testUpdateForm1099_Form1099NotFound() {
+        String userId = "userId";
+        int form1099Index = 0;
+
+        when(userRepository.findById(userId)).thenReturn(Optional.of(new User()));
+
+        Form1099 updatedForm1099 = new Form1099();
+        updatedForm1099.setPayerName("Updated Payer");
+
+        userService.updateForm1099(userId, form1099Index, updatedForm1099);
+    }
+
+    @Test
+    public void testDeleteForm1099_Success() {
+        String userId = "userId";
+        int form1099Index = 0;
+
+        Form1099 form1099 = new Form1099();
+        form1099.setPayerName("Test Payer");
+
+        User user = new User();
+        user.setId(userId);
+        user.getForm1099s().add(form1099);
+
+        when(userRepository.findById(userId)).thenReturn(Optional.of(user));
+
+        userService.deleteForm1099(userId, form1099Index);
+
+        assertTrue(user.getForm1099s().isEmpty());
+    }
+
+    @Test(expected = RuntimeException.class)
+    public void testDeleteForm1099_UserNotFound() {
+        String userId = "nonExistentId";
+        int form1099Index = 0;
+
+        when(userRepository.findById(userId)).thenReturn(Optional.empty());
+
+        userService.deleteForm1099(userId, form1099Index);
+    }
+
+    @Test(expected = RuntimeException.class)
+    public void testDeleteForm1099_Form1099NotFound() {
+        String userId = "userId";
+        int form1099Index = 0;
+
+        when(userRepository.findById(userId)).thenReturn(Optional.of(new User()));
+
+        userService.deleteForm1099(userId, form1099Index);
+    }
 }

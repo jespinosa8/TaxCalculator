@@ -2,7 +2,9 @@ package com.project2.tax_prep_app_backend.models;
 
 import java.util.Date;
 
+import javax.validation.constraints.Digits;
 import javax.validation.constraints.Email;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
@@ -19,7 +21,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Data public class UserDetail {
 
-    @Pattern(regexp = "\\d{9}", message = "SSN must contain exactly 9 digits")
+    @Digits(integer = 9, fraction = 0, message = "SSN must be exactly 9 digits")
     private String ssn;
 
     @Field("first_name")
@@ -52,8 +54,8 @@ import lombok.NoArgsConstructor;
 
     @NotBlank
     private String state;
-
-    @Pattern(regexp = "\\d{5}|\\{9}", message = "ZIP must contain either 5 or digits")
+    
+    @Min(value = 0)
     private int zip;
 
     @NotBlank

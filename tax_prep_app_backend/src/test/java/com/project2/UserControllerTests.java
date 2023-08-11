@@ -19,7 +19,7 @@ import com.project2.tax_prep_app_backend.controllers.UserController;
 import com.project2.tax_prep_app_backend.models.User;
 import com.project2.tax_prep_app_backend.services.UserService;
 
-public class UserControllerTest {
+public class UserControllerTests {
     
 
     @InjectMocks
