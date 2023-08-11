@@ -50,6 +50,6 @@ import lombok.NoArgsConstructor;
 
     @JsonFormat(pattern = "MM-dd-yyyy")
     @Field("date_submitted2")
-    private Date dateSubmitted;
+    private Date dateSubmitted2;
     
 }

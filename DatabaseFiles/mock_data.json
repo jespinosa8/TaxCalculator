@@ -37,7 +37,7 @@
           "ss_withheld": 3500.00,
           "taxes_withheld": 7000.00,
           "medicare_withheld": 1200.00,
-          "date_submitted": "01-01-2023"
+          "date_submitted": "2023-07-30T00:00:00.000+00:00"
         }
       ],
       "form_1099s": [
@@ -51,7 +51,7 @@
           "payer_tin": 123456789,
           "taxes_withheld2": 1800.00,
           "total_compensation": 25000.00,
-          "date_submitted2": "01-01-2023"
+          "date_submitted2": "2023-07-30T00:00:00.000+00:00"
         }
       ]    
   },
@@ -93,7 +93,7 @@
           "ss_withheld": 3200.00,
           "taxes_withheld": 6500.00,
           "medicare_withheld": 1100.00,
-          "date_submitted": "01-01-2023"
+          "date_submitted": "2023-07-30T00:00:00.000+00:00"
         }
       ],
       "form_1099s": [{}]
@@ -135,7 +135,7 @@
           "payer_tin": 987654321,
           "taxes_withheld2": 1600.00,
           "total_compensation": 22000.00,
-          "date_submitted2": "01-01-2023"
+          "date_submitted2": "2023-07-30T00:00:00.000+00:00"
         }
       ]  
   }

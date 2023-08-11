@@ -51,8 +51,9 @@ public class UserService {
         Optional<User> user = userRepository.findById(userId);
         if(user.isPresent()) {
             return user.get();
+        } else {
+            throw new RuntimeException("User does not exist");
         }
-        return null;
     }
 
     // Add new user to the database

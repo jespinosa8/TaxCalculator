@@ -1,5 +1,6 @@
 package com.project2.tax_prep_app_backend.models;
 
+import java.util.ArrayList;
 // import java.util.Collection;
 // import java.util.HashSet;
 import java.util.List;
@@ -40,9 +41,9 @@ import org.springframework.data.mongodb.core.mapping.Field;
     private TaxFiling taxFilings;
 
     @Field("form_w2s")
-    private List<FormW2> formW2s;
+    private List<FormW2> formW2s = new ArrayList<>();   // initialize to avoid null pointer exceptions
 
     @Field("form_1099s")
-    private List<Form1099> form1099s;     
+    private List<Form1099> form1099s = new ArrayList<>();  // initialize to avoid null pointer exceptions   
 
 }
