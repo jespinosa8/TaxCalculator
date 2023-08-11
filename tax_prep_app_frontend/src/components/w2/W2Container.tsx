@@ -28,7 +28,7 @@ export default function W2Container() {
           </Grid>
           }
           <Grid col={(user.formW2s == null || user.formW2s.length == 0) ? 12 : 6}>
-            <W2Form isTaxFiling={false} isNewForm={true} handleCreateUpdateW2={handleCreateUpdateW2}/>
+            <W2Form isTaxFiling={false} isNewForm={true} handleCreateUpdateW2={handleCreateUpdateW2} />
           </Grid>
         </Grid>
       </div>

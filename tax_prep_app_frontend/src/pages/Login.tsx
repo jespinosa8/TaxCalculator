@@ -10,24 +10,29 @@ import {
     Link
 } from "@trussworks/react-uswds"
 import { useDispatch, useSelector } from "react-redux"
-import { loginUser } from "../slices/UserSlice"
+import { getUser, loginUser } from "../slices/UserSlice"
 import { AppDispatch } from "../Store"
 import {useNavigate } from "react-router-dom"
 import toast from 'react-hot-toast'
 
 export default function Login() {
-    const [username, setUsername] = React.useState("")
-    const [password, setPassword] = React.useState("")
+    // const [username, setUsername] = React.useState("")
+    // const [password, setPassword] = React.useState("")
     const [showPassword, setShowPassword] = React.useState(false)
+
+    const [tempUser, setTempUser] = React.useState(getUser())
 
     const { loading, error } = useSelector((state: any) => state.user)
 
     const handleUsernameChange = (event: any) => {
-        setUsername(event.target.value)
+        // setUsername(event.target.value)
+        setTempUser((prev) => ({ ...prev, username: event.target.value }))
     }
 
     const handlePasswordChange = (event: any) => {
-        setPassword(event.target.value)
+        // setPassword(event.target.value)
+        setTempUser((prev) => ({ ...prev, password: event.target.value }))
+
     }
 
     const dispatch = useDispatch<AppDispatch>()
@@ -35,15 +40,15 @@ export default function Login() {
     const handleLoginSubmit = (event: any): void => {
         event.preventDefault()
 
-        const userCredentials = {
-            username, password
-        }
+        // const userCredentials = {
+        //     username, password
+        // }
 
         // dispatching loginUser function, passing in the userCredentials
-        dispatch(loginUser(userCredentials)).then((success) => {
+        dispatch(loginUser(tempUser)).then((success) => {
             if(success) {
-                setUsername("")
-                setPassword("")
+                // setUsername("")
+                // setPassword("")
                 setShowPassword(false)
                 navigate("/")
             }
@@ -79,7 +84,7 @@ export default function Login() {
                                                 autoCorrect="off"
                                                 autoCapitalize="off"
                                                 required={true}
-                                                value={username}
+                                                value={tempUser.username}
                                                 onChange={handleUsernameChange}
                                             />
 
@@ -93,7 +98,7 @@ export default function Login() {
                                                 autoCorrect="off"
                                                 autoCapitalize="off"
                                                 required={true}
-                                                value={password}
+                                                value={tempUser.password}
                                                 onChange={handlePasswordChange}
                                             />
                                             <p className="usa-form__note">
