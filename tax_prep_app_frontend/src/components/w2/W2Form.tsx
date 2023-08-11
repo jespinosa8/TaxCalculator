@@ -67,7 +67,7 @@ export default function W2Form(props: W2FormProps) {
 
   const { t, i18n } = useTranslation();
 
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   useEffect(() => {
     const lng = navigator.language;

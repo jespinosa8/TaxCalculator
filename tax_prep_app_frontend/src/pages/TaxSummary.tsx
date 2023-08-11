@@ -2,6 +2,8 @@ import { Button, Grid, Label } from "@trussworks/react-uswds"
 import W2SummaryTable from "../components/w2/W2SummaryTable"
 import Table1099 from "../components/1099/Table1099"
 import { getUser } from "../slices/UserSlice"
+import { useEffect } from "react"
+import { useTranslation } from "react-i18next"
 
 interface taxFiling {
   married: boolean,
@@ -42,9 +44,15 @@ function formatCurrency(amount: number | undefined | null, currencyCode: string)
 }
 }
 
-export default function TaxSummary(props: TaxSummaryProps) {
-console.log(props.taxFiling)
-  const user = getUser();   
+export default function TaxSummary(props: TaxSummaryProps) {  
+  const user = getUser(); 
+  
+  const { t, i18n } = useTranslation();  
+
+  useEffect(() => {
+    const lng = navigator.language;
+    i18n.changeLanguage(lng);
+  }, [])
 
   return (
     <>
@@ -53,7 +61,7 @@ console.log(props.taxFiling)
           {(!props.isTaxFiling && (user.taxFilings == null)) && (
             <>
               <div className="bg-white padding-y-3 padding-x-5 border border-base-lighter">
-                <h2>You have not submitted your taxes yet! <br></br> <br></br> Please navigate to the home page to begin the tax filing process.</h2>
+                <h2>{t('taxSummary.notSubmittedTaxes1')}<br></br> <br></br> {t('taxSummary.notSubmittedTaxes2')}</h2>
               </div>
             </>
           )}

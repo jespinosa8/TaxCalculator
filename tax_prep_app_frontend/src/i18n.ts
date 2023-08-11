@@ -92,6 +92,10 @@ i18n
             zip: "Zip",
             country: "Country",
             updateInformation: "Update Information"
+          },
+          taxSummary: {
+            notSubmittedTaxes1: "You have not submitted your taxes yet!",
+            notSubmittedTaxes2: "Please navigate to the home page to begin the tax filing process."
           }
         }
       },
@@ -168,6 +172,10 @@ i18n
             zip: "Código Postal",
             country: "País",
             updateInformation: "Actualizar Información"
+          },
+          taxSummary: {
+            notSubmittedTaxes1: "¡Aún no ha presentado sus impuestos!",
+            notSubmittedTaxes2: "Por favor, vaya a la página de inicio para comenzar el proceso de presentación de impuestos."
           }
         }
       }
