@@ -33,7 +33,7 @@ function App() {
 
     console.log(user)
     const navItems = 
-    (user == null || user.username == null || user.username == '') ? [] :
+    // (user == null || user.username == null || user.username == '') ? [] :
     [
         // creating a list of react-router-dom Links to pass to our navbar
         // <Link to='/'>{t('link.logOut')}</Link>,

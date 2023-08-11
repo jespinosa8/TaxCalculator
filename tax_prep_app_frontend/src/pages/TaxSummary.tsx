@@ -79,7 +79,7 @@ console.log(props.taxFiling)
                           Dependents{' '}
                         </Label>
                         <div>
-                          {props.taxFiling?.dependents}
+                          {props.isTaxFiling ? props.taxFiling?.dependents : user.taxFilings.dependents}
                         </div>
                       </Grid>
                     </Grid>
