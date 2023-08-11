@@ -223,7 +223,7 @@ export default function CreateEditUserAccount(props: CreateEditUserAccountProps)
                 form1099s: []
             }
 
-            fetch('http://localhost:8080/users/newUser/', {
+            fetch('http://54.221.143.25:8080/users/newUser/', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -285,7 +285,7 @@ export default function CreateEditUserAccount(props: CreateEditUserAccountProps)
             }
 
             setUser((prev) => ({ ...prev, user: userFinal }))
-            fetch('http://localhost:8080/users/' + user.id, {
+            fetch('http://54.221.143.25:8080/users' + user.id, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',

@@ -18,7 +18,7 @@ export default function DeleteW2(props: DeleteW2Props) {
 
     function handleDeleteButtonClick(event: any) {
         setUser((prev) => ({ ...prev, formW2s: user.formW2s.splice(props.indexOfW2ToDelete, 1) }))
-        fetch('http://localhost:8080/users/' + user.id, {
+        fetch('http://54.221.143.25:8080/users' + user.id, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
