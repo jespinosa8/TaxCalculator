@@ -197,7 +197,7 @@ export default function W2Form(props: W2FormProps) {
             localStorage.setItem('user', JSON.stringify(user))
             toast.success("W2 Successfully Submitted!")
             props.handleSubmit
-            navigate('/add-w2')
+            navigate('/')
 
           })
           .catch((err) => {
@@ -236,7 +236,7 @@ export default function W2Form(props: W2FormProps) {
             localStorage.setItem('user', JSON.stringify(user))
             toast.success("W2 Successfully Submitted!")
             props.handleSubmit
-            navigate('/add-w2')
+            navigate('/')
           })
           .catch((err) => {
             console.log(err.message);
@@ -291,7 +291,7 @@ export default function W2Form(props: W2FormProps) {
           localStorage.setItem('user', JSON.stringify(user))
           toast.success("W2 Successfully Updated!")
           props.handleCreateUpdateW2
-          navigate('/add-w2')
+          navigate('/')
 
         })
         .catch((err) => {
