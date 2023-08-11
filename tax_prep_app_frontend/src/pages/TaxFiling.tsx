@@ -113,7 +113,7 @@ export default function TaxFiling() {
         setUser(data)
         localStorage.setItem('user', JSON.stringify(newUser))
         toast.success("Taxes Successfully Submitted!")
-        navigate("/home")
+        navigate("/")
         window.location.reload()
       })
       .catch((err) => {
