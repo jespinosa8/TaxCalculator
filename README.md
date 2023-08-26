@@ -1,4 +1,4 @@
-# Tax Calculator
+# Tax Preparation
 
 Tax preparation web application for tax payers to enter/update their tax information.
 
