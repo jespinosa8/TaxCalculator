@@ -1,4 +1,4 @@
-# SkillStorm Project2
+# Tax Calculator
 
 Tax preparation web application for tax payers to enter/update their tax information.
 
